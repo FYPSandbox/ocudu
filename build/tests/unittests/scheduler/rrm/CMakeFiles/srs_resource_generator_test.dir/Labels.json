@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/rrm/srs_resource_generator_test.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sched"
+		],
+		"name" : "srs_resource_generator_test"
+	}
+}

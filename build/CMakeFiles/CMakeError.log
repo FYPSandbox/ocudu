@@ -1,0 +1,31 @@
+Performing C SOURCE FILE Test OPENSSL_HAS_DTLS_SCTP failed with the following output:
+Change Dir: /home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_ed87e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ed87e.dir/build.make CMakeFiles/cmTC_ed87e.dir/build
+gmake[1]: Entering directory '/home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ed87e.dir/src.c.o
+/usr/bin/cc -DOPENSSL_HAS_DTLS_SCTP   -o CMakeFiles/cmTC_ed87e.dir/src.c.o -c /home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp/src.c
+/home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp/src.c:9:6: error: #error SCTP support disabled
+    9 |     #error SCTP support disabled
+      |      ^~~~~
+gmake[1]: *** [CMakeFiles/cmTC_ed87e.dir/build.make:78: CMakeFiles/cmTC_ed87e.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/home/fyp5g/fyp/ocudu/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_ed87e/fast] Error 2
+
+
+Source file was:
+
+    #include <openssl/ssl.h>
+
+    int main(void)
+    {
+        SSL *ssl = 0;
+
+    #ifdef OPENSSL_NO_SCTP
+    #error SCTP support disabled
+    #endif
+
+        return 0;
+    }
+    

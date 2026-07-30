@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/adt/segmented_circular_map_test.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"adt"
+		],
+		"name" : "segmented_circular_map_test"
+	}
+}

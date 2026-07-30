@@ -1,0 +1,19 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/config/csi_helper_test.cpp"
+		},
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/config/pucch_resource_generator_test.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sched"
+		],
+		"name" : "sched_config_test"
+	}
+}

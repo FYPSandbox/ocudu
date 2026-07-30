@@ -1,0 +1,27 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/du_resource_manager.dir/du_bearer_resource_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_bearer_resource_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_cg_res_mng.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_cg_res_mng.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_drx_resource_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_drx_resource_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_meas_config_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_meas_config_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_pdsch_resource_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_pdsch_resource_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_pusch_resource_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_pusch_resource_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/du_ran_resource_manager_impl.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/du_ran_resource_manager_impl.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/ra_resource_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/ra_resource_manager.cpp.o.d"
+  "CMakeFiles/du_resource_manager.dir/ue_capability_manager.cpp.o"
+  "CMakeFiles/du_resource_manager.dir/ue_capability_manager.cpp.o.d"
+  "libdu_resource_manager.a"
+  "libdu_resource_manager.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/du_resource_manager.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

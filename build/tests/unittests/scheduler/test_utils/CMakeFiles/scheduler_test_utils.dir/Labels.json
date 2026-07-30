@@ -1,0 +1,19 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/test_utils/config_generators.cpp"
+		},
+		{
+			"file" : "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/test_utils/indication_generators.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sched"
+		],
+		"name" : "scheduler_test_utils"
+	}
+}

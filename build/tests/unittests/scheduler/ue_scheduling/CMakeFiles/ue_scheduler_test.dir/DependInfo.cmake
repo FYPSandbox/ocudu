@@ -1,0 +1,42 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/fallback_scheduler_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/fallback_scheduler_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/fallback_scheduler_test.cpp.o.d"
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/triggered_ul_grant_scheduler_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/triggered_ul_grant_scheduler_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/triggered_ul_grant_scheduler_test.cpp.o.d"
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/ue_configuration_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_configuration_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_configuration_test.cpp.o.d"
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/ue_grid_allocator_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_grid_allocator_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_grid_allocator_test.cpp.o.d"
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/ue_harq_link_adaptation_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_harq_link_adaptation_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_harq_link_adaptation_test.cpp.o.d"
+  "/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/ue_scheduling/ue_link_adaptation_controller_test.cpp" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_link_adaptation_controller_test.cpp.o" "gcc" "tests/unittests/scheduler/ue_scheduling/CMakeFiles/ue_scheduler_test.dir/ue_link_adaptation_controller_test.cpp.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/CMakeFiles/ocudu_sched.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/ocudulog/CMakeFiles/ocudulog.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/mac/CMakeFiles/mac_configuration_helpers.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/test_utils/CMakeFiles/scheduler_test_suite.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/config/CMakeFiles/sched_config.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/tests/test_doubles/utils/CMakeFiles/ocudu_gtest_main.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/test_utils/CMakeFiles/scheduler_test_utils.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/tests/test_doubles/scheduler/CMakeFiles/sched_test_doubles.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/rrm/CMakeFiles/sched_rrm.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/scheduler/support/CMakeFiles/sched_support.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/ran/CMakeFiles/ocudu_ran.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/tests/test_doubles/utils/CMakeFiles/test_rng.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/support/CMakeFiles/ocudu_support.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/support/math/CMakeFiles/ocudu_support_math.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/ocuduvec/CMakeFiles/ocuduvec.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/external/fmt/CMakeFiles/fmt.dir/DependInfo.cmake"
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

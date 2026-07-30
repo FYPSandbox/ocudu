@@ -1,0 +1,28 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/fyp5g/fyp/ocudu/tests/unittests/radio/realtime_loopback/radio_realtime_loopback_test.cpp" "tests/unittests/radio/realtime_loopback/CMakeFiles/radio_realtime_loopback_test.dir/radio_realtime_loopback_test.cpp.o" "gcc" "tests/unittests/radio/realtime_loopback/CMakeFiles/radio_realtime_loopback_test.dir/radio_realtime_loopback_test.cpp.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/fyp5g/fyp/ocudu/build/lib/radio/CMakeFiles/ocudu_radio.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/support/CMakeFiles/ocudu_support.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/radio/realtime_loopback/CMakeFiles/ocudu_radio_realtime_loopback.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/radio/uhd/CMakeFiles/ocudu_radio_uhd.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/radio/zmq/CMakeFiles/ocudu_radio_zmq.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/support/math/CMakeFiles/ocudu_support_math.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/ocuduvec/CMakeFiles/ocuduvec.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/lib/ocudulog/CMakeFiles/ocudulog.dir/DependInfo.cmake"
+  "/home/fyp5g/fyp/ocudu/build/external/fmt/CMakeFiles/fmt.dir/DependInfo.cmake"
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

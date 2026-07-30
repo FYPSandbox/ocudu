@@ -1,0 +1,5 @@
+# Directory labels
+ du_manager
+ du_high
+# Source files and their labels
+/home/fyp5g/fyp/ocudu/tests/unittests/du_manager/du_cg_type1_res_mng_test.cpp

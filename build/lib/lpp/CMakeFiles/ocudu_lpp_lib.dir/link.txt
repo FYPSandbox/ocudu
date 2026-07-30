@@ -1,0 +1,2 @@
+/usr/bin/ar qc libocudu_lpp_lib.a CMakeFiles/ocudu_lpp_lib.dir/reference_location.cpp.o
+/usr/bin/ranlib libocudu_lpp_lib.a

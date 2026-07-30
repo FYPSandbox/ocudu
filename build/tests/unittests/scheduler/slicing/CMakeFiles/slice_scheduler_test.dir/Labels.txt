@@ -1,0 +1,5 @@
+# Directory labels
+ sched
+# Source files and their labels
+/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/slicing/slice_scheduler_test.cpp
+/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/slicing/slice_ue_repository_test.cpp

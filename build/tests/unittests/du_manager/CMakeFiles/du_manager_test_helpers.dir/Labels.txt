@@ -1,0 +1,6 @@
+# Directory labels
+ du_manager
+ du_high
+# Source files and their labels
+/home/fyp5g/fyp/ocudu/tests/unittests/du_manager/du_manager_test_helpers.cpp
+/home/fyp5g/fyp/ocudu/tests/unittests/du_manager/procedures/du_manager_procedure_test_helpers.cpp

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsched_rrm.a CMakeFiles/sched_rrm.dir/pucch_resource_manager.cpp.o CMakeFiles/sched_rrm.dir/srs_resource_generator.cpp.o CMakeFiles/sched_rrm.dir/srs_resource_manager_helpers.cpp.o CMakeFiles/sched_rrm.dir/srs_resource_manager_periodic.cpp.o CMakeFiles/sched_rrm.dir/srs_resource_manager_aperiodic.cpp.o CMakeFiles/sched_rrm.dir/srs_resource_manager_factory.cpp.o
+/usr/bin/ranlib libsched_rrm.a

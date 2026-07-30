@@ -1,0 +1,2 @@
+/usr/bin/ar qc libocudu_ntn_app_helpers.a CMakeFiles/ocudu_ntn_app_helpers.dir/ntn_config_cli11_schema.cpp.o CMakeFiles/ocudu_ntn_app_helpers.dir/ntn_config_translators.cpp.o CMakeFiles/ocudu_ntn_app_helpers.dir/ntn_config_yaml_writer.cpp.o
+/usr/bin/ranlib libocudu_ntn_app_helpers.a

@@ -1,0 +1,6 @@
+# Directory labels
+ e1ap
+# Source files and their labels
+/home/fyp5g/fyp/ocudu/tests/unittests/e1ap/common/e1ap_cu_cp_test_messages.cpp
+/home/fyp5g/fyp/ocudu/tests/unittests/e1ap/common/e1ap_cu_up_test_messages.cpp
+/home/fyp5g/fyp/ocudu/tests/unittests/e1ap/common/test_helpers.cpp

@@ -1,0 +1,4 @@
+# Directory labels
+ sched
+# Source files and their labels
+/home/fyp5g/fyp/ocudu/tests/unittests/scheduler/rrm/srs_resource_manager_periodic_test.cpp
