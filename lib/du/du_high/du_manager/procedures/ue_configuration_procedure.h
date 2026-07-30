@@ -9,6 +9,7 @@
 #include "procedure_logger.h"
 #include "ocudu/du/du_high/du_manager/du_manager_mem_resources.h"
 #include "ocudu/du/du_high/du_manager/du_manager_params.h"
+#include "ocudu/e2/e2_du_ue_context_notifier.h"
 #include "ocudu/mac/mac_ue_configurator.h"
 
 namespace ocudu {
@@ -36,6 +37,8 @@ private:
   // and F1-U bearers.
   void update_ue_context();
   void clear_old_ue_context();
+  // Notify the E2 layer (RC Report Style 4) about the UE's current S-NSSAI set, if any DRBs were (re)configured.
+  void notify_e2_ue_context_update(e2_du_ue_context_notifier* notifier);
 
   /// \brief Update MAC MUX and DEMUX tables of the respective UE, given the newly added/modified/removed bearers and
   /// the scheduler with the new UE config.

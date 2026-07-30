@@ -66,7 +66,8 @@ protected:
     e2sm_kpm_packer  = std::make_unique<e2sm_kpm_asn1_packer>(*du_meas_provider);
     kpm_iface        = std::make_unique<e2sm_kpm_impl>(test_logger, *e2sm_kpm_packer, *du_meas_provider);
     e2sm_rc_packer   = std::make_unique<e2sm_rc_asn1_packer>();
-    rc_iface         = std::make_unique<e2sm_rc_impl>(test_logger, *e2sm_rc_packer);
+    f1ap_ue_id_mapper = std::make_unique<dummy_f1ap_ue_id_translator>();
+    rc_iface         = std::make_unique<e2sm_rc_impl>(test_logger, *e2sm_rc_packer, *f1ap_ue_id_mapper);
     e2sm_mngr        = std::make_unique<e2sm_manager>(test_logger);
     e2sm_mngr->add_e2sm_service(e2sm_kpm_asn1_packer::oid, std::move(kpm_iface));
     e2sm_mngr->add_e2sm_service(e2sm_rc_asn1_packer::oid, std::move(rc_iface));
@@ -93,6 +94,7 @@ protected:
   timer_factory      factory;
 
   std::unique_ptr<dummy_e2sm_kpm_du_meas_provider>                     du_meas_provider;
+  std::unique_ptr<odu::f1ap_ue_id_translator>                          f1ap_ue_id_mapper;
   std::unique_ptr<e2sm_kpm_asn1_packer>                                e2sm_kpm_packer;
   std::unique_ptr<e2sm_rc_asn1_packer>                                 e2sm_rc_packer;
   std::unique_ptr<e2sm_interface>                                      kpm_iface;

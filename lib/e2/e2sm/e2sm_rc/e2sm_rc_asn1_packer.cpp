@@ -117,7 +117,7 @@ e2sm_rc_asn1_packer::handle_packed_event_trigger_definition(const ocudu::byte_bu
 asn1::unbounded_octstring<true> e2sm_rc_asn1_packer::pack_ran_function_description()
 {
   e2sm_rc_ran_function_definition_s ran_function_desc;
-  ran_function_desc.ran_function_definition_report_present        = false;
+  ran_function_desc.ran_function_definition_report_present        = true;
   ran_function_desc.ran_function_definition_policy_present        = false;
   ran_function_desc.ran_function_definition_insert_present        = false;
   ran_function_desc.ran_function_definition_event_trigger_present = false;
@@ -131,6 +131,22 @@ asn1::unbounded_octstring<true> e2sm_rc_asn1_packer::pack_ran_function_descripti
   ran_function_desc.ran_function_name.ran_function_e2sm_o_id.from_string(oid.c_str());
   ran_function_desc.ran_function_name.ran_function_description.from_string(func_description.c_str());
   ran_function_desc.ext = false;
+
+  // Report Style 4 (UE Information) - event-triggered UE attach/slice reporting.
+  ran_function_definition_report_item_s report_style_4;
+  report_style_4.ric_report_style_type                  = 4;
+  report_style_4.ric_report_style_name.from_string("UE Information");
+  report_style_4.ric_supported_event_trigger_style_type = 1; // Event-triggered
+  report_style_4.ric_report_action_format_type          = 4; // Format 4
+  report_style_4.ric_ind_hdr_format_type                = 1; // Format 1
+  report_style_4.ric_ind_msg_format_type                = 2; // Format 2 (UE-level)
+
+  report_ran_param_item_s s_nssai_param;
+  s_nssai_param.ran_param_id = 1;
+  s_nssai_param.ran_param_name.from_string("S-NSSAI");
+  report_style_4.ran_report_params_list.push_back(s_nssai_param);
+
+  ran_function_desc.ran_function_definition_report.ric_report_style_list.push_back(report_style_4);
 
   for (auto const& x : control_services) {
     ran_function_desc.ran_function_definition_ctrl_present = true;

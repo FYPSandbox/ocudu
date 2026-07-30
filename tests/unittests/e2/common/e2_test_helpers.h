@@ -1195,10 +1195,10 @@ class e2_test_setup : public e2_test_base
     mobility_notifier              = std::make_unique<dummy_e2_mobility_notifier>();
     du_rc_param_configurator       = std::make_unique<dummy_du_configurator>();
     cu_rc_param_configurator       = std::make_unique<dummy_cu_configurator>();
-    e2sm_rc_iface                  = std::make_unique<e2sm_rc_impl>(test_logger, *e2sm_rc_packer);
+    f1ap_ue_id_mapper              = std::make_unique<dummy_f1ap_ue_id_translator>();
+    e2sm_rc_iface                  = std::make_unique<e2sm_rc_impl>(test_logger, *e2sm_rc_packer, *f1ap_ue_id_mapper);
     e2sm_rc_control_service_style2 = std::make_unique<e2sm_rc_control_service>(2);
     e2sm_rc_control_service_style3 = std::make_unique<e2sm_rc_control_service>(3);
-    f1ap_ue_id_mapper              = std::make_unique<dummy_f1ap_ue_id_translator>();
     rc_control_action_2_6_executor =
         std::make_unique<e2sm_rc_control_action_2_6_du_executor>(*du_rc_param_configurator, *f1ap_ue_id_mapper);
     rc_control_action_3_1_executor =

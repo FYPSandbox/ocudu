@@ -14,8 +14,30 @@
 #include "e2sm/e2sm_rc/e2sm_rc_control_service_impl.h"
 #include "e2sm/e2sm_rc/e2sm_rc_impl.h"
 #include "ocudu/e2/e2_agent_dependencies.h"
+#include "ocudu/f1ap/du/f1ap_du.h"
 
 using namespace ocudu;
+
+namespace {
+// E2SM-RC Report Style 4 (UE Information) is DU-specific (it needs F1AP UE ID mapping); the CU-UP has no such
+// mapping, so it gets a translator that always reports "no mapping" rather than a real implementation.
+class dummy_f1ap_ue_id_translator : public odu::f1ap_ue_id_translator
+{
+public:
+  std::optional<gnb_cu_ue_f1ap_id_t> get_gnb_cu_ue_f1ap_id(const du_ue_index_t&) const override { return std::nullopt; }
+  std::optional<gnb_cu_ue_f1ap_id_t> get_gnb_cu_ue_f1ap_id(const gnb_du_ue_f1ap_id_t&) const override
+  {
+    return std::nullopt;
+  }
+  gnb_du_ue_f1ap_id_t get_gnb_du_ue_f1ap_id(const du_ue_index_t&) override { return gnb_du_ue_f1ap_id_t::invalid; }
+  gnb_du_ue_f1ap_id_t get_gnb_du_ue_f1ap_id(const gnb_cu_ue_f1ap_id_t&) override
+  {
+    return gnb_du_ue_f1ap_id_t::invalid;
+  }
+  du_ue_index_t get_ue_index(const gnb_du_ue_f1ap_id_t&) override { return INVALID_DU_UE_INDEX; }
+  du_ue_index_t get_ue_index(const gnb_cu_ue_f1ap_id_t&) override { return INVALID_DU_UE_INDEX; }
+};
+} // namespace
 
 std::unique_ptr<e2_agent>
 ocudu::create_e2_cu_up_agent(const e2ap_configuration&                          e2ap_cfg_,
@@ -46,8 +68,9 @@ ocudu::create_e2_cu_up_agent(const e2ap_configuration&                          
 
   // E2SM-RC
   if (e2ap_cfg_.e2sm_rc_enabled) {
-    auto e2sm_rc_packer = std::make_unique<e2sm_rc_asn1_packer>();
-    auto e2sm_rc_iface  = std::make_unique<e2sm_rc_impl>(logger, *e2sm_rc_packer);
+    auto                                e2sm_rc_packer = std::make_unique<e2sm_rc_asn1_packer>();
+    static dummy_f1ap_ue_id_translator  dummy_f1ap_translator;
+    auto e2sm_rc_iface = std::make_unique<e2sm_rc_impl>(logger, *e2sm_rc_packer, dummy_f1ap_translator);
     dependencies.e2sm_modules.emplace_back(e2sm_module{e2sm_rc_asn1_packer::ran_func_id,
                                                        e2sm_rc_asn1_packer::oid,
                                                        std::move(e2sm_rc_packer),

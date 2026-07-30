@@ -4,6 +4,7 @@
 
 #include "ue_deletion_procedure.h"
 #include "ocudu/du/du_high/du_manager/du_manager_params.h"
+#include "ocudu/e2/e2_du_notifier_registry.h"
 
 using namespace ocudu;
 using namespace odu;
@@ -47,6 +48,14 @@ void ue_deletion_procedure::operator()(coro_context<async_task<void>>& ctx)
     CORO_AWAIT_VALUE(const mac_ue_delete_response mac_resp, launch_mac_ue_delete());
     if (not mac_resp.result) {
       proc_logger.log_proc_failure("Failed to remove UE from MAC.");
+    }
+  }
+
+  // > Notify E2 layer about UE context release (check registry directly).
+  {
+    auto* notifier = e2_du_notifier_registry::get_instance().get_ue_context_notifier();
+    if (notifier != nullptr) {
+      notifier->on_ue_context_release(ue_index);
     }
   }
 

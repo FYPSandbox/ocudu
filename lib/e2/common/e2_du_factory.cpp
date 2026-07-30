@@ -51,7 +51,8 @@ ocudu::create_e2_du_agent(const e2ap_configuration&                          e2a
   // E2SM-RC
   if (e2ap_cfg_.e2sm_rc_enabled) {
     auto                                  e2sm_rc_packer = std::make_unique<e2sm_rc_asn1_packer>();
-    auto                                  e2sm_rc_iface  = std::make_unique<e2sm_rc_impl>(logger, *e2sm_rc_packer);
+    auto                                  e2sm_rc_iface  =
+        std::make_unique<e2sm_rc_impl>(logger, *e2sm_rc_packer, *f1ap_ue_id_translator_);
     int                                   control_service_style_id = 2;
     std::unique_ptr<e2sm_control_service> rc_control_service_style =
         std::make_unique<e2sm_rc_control_service>(control_service_style_id);

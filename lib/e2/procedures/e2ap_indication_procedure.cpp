@@ -20,6 +20,16 @@ e2ap_indication_procedure::e2ap_indication_procedure(e2_message_notifier&    not
 void e2ap_indication_procedure::operator()(coro_context<eager_async_task<void>>& ctx)
 {
   CORO_BEGIN(ctx);
+
+  // Check once whether any action supports event-triggered reporting (e.g. E2SM-RC Report Style 4), rather than
+  // only the fixed report_period polling used by periodic report styles.
+  for (const auto& action : subscription.action_list) {
+    if (action.report_service && action.report_service->supports_event_trigger()) {
+      has_event_trigger = true;
+      break;
+    }
+  }
+
   while (running) {
     if (!ev_mng.sub_del_reqs.count(
             {subscription.request_id.ric_requestor_id, subscription.request_id.ric_instance_id})) {
@@ -28,14 +38,47 @@ void e2ap_indication_procedure::operator()(coro_context<eager_async_task<void>>&
                    subscription.request_id.ric_instance_id);
       break;
     }
-    transaction_sink.subscribe_to(
-        *ev_mng.sub_del_reqs[{subscription.request_id.ric_requestor_id, subscription.request_id.ric_instance_id}].get(),
-        (std::chrono::milliseconds)subscription.report_period);
-    CORO_AWAIT(transaction_sink);
-    if (!transaction_sink.timeout_expired()) {
-      logger.info("Subscription deleted");
-      running = false;
+
+    event_occurred = false;
+    if (has_event_trigger) {
+      for (const auto& action : subscription.action_list) {
+        if (action.report_service && action.report_service->supports_event_trigger() &&
+            action.report_service->get_report_event_signal().is_set()) {
+          event_occurred = true;
+          action.report_service->get_report_event_signal().reset();
+          break;
+        }
+      }
     }
+
+    if (!event_occurred) {
+      transaction_sink.subscribe_to(
+          *ev_mng.sub_del_reqs[{subscription.request_id.ric_requestor_id, subscription.request_id.ric_instance_id}]
+               .get(),
+          (std::chrono::milliseconds)subscription.report_period);
+      CORO_AWAIT(transaction_sink);
+      if (!transaction_sink.timeout_expired()) {
+        logger.info("Subscription deleted");
+        running = false;
+        continue;
+      }
+
+      if (has_event_trigger) {
+        for (const auto& action : subscription.action_list) {
+          if (action.report_service && action.report_service->supports_event_trigger() &&
+              action.report_service->get_report_event_signal().is_set()) {
+            event_occurred = true;
+            action.report_service->get_report_event_signal().reset();
+            break;
+          }
+        }
+        if (!event_occurred) {
+          // Event-triggered subscription and nothing happened during this period; nothing to report.
+          continue;
+        }
+      }
+    }
+
     for (const auto& action : subscription.action_list) {
       e2_indication_message e2_ind = {};
       //      e2_ind.indication->ric_ind_msg.crit                = asn1::crit_opts::reject;

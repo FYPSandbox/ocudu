@@ -6,6 +6,7 @@
 #include "../converters/asn1_rrc_config_helpers.h"
 #include "../converters/rlc_config_helpers.h"
 #include "../converters/scheduler_configuration_helpers.h"
+#include "ocudu/e2/e2_du_notifier_registry.h"
 #include "ocudu/mac/mac_ue_configurator.h"
 #include "ocudu/rlc/rlc_factory.h"
 #include <algorithm>
@@ -66,6 +67,14 @@ void ue_configuration_procedure::operator()(coro_context<async_task<f1ap_ue_cont
 
   // > Update DU UE bearers.
   update_ue_context();
+
+  // > Notify E2 layer about UE context update (check registry directly for latest notifier).
+  if (!request.drbs_to_setup.empty()) {
+    auto* notifier = e2_du_notifier_registry::get_instance().get_ue_context_notifier();
+    if (notifier != nullptr) {
+      notify_e2_ue_context_update(notifier);
+    }
+  }
 
   // > Update MAC bearers.
   CORO_AWAIT_VALUE(mac_res, update_mac_and_sched(ue_res_cfg_resp.cs_rnti_requested));
@@ -527,5 +536,32 @@ void ue_configuration_procedure::handle_rrc_reconfiguration_complete_ind()
     logger.warning("ue={}: Could not dispatch DRB removal task to UE executor. Destroying it the main DU manager "
                    "execution context",
                    fmt::underlying(ue->ue_index));
+  }
+}
+
+void ue_configuration_procedure::notify_e2_ue_context_update(e2_du_ue_context_notifier* notifier)
+{
+  // Collect all S-NSSAIs from the UE's DRBs.
+  e2_ue_context_info ue_ctx;
+  ue_ctx.ue_index = ue->ue_index;
+  ue_ctx.crnti    = ue->rnti;
+
+  std::vector<s_nssai_t> slices_seen;
+  for (const auto& drb_cfg : ue->resources->drbs) {
+    bool already_present = false;
+    for (const auto& seen_slice : slices_seen) {
+      if (seen_slice.sst == drb_cfg.s_nssai.sst && seen_slice.sd == drb_cfg.s_nssai.sd) {
+        already_present = true;
+        break;
+      }
+    }
+    if (!already_present) {
+      slices_seen.push_back(drb_cfg.s_nssai);
+      ue_ctx.slices.push_back(drb_cfg.s_nssai);
+    }
+  }
+
+  if (!ue_ctx.slices.empty()) {
+    notifier->on_ue_context_update(ue_ctx);
   }
 }
