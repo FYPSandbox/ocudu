@@ -14,7 +14,9 @@ services:
       - ${OPEN_5GS_ENV_FILE:-open5gs/open5gs.env}
     privileged: true
     ports:
-      - "9999:9999/tcp"
+      # Avoid conflicting with a locally installed Open5GS WebUI on 9999.
+      # This mapping is not used by the N2 or N3 interfaces.
+      - "9998:9999/tcp"
     # Uncomment port to use the 5gc from outside the docker network
     #  - "38412:38412/sctp"
     #  - "2152:2152/udp"

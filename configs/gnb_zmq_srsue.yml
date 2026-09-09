@@ -1,0 +1,66 @@
+# SPDX-FileCopyrightText: Copyright (C) 2021-2026 Software Radio Systems Limited
+# SPDX-License-Identifier: BSD-3-Clause-Open-MPI
+
+# Software-only 5G SA setup: OCUDU gNB <-> srsUE over ZeroMQ.
+#
+# Run the gNB and srsUE on the same host/network namespace. The matching UE
+# configuration is ue_zmq.conf in this directory. This profile intentionally
+# omits E2 so that UE attachment can be verified independently of the RIC.
+
+cu_cp:
+  # Keep the software UE bearer alive during manual user-plane tests.
+  inactivity_timer: 7200
+  amf:
+    addrs: 10.53.1.2
+    port: 38412
+    bind_addrs: 10.53.1.1
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: "00101"
+            tai_slice_support_list:
+              - sst: 1
+
+ru_sdr:
+  device_driver: zmq
+  # gNB TX is the server on 2000; gNB RX connects to the UE server on 2001.
+  device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,base_srate=11.52e6
+  srate: 11.52
+  # OCUDU models ZMQ gain as digital attenuation and rejects positive values.
+  tx_gain: 0
+  rx_gain: 0
+
+cell_cfg:
+  # Band 3 FDD, 10 MHz and 15 kHz SCS use the proven ZMQ/srsUE profile.
+  dl_arfcn: 368500
+  band: 3
+  channel_bandwidth_MHz: 10
+  common_scs: 15
+  plmn: "00101"
+  tac: 7
+  pci: 1
+
+  # srsUE requires these conservative PDCCH/DCI settings.
+  pdcch:
+    common:
+      ss0_index: 0
+      coreset0_index: 6
+    dedicated:
+      ss2_type: common
+      dci_format_0_1_and_1_1: false
+  prach:
+    prach_config_index: 1
+  pdsch:
+    mcs_table: qam64
+  pusch:
+    mcs_table: qam64
+
+log:
+  filename: /tmp/ocudu_gnb_zmq.log
+  all_level: info
+
+pcap:
+  mac_enable: true
+  mac_filename: /tmp/ocudu_gnb_zmq_mac.pcap
+  ngap_enable: true
+  ngap_filename: /tmp/ocudu_gnb_zmq_ngap.pcap
