@@ -1,0 +1,126 @@
+# SPDX-FileCopyrightText: Copyright (C) 2021-2026 Software Radio Systems Limited
+# SPDX-License-Identifier: BSD-3-Clause-Open-MPI
+
+# Full software test profile: OCUDU gNB <-> srsUE over ZeroMQ, connected to
+# the O-RAN SC near-RT RIC used by this project. For initial RF/core fault
+# isolation, use gnb_zmq_srsue.yml instead.
+
+# Match the OCUDU xApp default E2 node ID: gnbd_001_001_00019c_0.
+gnb_id: 412
+gnb_id_bit_length: 22
+
+cu_cp:
+  inactivity_timer: 7200
+  amf:
+    addrs: 10.53.1.2
+    port: 38412
+    bind_addrs: 10.53.1.1
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: "00101"
+            tai_slice_support_list:
+              - sst: 1
+              - sst: 2
+              - sst: 3
+
+ru_sdr:
+  device_driver: zmq
+  device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,base_srate=11.52e6
+  srate: 11.52
+  # OCUDU models ZMQ gain as digital attenuation and rejects positive values.
+  tx_gain: 0
+  rx_gain: 0
+
+cell_cfg:
+  dl_arfcn: 368500
+  band: 3
+  channel_bandwidth_MHz: 10
+  common_scs: 15
+  plmn: "00101"
+  tac: 7
+  pci: 1
+
+  slicing:
+    - sst: 1
+      sd: 0
+      sched_cfg:
+        min_prb_policy_ratio: 0
+        max_prb_policy_ratio: 100
+    - sst: 2
+      sd: 0
+      sched_cfg:
+        min_prb_policy_ratio: 10
+        max_prb_policy_ratio: 100
+    - sst: 3
+      sd: 0
+      sched_cfg:
+        min_prb_policy_ratio: 0
+        max_prb_policy_ratio: 100
+
+  # Conservative settings required by srsUE.
+  pdcch:
+    common:
+      ss0_index: 0
+      coreset0_index: 6
+    dedicated:
+      ss2_type: common
+      dci_format_0_1_and_1_1: false
+  prach:
+    prach_config_index: 1
+  pdsch:
+    mcs_table: qam64
+  pusch:
+    mcs_table: qam64
+
+e2:
+  enable_du_e2: true
+  e2sm_kpm_enabled: true
+  e2sm_rc_enabled: true
+  addr: 10.0.2.10
+  bind_addr: 10.0.2.1
+  port: 36421
+
+log:
+  filename: /tmp/ocudu_gnb_zmq_e2.log
+  all_level: info
+  e2ap_level: info
+  hex_max_size: 0
+
+pcap:
+  mac_enable: true
+  mac_filename: /tmp/ocudu_gnb_zmq_e2_mac.pcap
+  ngap_enable: true
+  ngap_filename: /tmp/ocudu_gnb_zmq_e2_ngap.pcap
+  e2ap_enable: true
+  e2ap_du_filename: /tmp/ocudu_gnb_zmq_e2ap.pcap
+
+metrics:
+  autostart_stdout_metrics: false
+  enable_json: true
+  enable_log: false
+  enable_verbose: false
+  layers:
+    enable_app_usage: true
+    enable_ngap: true
+    enable_e1ap: true
+    enable_pdcp: true
+    enable_rrc: true
+    skip_cu_up_executor: false
+    enable_sched: true
+    enable_rlc: true
+    enable_mac: true
+    enable_executor: true
+    enable_du_low: true
+    enable_ru: true
+  periodicity:
+    app_usage_report_period: 1000
+    cu_cp_report_period: 1000
+    cu_up_report_period: 1000
+    du_report_period: 1000
+    executors_report_period: 1000
+
+remote_control:
+  enabled: true
+  bind_addr: 0.0.0.0
+  port: 8002

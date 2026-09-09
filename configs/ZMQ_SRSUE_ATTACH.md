@@ -99,3 +99,16 @@ grep -E "NG Setup|RACH|RRC|PDU|Registration|error|failed" \
 This baseline intentionally does not enable E2. First verify UE attachment and
 the user plane. Add E2 and slicing as a separate overlay so RIC connectivity
 cannot hide an RF or registration problem.
+
+## E2, slicing and xApp test
+
+After the baseline succeeds, stop the baseline gNB and start the project's
+O-RAN SC RIC from the sibling `srsRAN_Project/oran-sc-ric` directory. Then run
+OCUDU with `configs/gnb_zmq_srsue_e2.yml`. This profile keeps the proven ZMQ
+and Open5GS settings while adding gNB ID 412, SST 1/2/3 scheduler policies,
+E2SM-KPM, E2SM-RC and the metrics required by the OCUDU xApp.
+
+The embedded Open5GS subscriber and `ue_zmq.conf` exercise SST 1. SST 2 and
+SST 3 are advertised and controllable scheduler policies, but meaningful
+traffic tests for those slices require additional core subscribers/DNNs and
+UE traffic sources.
