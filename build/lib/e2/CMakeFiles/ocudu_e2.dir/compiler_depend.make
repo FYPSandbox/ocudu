@@ -959,6 +959,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o: ../lib/e2/common/e
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/support/math/stats.h \
   ../include/ocudu/support/zero_copy_notifier.h \
+  ../include/ocudu/e2/e2_du_notifier_registry.h \
+  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
   ../include/ocudu/f1ap/du/f1ap_du.h \
   ../include/ocudu/f1ap/du/f1ap_du_connection_manager.h \
   ../include/ocudu/f1ap/common/interface_management.h \
@@ -986,8 +988,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o: ../lib/e2/common/e
   ../include/ocudu/ran/sib/system_info_config.h \
   ../include/ocudu/ran/sib/cell_reselection.h \
   ../lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h \
-  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h \
-  ../include/ocudu/e2/e2_du_ue_context_notifier.h
+  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_metrics_connector.cpp.o: ../lib/e2/common/e2_cu_metrics_connector.cpp \
   /usr/include/stdc-predef.h \
@@ -2032,6 +2033,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o: ../lib/e2/common/e
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/support/math/stats.h \
   ../include/ocudu/support/zero_copy_notifier.h \
+  ../include/ocudu/e2/e2_du_notifier_registry.h \
+  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
   ../include/ocudu/f1ap/du/f1ap_du.h \
   ../include/ocudu/f1ap/du/f1ap_du_connection_manager.h \
   ../include/ocudu/f1ap/common/interface_management.h \
@@ -2058,8 +2061,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o: ../lib/e2/common/e
   ../include/ocudu/ran/sib/system_info_config.h \
   ../include/ocudu/ran/sib/cell_reselection.h \
   ../lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h \
-  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h \
-  ../include/ocudu/e2/e2_du_ue_context_notifier.h
+  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o: ../lib/e2/common/e2_du_factory.cpp \
   /usr/include/stdc-predef.h \
@@ -2609,6 +2611,11 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o: ../lib/e2/common/e2_d
   ../lib/e2/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.h \
   ../lib/e2/e2sm/e2sm_kpm/e2sm_kpm_metric_defs.h \
   ../lib/e2/e2sm/e2sm_kpm/e2sm_kpm_utils.h \
+  ../include/ocudu/e2/e2_du_notifier_registry.h \
+  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
+  /usr/include/c++/11/mutex \
+  /usr/include/c++/11/bits/std_mutex.h \
+  /usr/include/c++/11/bits/unique_lock.h \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
   /usr/include/c++/11/bits/deque.tcc \
@@ -2616,11 +2623,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o: ../lib/e2/common/e2_d
   ../lib/e2/e2sm/e2sm_rc/e2sm_rc_asn1_packer.h \
   ../lib/e2/e2sm/e2sm_rc/e2sm_rc_control_action_du_executor.h \
   ../lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h \
-  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h \
-  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
-  /usr/include/c++/11/mutex \
-  /usr/include/c++/11/bits/std_mutex.h \
-  /usr/include/c++/11/bits/unique_lock.h
+  ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_metrics_connector.cpp.o: ../lib/e2/common/e2_du_metrics_connector.cpp \
   /usr/include/stdc-predef.h \
@@ -7579,6 +7582,12 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/support/math/stats.h \
   ../include/ocudu/support/zero_copy_notifier.h \
+  ../include/ocudu/e2/e2_du_notifier_registry.h \
+  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
+  ../include/ocudu/ran/s_nssai.h \
+  /usr/include/c++/11/mutex \
+  /usr/include/c++/11/bits/std_mutex.h \
+  /usr/include/c++/11/bits/unique_lock.h \
   ../include/ocudu/e2/e2sm/e2sm.h \
   ../include/ocudu/asn1/e2sm/e2sm_ccc.h \
   ../include/ocudu/asn1/asn1_json_utils.h \
@@ -7614,7 +7623,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
   ../include/ocudu/ran/bs_channel_bandwidth.h \
   ../include/ocudu/ran/nr_band.h \
   ../include/ocudu/ran/duplex_mode.h \
-  ../include/ocudu/ran/s_nssai.h \
   ../include/ocudu/ran/tac.h \
   ../include/ocudu/f1ap/du/f1ap_du_metrics_collector.h \
   ../include/ocudu/f1ap/du/f1ap_du_metrics_report.h \
@@ -16960,8 +16968,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/procedures/ric_reconnection_routine.cpp.o: ../lib
 
 ../include/ocudu/e2/gateways/e2_network_client_factory.h:
 
-../include/ocudu/e2/e2_du_notifier_registry.h:
-
 ../lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.cpp:
 
 /usr/include/c++/11/future:
@@ -17039,6 +17045,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/procedures/ric_reconnection_routine.cpp.o: ../lib
 ../include/ocudu/f1ap/du/f1ap_du_connection_manager.h:
 
 ../include/ocudu/f1ap/du/f1ap_du.h:
+
+../include/ocudu/e2/e2_du_notifier_registry.h:
 
 ../include/ocudu/support/zero_copy_notifier.h:
 

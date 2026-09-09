@@ -32,12 +32,12 @@ e2sm_kpm_du_meas_provider_impl::e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_t
   supported_metrics.emplace(
       "RRU.PrbUsedDl",
       e2sm_kpm_supported_metric_t{
-          NO_LABEL, E2_NODE_LEVEL | UE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_prb_used_dl});
+          NO_LABEL | SLICE_ID_LABEL, E2_NODE_LEVEL | UE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_prb_used_dl});
 
   supported_metrics.emplace(
       "RRU.PrbUsedUl",
       e2sm_kpm_supported_metric_t{
-          NO_LABEL, E2_NODE_LEVEL | UE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_prb_used_ul});
+          NO_LABEL | SLICE_ID_LABEL, E2_NODE_LEVEL | UE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_prb_used_ul});
 
   supported_metrics.emplace(
       "RRU.PrbTotDl",
@@ -91,6 +91,10 @@ e2sm_kpm_du_meas_provider_impl::e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_t
   // Check if the supported metrics are matching e2sm_kpm metrics definitions.
   check_e2sm_kpm_metrics_definitions(get_e2sm_kpm_28_552_metrics());
   check_e2sm_kpm_metrics_definitions(get_e2sm_kpm_oran_metrics());
+
+  // Register for UE-context updates so slice-scoped metrics (e.g. RRU.PrbUsedDl/Ul with a
+  // SliceID label) can be computed from ue_slice_map.
+  e2_du_notifier_registry::get_instance().register_ue_context_notifier(this);
 }
 
 e2sm_kpm_du_meas_provider_impl::e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_translator& f1ap_ue_id_translator_,
@@ -98,6 +102,61 @@ e2sm_kpm_du_meas_provider_impl::e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_t
   e2sm_kpm_du_meas_provider_impl(f1ap_ue_id_translator_)
 {
   max_rlc_metrics = max_rlc_metrics_;
+}
+
+e2sm_kpm_du_meas_provider_impl::~e2sm_kpm_du_meas_provider_impl()
+{
+  e2_du_notifier_registry::get_instance().unregister_ue_context_notifier(this);
+}
+
+void e2sm_kpm_du_meas_provider_impl::on_ue_context_update(const e2_ue_context_info& ue_ctx)
+{
+  if (ue_ctx.slices.empty()) {
+    return;
+  }
+  // A UE may carry multiple DRBs/slices; use the first for slice-scoped aggregation, matching the
+  // same single-slice-per-UE assumption E2SM-RC's Style 4 report service already makes.
+  ue_slice_map[ue_ctx.ue_index] = ue_ctx.slices.front();
+}
+
+void e2sm_kpm_du_meas_provider_impl::on_ue_context_release(du_ue_index_t ue_index)
+{
+  ue_slice_map.erase(ue_index);
+}
+
+bool e2sm_kpm_du_meas_provider_impl::extract_requested_slice(const asn1::e2sm::label_info_list_l& label_info_list,
+                                                              s_nssai_t&                            slice_out)
+{
+  if (label_info_list.size() != 1 or not label_info_list[0].meas_label.slice_id_present) {
+    return false;
+  }
+  const asn1::e2sm::s_nssai_s& asn1_slice = label_info_list[0].meas_label.slice_id;
+  uint8_t                      sst_val    = static_cast<uint8_t>(asn1_slice.sst.to_number());
+  uint32_t                     sd_val     = asn1_slice.sd_present ? static_cast<uint32_t>(asn1_slice.sd.to_number())
+                                                                   : slice_differentiator().value();
+  expected<slice_differentiator> sd = slice_differentiator::create(sd_val);
+  if (not sd.has_value()) {
+    return false;
+  }
+  slice_out = s_nssai_t{slice_service_type(sst_val), sd.value()};
+  return true;
+}
+
+bool e2sm_kpm_du_meas_provider_impl::ue_in_slice(du_ue_index_t ue_index, const s_nssai_t& slice) const
+{
+  auto it = ue_slice_map.find(ue_index);
+  if (it == ue_slice_map.end() or it->second.sst != slice.sst) {
+    return false;
+  }
+  // This deployment's core doesn't provision a real Slice Differentiator, so DRBs carry the
+  // "no SD" sentinel (slice_differentiator::is_default()) regardless of what SD an E2 client
+  // requests. Only discriminate by SD when both sides actually set one; SST alone differentiates
+  // slices otherwise.
+  const s_nssai_t& ue_slice = it->second;
+  if (ue_slice.sd.is_default() or slice.sd.is_default()) {
+    return true;
+  }
+  return ue_slice.sd == slice.sd;
 }
 
 bool e2sm_kpm_du_meas_provider_impl::check_e2sm_kpm_metrics_definitions(span<const e2sm_kpm_metric_t> metric_defs)
@@ -213,18 +272,21 @@ bool e2sm_kpm_du_meas_provider_impl::is_metric_supported(const asn1::e2sm::meas_
                                                          const e2sm_kpm_metric_level_enum level,
                                                          const bool&                      cell_scope)
 {
-  if (!label.no_label_present) {
-    logger.debug("Currently only NO_LABEL metric supported.");
-    return false;
-  }
+  e2sm_kpm_label_enum requested_label = asn1_label_2_enum(label);
 
   for (auto& metric : supported_metrics) {
     if (strcmp(meas_type.meas_name().to_string().c_str(), metric.first.c_str()) == 0) {
+      if ((metric.second.supported_labels & requested_label) == 0) {
+        logger.debug("Metric {} does not support label {}.",
+                     meas_type.meas_name().to_string(),
+                     e2sm_kpm_label_2_str(requested_label));
+        return false;
+      }
       return true;
     }
   }
 
-  // TODO: check if metric supported with required label, level and cell_scope
+  // TODO: check if metric supported with required level and cell_scope
   return false;
 }
 
@@ -441,17 +503,22 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_dl(const asn1::e2sm::label_inf
   if (last_ue_metrics.empty()) {
     return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
   }
-  if ((label_info_list.size() > 1 or
+  s_nssai_t requested_slice;
+  bool      slice_scoped = extract_requested_slice(label_info_list, requested_slice);
+  if (not slice_scoped and
+      (label_info_list.size() > 1 or
        (label_info_list.size() == 1 and not label_info_list[0].meas_label.no_label_present))) {
-    logger.debug("Metric: RRU.PrbUsedDl supports only NO_LABEL label.");
+    logger.debug("Metric: RRU.PrbUsedDl supports only NO_LABEL and SliceID labels.");
     return meas_collected;
   }
-
   if (ues.empty()) {
-    unsigned sum_dl_prbs = std::accumulate(
-        last_ue_metrics.begin(), last_ue_metrics.end(), 0u, [](unsigned sum, const scheduler_ue_metrics& metric) {
-          return sum + metric.tot_pdsch_prbs_used;
-        });
+    unsigned sum_dl_prbs = 0;
+    for (const scheduler_ue_metrics& ue_metric : last_ue_metrics) {
+      if (slice_scoped and not ue_in_slice(ue_metric.ue_index, requested_slice)) {
+        continue;
+      }
+      sum_dl_prbs += ue_metric.tot_pdsch_prbs_used;
+    }
     double             dl_prbs_used = nof_dl_slots > 0 ? sum_dl_prbs / nof_dl_slots : 0;
     meas_record_item_c meas_record_item;
     meas_record_item.set_integer() = dl_prbs_used;
@@ -485,17 +552,23 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
   if (last_ue_metrics.empty()) {
     return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
   }
-  if ((label_info_list.size() > 1 or
+  s_nssai_t requested_slice;
+  bool      slice_scoped = extract_requested_slice(label_info_list, requested_slice);
+  if (not slice_scoped and
+      (label_info_list.size() > 1 or
        (label_info_list.size() == 1 and not label_info_list[0].meas_label.no_label_present))) {
-    logger.debug("Metric: RRU.PrbUsedUl supports only NO_LABEL label.");
+    logger.debug("Metric: RRU.PrbUsedUl supports only NO_LABEL and SliceID labels.");
     return meas_collected;
   }
 
   if (ues.empty()) {
-    unsigned sum_ul_prbs = std::accumulate(
-        last_ue_metrics.begin(), last_ue_metrics.end(), 0u, [](unsigned sum, const scheduler_ue_metrics& metric) {
-          return sum + metric.tot_pusch_prbs_used;
-        });
+    unsigned sum_ul_prbs = 0;
+    for (const scheduler_ue_metrics& ue_metric : last_ue_metrics) {
+      if (slice_scoped and not ue_in_slice(ue_metric.ue_index, requested_slice)) {
+        continue;
+      }
+      sum_ul_prbs += ue_metric.tot_pusch_prbs_used;
+    }
     double             ul_prbs_used = nof_ul_slots > 0 ? sum_ul_prbs / nof_ul_slots : 0;
     meas_record_item_c meas_record_item;
     meas_record_item.set_integer() = ul_prbs_used;

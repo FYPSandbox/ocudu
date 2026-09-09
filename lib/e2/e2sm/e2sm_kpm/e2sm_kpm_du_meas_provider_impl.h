@@ -9,16 +9,21 @@
 #include "ocudu/asn1/asn1_utils.h"
 #include "ocudu/asn1/e2sm/e2sm_kpm_ies.h"
 #include "ocudu/e2/e2_du.h"
+#include "ocudu/e2/e2_du_notifier_registry.h"
+#include "ocudu/e2/e2_du_ue_context_notifier.h"
 #include "ocudu/e2/e2sm/e2sm.h"
 #include "ocudu/e2/e2sm/e2sm_kpm.h"
 #include "ocudu/f1ap/du/f1ap_du.h"
+#include "ocudu/ran/s_nssai.h"
 #include <deque>
 #include <map>
 #include <numeric>
 
 namespace ocudu {
 
-class e2sm_kpm_du_meas_provider_impl : public e2sm_kpm_meas_provider, public e2_du_metrics_notifier
+class e2sm_kpm_du_meas_provider_impl : public e2sm_kpm_meas_provider,
+                                        public e2_du_metrics_notifier,
+                                        public e2_du_ue_context_notifier
 {
 public:
   // constructor takes logger as argument
@@ -26,7 +31,7 @@ public:
 
   e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_translator& f1ap_ue_id_translator, int max_rlc_metrics_);
 
-  ~e2sm_kpm_du_meas_provider_impl() = default;
+  ~e2sm_kpm_du_meas_provider_impl() override;
 
   /// scheduler_ue_metrics_notifier functions.
   void report_metrics(const scheduler_cell_metrics& ue_metrics) override;
@@ -61,6 +66,11 @@ public:
                      const std::optional<asn1::e2sm::cgi_c>       cell_global_id,
                      std::vector<asn1::e2sm::meas_record_item_c>& items) override;
 
+  /// e2_du_ue_context_notifier interface; tracks per-UE slice (S-NSSAI) membership so slice-scoped
+  /// KPM measurements (e.g. RRU.PrbUsedDl/Ul with a SliceID label) can be computed.
+  void on_ue_context_update(const e2_ue_context_info& ue_ctx) override;
+  void on_ue_context_release(du_ue_index_t ue_index) override;
+
 private:
   typedef bool(metric_meas_getter_func_t)(const asn1::e2sm::label_info_list_l          label_info_list,
                                           const std::vector<asn1::e2sm::ue_id_c>&      ues,
@@ -80,6 +90,13 @@ private:
 
   // Helper functions.
   float bytes_to_kbits(float value);
+
+  /// \brief Extract the requested S-NSSAI from a label list that carries exactly one SliceID label.
+  /// \return true and sets slice_out if label_info_list has exactly one entry with a SliceID label.
+  static bool extract_requested_slice(const asn1::e2sm::label_info_list_l& label_info_list, s_nssai_t& slice_out);
+
+  /// \brief Whether the given UE (by its last_ue_metrics/du_ue_index_t position) belongs to slice.
+  bool ue_in_slice(du_ue_index_t ue_index, const s_nssai_t& slice) const;
   bool  handle_no_meas_data_available(const std::vector<asn1::e2sm::ue_id_c>&        ues,
                                       std::vector<asn1::e2sm::meas_record_item_c>&   items,
                                       asn1::e2sm::meas_record_item_c::types::options value_type);
@@ -115,6 +132,10 @@ private:
   std::chrono::system_clock::time_point              last_rlc_metrics_clear_time = std::chrono::system_clock::now();
   size_t                                             max_rlc_metrics             = 1;
   std::map<std::string, e2sm_kpm_supported_metric_t> supported_metrics;
+  /// Per-UE slice membership, fed by on_ue_context_update/on_ue_context_release (same source the
+  /// E2SM-RC Style 4 report service uses), keyed by the same du_ue_index_t used to index
+  /// last_ue_metrics.
+  std::map<du_ue_index_t, s_nssai_t> ue_slice_map;
 };
 
 } // namespace ocudu

@@ -961,6 +961,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/zero_copy_notifier.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_connection_manager.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/common/interface_management.h
@@ -989,7 +991,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/cell_reselection.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
- /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_metrics_connector.cpp.o
  /home/fyp5g/fyp/ocudu/lib/e2/common/e2_cu_metrics_connector.cpp
@@ -2036,6 +2037,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/zero_copy_notifier.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_connection_manager.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/common/interface_management.h
@@ -2063,7 +2066,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/cell_reselection.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
- /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o
  /home/fyp5g/fyp/ocudu/lib/e2/common/e2_du_factory.cpp
@@ -2614,6 +2616,11 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_kpm/e2sm_kpm_metric_defs.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_kpm/e2sm_kpm_utils.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
+ /usr/include/c++/11/mutex
+ /usr/include/c++/11/bits/std_mutex.h
+ /usr/include/c++/11/bits/unique_lock.h
  /usr/include/c++/11/deque
  /usr/include/c++/11/bits/stl_deque.h
  /usr/include/c++/11/bits/deque.tcc
@@ -2622,10 +2629,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_factory.cpp.o
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_action_du_executor.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h
- /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
- /usr/include/c++/11/mutex
- /usr/include/c++/11/bits/std_mutex.h
- /usr/include/c++/11/bits/unique_lock.h
 
 lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_metrics_connector.cpp.o
  /home/fyp5g/fyp/ocudu/lib/e2/common/e2_du_metrics_connector.cpp
@@ -7596,6 +7599,12 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/zero_copy_notifier.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
+ /usr/include/c++/11/mutex
+ /usr/include/c++/11/bits/std_mutex.h
+ /usr/include/c++/11/bits/unique_lock.h
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h
@@ -7631,7 +7640,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bs_channel_bandwidth.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_band.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/duplex_mode.h
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/tac.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_metrics_collector.h
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_metrics_report.h

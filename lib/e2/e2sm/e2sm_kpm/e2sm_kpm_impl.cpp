@@ -4,6 +4,7 @@
 
 #include "e2sm_kpm_impl.h"
 #include "e2sm_kpm_report_service_impl.h"
+#include "e2sm_kpm_utils.h"
 #include "ocudu/asn1/asn1_utils.h"
 
 using namespace asn1::e2ap;
@@ -67,7 +68,7 @@ bool e2sm_kpm_impl::process_action_def_meas_info_list(const meas_info_list_l&   
     for (uint32_t l = 0; l < meas_info_list[i].label_info_list.size(); l++) {
       const meas_label_s& meas_label = meas_info_list[i].label_info_list[l].meas_label;
       if (du_meas_provider.is_metric_supported(meas_type, meas_label, level, cell_scope)) {
-        admitted_value_type_labels[meas_name] = NO_LABEL;
+        admitted_value_type_labels[meas_name] = asn1_label_2_enum(meas_label);
       } else {
         return false;
       }

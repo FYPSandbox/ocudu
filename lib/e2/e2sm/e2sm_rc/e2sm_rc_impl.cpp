@@ -25,6 +25,11 @@ e2sm_rc_impl::e2sm_rc_impl(ocudulog::basic_logger&     logger_,
   e2_du_notifier_registry::get_instance().register_ue_context_notifier(this);
 }
 
+e2sm_rc_impl::~e2sm_rc_impl()
+{
+  e2_du_notifier_registry::get_instance().unregister_ue_context_notifier(this);
+}
+
 bool e2sm_rc_impl::action_supported(const ric_action_to_be_setup_item_s& ric_action)
 {
   if (ric_action.ric_action_type.value != ric_action_type_e::report) {

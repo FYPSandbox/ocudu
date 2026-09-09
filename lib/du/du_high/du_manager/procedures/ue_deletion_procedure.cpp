@@ -53,9 +53,10 @@ void ue_deletion_procedure::operator()(coro_context<async_task<void>>& ctx)
 
   // > Notify E2 layer about UE context release (check registry directly).
   {
-    auto* notifier = e2_du_notifier_registry::get_instance().get_ue_context_notifier();
-    if (notifier != nullptr) {
-      notifier->on_ue_context_release(ue_index);
+    for (auto* notifier : e2_du_notifier_registry::get_instance().get_ue_context_notifiers()) {
+      if (notifier != nullptr) {
+        notifier->on_ue_context_release(ue_index);
+      }
     }
   }
 

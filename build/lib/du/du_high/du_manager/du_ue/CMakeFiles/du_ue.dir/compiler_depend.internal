@@ -2793,6 +2793,7 @@ lib/du/du_high/du_manager/du_ue/CMakeFiles/du_ue.dir/du_ue_manager.cpp.o
  /home/fyp5g/fyp/ocudu/lib/du/du_high/du_manager/procedures/ue_configuration_procedure.h
  /home/fyp5g/fyp/ocudu/lib/du/du_high/du_manager/procedures/procedure_logger.h
  /home/fyp5g/fyp/ocudu/include/ocudu/support/format/fmt_to_c_str.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
  /home/fyp5g/fyp/ocudu/lib/du/du_high/du_manager/procedures/ue_creation_procedure.h
  /home/fyp5g/fyp/ocudu/lib/du/du_high/du_manager/procedures/ue_deletion_procedure.h
  /home/fyp5g/fyp/ocudu/include/ocudu/mac/mac_pdu_handler.h
