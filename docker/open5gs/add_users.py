@@ -21,41 +21,44 @@ def add_user(
     apn="internet",
     qci="9",
     ip_alloc="",
+    sst="1",
+    sd="",
 ):
     """Add UE data to Open5GS mongodb"""
 
     if op is not None:
         opc = None
 
-    slice_data = [
-        {
-            "sst": 1,
-            "default_indicator": True,
-            "session": [
-                {
-                    "name": apn,
-                    "type": 3,
-                    "pcc_rule": [],
-                    "ambr": {"uplink": {"value": 1, "unit": 3}, "downlink": {"value": 1, "unit": 3}},
-                    "qos": {
-                        "index": int(qci),
-                        "arp": {"priority_level": 8, "pre_emption_capability": 1, "pre_emption_vulnerability": 1},
-                    },
-                    "ue": {"ipv4": ip_alloc},
+    snssai = {
+        "sst": int(sst),
+        "default_indicator": True,
+        "session": [
+            {
+                "name": apn,
+                "type": 3,
+                "pcc_rule": [],
+                "ambr": {"uplink": {"value": 1, "unit": 3}, "downlink": {"value": 1, "unit": 3}},
+                "qos": {
+                    "index": int(qci),
+                    "arp": {"priority_level": 8, "pre_emption_capability": 1, "pre_emption_vulnerability": 1},
                 },
-                {
-                    "name": "ims",
-                    "type": 3,
-                    "pcc_rule": [],
-                    "ambr": {"uplink": {"value": 1, "unit": 3}, "downlink": {"value": 1, "unit": 3}},
-                    "qos": {
-                        "index": 5,
-                        "arp": {"priority_level": 8, "pre_emption_capability": 1, "pre_emption_vulnerability": 1},
-                    },
+                "ue": {"ipv4": ip_alloc},
+            },
+            {
+                "name": "ims",
+                "type": 3,
+                "pcc_rule": [],
+                "ambr": {"uplink": {"value": 1, "unit": 3}, "downlink": {"value": 1, "unit": 3}},
+                "qos": {
+                    "index": 5,
+                    "arp": {"priority_level": 8, "pre_emption_capability": 1, "pre_emption_vulnerability": 1},
                 },
-            ],
-        }
-    ]
+            },
+        ],
+    }
+    if str(sd).strip():
+        snssai["sd"] = f"{int(sd):06x}"
+    slice_data = [snssai]
 
     sub_data = {
         "imsi": imsi,
@@ -87,7 +90,14 @@ def read_from_db(db_file):
             pass
         else:
             try:
-                name, imsi, key, op_type, op_c, amf, qci, ip_alloc = line.split(",")
+                fields = [field.strip() for field in line.split(",")]
+                if len(fields) == 8:
+                    name, imsi, key, op_type, op_c, amf, qci, ip_alloc = fields
+                    sst, sd, apn = "1", "", "internet"
+                elif len(fields) == 11:
+                    name, imsi, key, op_type, op_c, amf, qci, ip_alloc, sst, sd, apn = fields
+                else:
+                    raise ValueError(f"expected 8 or 11 CSV fields, received {len(fields)}")
             except ValueError as e:
                 print(f"Error reading subscriber_db.csv: {e}")
                 return None
@@ -99,7 +109,18 @@ def read_from_db(db_file):
                 opc = None
 
             subscriber_db.append(
-                {"imsi": imsi, "key": key, "op": op, "opc": opc, "amf": amf, "qci": qci, "ip_alloc": ip_alloc.rstrip()}
+                {
+                    "imsi": imsi,
+                    "key": key,
+                    "op": op,
+                    "opc": opc,
+                    "amf": amf,
+                    "qci": qci,
+                    "ip_alloc": ip_alloc,
+                    "sst": sst,
+                    "sd": sd,
+                    "apn": apn,
+                }
             )
 
     return subscriber_db

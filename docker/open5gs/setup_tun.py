@@ -43,39 +43,29 @@ def iptables_allow_all(if_name):
               help="IP range of the TUN interface.")
 def main(if_name, ip_range):
 
-    for subnet in range(0,256):
-        # Get the first IP address in the IP range and netmask prefix length
-        first_ip_addr = next(ip_range.hosts(), None) + (subnet * 256)
-        if not first_ip_addr:
-            raise ValueError('Invalid IP range.')
-        else:
-            first_ip_addr = first_ip_addr.exploded
+    first_ip_addr = next(ip_range.hosts(), None)
+    if first_ip_addr is None:
+        raise ValueError('Invalid IP range.')
 
-        ip_netmask = ip_range.prefixlen
-
-        ipr = IPRoute()
-        # create the tun interface
+    ipr = IPRoute()
+    try:
         ipr.link('add', ifname=if_name, kind='tuntap', mode='tun')
-        # lookup the index
-        dev = ipr.link_lookup(ifname=if_name)[0]
-        # bring it down
-        ipr.link('set', index=dev, state='down')
-        # add primary IP address
-        ipr.addr('add', index=dev, address=first_ip_addr, mask=ip_netmask)
-        # bring it up
-        ipr.link('set', index=dev, state='up')
+    except NetlinkError:
+        pass
 
-        try:
-            ipr.route('add', dst=ip_range.with_prefixlen, gateway=first_ip_addr)
-        except NetlinkError:
-            pass
+    links = ipr.link_lookup(ifname=if_name)
+    if not links:
+        raise RuntimeError(f'Unable to create TUN interface {if_name}.')
+    dev = links[0]
+    ipr.link('set', index=dev, state='down')
+    try:
+        ipr.addr('add', index=dev, address=first_ip_addr.exploded, mask=ip_range.prefixlen)
+    except NetlinkError:
+        pass
+    ipr.link('set', index=dev, state='up')
 
-        # setup iptables
-        iptables_add_masquerade(if_name, ip_range.with_prefixlen)
-        iptables_allow_all(if_name)
-        # 'iptables -t nat -A POSTROUTING -s ' + ip_range.with_prefixlen + ' ! -o ' + if_name + ' -j MASQUERADE'
-
-        # 'iptables -A INPUT -i ' + if_name + ' -j ACCEPT'
+    iptables_add_masquerade(if_name, ip_range.with_prefixlen)
+    iptables_allow_all(if_name)
 
 
 if __name__ == "__main__":

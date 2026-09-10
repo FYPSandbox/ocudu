@@ -21,8 +21,11 @@ cu_cp:
           - plmn: "00101"
             tai_slice_support_list:
               - sst: 1
+                sd: 1
               - sst: 2
+                sd: 1
               - sst: 3
+                sd: 1
 
 ru_sdr:
   device_driver: zmq
@@ -43,17 +46,17 @@ cell_cfg:
 
   slicing:
     - sst: 1
-      sd: 0
+      sd: 1
       sched_cfg:
         min_prb_policy_ratio: 0
         max_prb_policy_ratio: 100
     - sst: 2
-      sd: 0
+      sd: 1
       sched_cfg:
         min_prb_policy_ratio: 10
         max_prb_policy_ratio: 100
     - sst: 3
-      sd: 0
+      sd: 1
       sched_cfg:
         min_prb_policy_ratio: 0
         max_prb_policy_ratio: 100
