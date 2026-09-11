@@ -2787,6 +2787,7 @@ lib/du/du_high/du_manager/du_ue/CMakeFiles/du_ue.dir/du_ue_manager.cpp.o: ../lib
   ../lib/du/du_high/du_manager/procedures/ue_configuration_procedure.h \
   ../lib/du/du_high/du_manager/procedures/procedure_logger.h \
   ../include/ocudu/support/format/fmt_to_c_str.h \
+  ../include/ocudu/e2/e2_du_ue_context_notifier.h \
   ../lib/du/du_high/du_manager/procedures/ue_creation_procedure.h \
   ../lib/du/du_high/du_manager/procedures/ue_deletion_procedure.h \
   ../include/ocudu/mac/mac_pdu_handler.h \
@@ -3848,6 +3849,8 @@ lib/du/du_high/du_manager/du_ue/CMakeFiles/du_ue.dir/du_ue_manager.cpp.o: ../lib
 /usr/include/c++/11/cstddef:
 
 ../include/ocudu/ran/s_nssai.h:
+
+../include/ocudu/e2/e2_du_ue_context_notifier.h:
 
 /usr/include/strings.h:
 

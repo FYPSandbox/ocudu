@@ -544,6 +544,8 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/zero_copy_notifier.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_connection_manager.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/common/interface_management.h \
@@ -570,5 +572,4 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_up_factory.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/system_info_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/cell_reselection.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h \
- /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h
+ /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_impl.h

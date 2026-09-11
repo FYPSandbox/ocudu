@@ -25,6 +25,7 @@ class e2sm_rc_impl : public e2sm_interface, public e2_du_ue_context_notifier
 {
 public:
   e2sm_rc_impl(ocudulog::basic_logger& logger_, e2sm_handler& e2sm_packer_, odu::f1ap_ue_id_translator& f1ap_ue_id_provider_);
+  ~e2sm_rc_impl() override;
 
   e2sm_handler& get_e2sm_packer() override;
 

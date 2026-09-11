@@ -68,11 +68,12 @@ void ue_configuration_procedure::operator()(coro_context<async_task<f1ap_ue_cont
   // > Update DU UE bearers.
   update_ue_context();
 
-  // > Notify E2 layer about UE context update (check registry directly for latest notifier).
+  // > Notify E2 layer about UE context update (check registry directly for latest notifiers).
   if (!request.drbs_to_setup.empty()) {
-    auto* notifier = e2_du_notifier_registry::get_instance().get_ue_context_notifier();
-    if (notifier != nullptr) {
-      notify_e2_ue_context_update(notifier);
+    for (auto* notifier : e2_du_notifier_registry::get_instance().get_ue_context_notifiers()) {
+      if (notifier != nullptr) {
+        notify_e2_ue_context_update(notifier);
+      }
     }
   }
 

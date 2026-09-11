@@ -350,6 +350,11 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/zero_copy_notifier.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_notifier_registry.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_du_ue_context_notifier.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
@@ -382,7 +387,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_du_meas_provider_impl.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bs_channel_bandwidth.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_band.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/duplex_mode.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/tac.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_metrics_collector.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/du/f1ap_du_metrics_report.h \
