@@ -13,6 +13,7 @@ namespace ocudu {
 class rlc_rx_metrics_container
 {
   rlc_rx_metrics metrics = {};
+  stage2::window stage2_previous;
   bool           enabled = false;
 
 public:
@@ -110,6 +111,7 @@ public:
       return {};
     }
     rlc_rx_metrics ret = metrics.get();
+    ret.stage2_window = stage2::close_window(stage2_previous);
     reset_metrics();
     return ret;
   }

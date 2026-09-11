@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/support/engineering_notation.h"
 #include "ocudu/support/timers.h"
 #include "fmt/format.h"
@@ -156,6 +157,7 @@ struct rlc_tx_metrics_lower {
       std::get<rlc_am_tx_metrics_lower>(mode_specific).reset();
     }
   }
+  stage2::window stage2_window;
 };
 
 struct rlc_tx_metrics {

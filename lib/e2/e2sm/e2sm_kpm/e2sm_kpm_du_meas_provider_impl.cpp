@@ -132,6 +132,8 @@ bool e2sm_kpm_du_meas_provider_impl::check_e2sm_kpm_metrics_definitions(span<con
 
 void e2sm_kpm_du_meas_provider_impl::report_metrics(const scheduler_cell_metrics& cell_metrics)
 {
+  stage2_sched_window = cell_metrics.stage2_window;
+  stage2_sched_seq = cell_metrics.stage2_seq;
   last_ue_metrics.clear();
   nof_cell_prbs          = cell_metrics.nof_prbs;
   nof_dl_slots           = cell_metrics.nof_dl_slots;
@@ -437,6 +439,7 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_dl(const asn1::e2sm::label_inf
                                                      const std::optional<asn1::e2sm::cgi_c>       cell_global_id,
                                                      std::vector<asn1::e2sm::meas_record_item_c>& items)
 {
+  stage2::source("RRU.PrbUsedDl", -1, stage2_sched_window, stage2_sched_seq);
   bool meas_collected = false;
   if (last_ue_metrics.empty()) {
     return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
@@ -481,6 +484,7 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
                                                      const std::optional<asn1::e2sm::cgi_c>       cell_global_id,
                                                      std::vector<asn1::e2sm::meas_record_item_c>& items)
 {
+  stage2::source("RRU.PrbUsedUl", -1, stage2_sched_window, stage2_sched_seq);
   bool meas_collected = false;
   if (last_ue_metrics.empty()) {
     return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
@@ -737,6 +741,7 @@ bool e2sm_kpm_du_meas_provider_impl::get_drb_dl_mean_throughput(const asn1::e2sm
     int                total_throughput = 0;
     for (auto& ue : ue_throughput) {
       total_throughput += ue.second;
+      for (const auto& m : ue_aggr_rlc_metrics[ue.first]) stage2::source("DRB.UEThpDl", -1, m.tx.tx_low.stage2_window, m.tx.tx_low.counter);
     }
     meas_record_item.set_real().value = total_throughput;
     items.push_back(meas_record_item);
@@ -753,6 +758,8 @@ bool e2sm_kpm_du_meas_provider_impl::get_drb_dl_mean_throughput(const asn1::e2sm
       meas_collected = true;
       continue;
     }
+    for (const auto& m : ue_aggr_rlc_metrics[ue_idx])
+      stage2::source("DRB.UEThpDl", ue.gnb_du_ue_id().gnb_cu_ue_f1ap_id, m.tx.tx_low.stage2_window, m.tx.tx_low.counter);
     meas_record_item.set_real().value = ue_throughput[ue_idx];
     items.push_back(meas_record_item);
     meas_collected = true;
@@ -792,6 +799,7 @@ bool e2sm_kpm_du_meas_provider_impl::get_drb_ul_mean_throughput(const asn1::e2sm
     int                total_throughput = 0;
     for (auto& ue : ue_throughput) {
       total_throughput += ue.second;
+      for (const auto& m : ue_aggr_rlc_metrics[ue.first]) stage2::source("DRB.UEThpUl", -1, m.rx.stage2_window, m.rx.counter);
     }
     meas_record_item.set_real().value = total_throughput;
     items.push_back(meas_record_item);
@@ -808,6 +816,8 @@ bool e2sm_kpm_du_meas_provider_impl::get_drb_ul_mean_throughput(const asn1::e2sm
       meas_collected = true;
       continue;
     }
+    for (const auto& m : ue_aggr_rlc_metrics[ue_idx])
+      stage2::source("DRB.UEThpUl", ue.gnb_du_ue_id().gnb_cu_ue_f1ap_id, m.rx.stage2_window, m.rx.counter);
     meas_record_item.set_real().value = ue_throughput[ue_idx];
     items.push_back(meas_record_item);
     meas_collected = true;

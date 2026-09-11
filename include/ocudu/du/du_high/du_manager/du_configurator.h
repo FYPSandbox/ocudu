@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/adt/byte_buffer.h"
 #include "ocudu/f1ap/f1ap_ue_id_types.h"
 #include "ocudu/ran/nr_cgi.h"
@@ -29,6 +30,7 @@ struct du_mac_sched_control_config {
   std::optional<unsigned> num_harq_retransmissions;
   /// Set the radio resource management policy list.
   std::vector<rrm_policy_ratio_group> rrm_policy_ratio_list;
+  uint64_t stage2_trace_id = 0;
 };
 
 /// Result of a UE-level cell MAC scheduler parameter configuration procedure.

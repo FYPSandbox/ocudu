@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/ran/du_types.h"
 #include "ocudu/ran/pci.h"
 #include "ocudu/ran/rnti.h"
@@ -185,6 +186,8 @@ struct scheduler_cell_metrics {
   std::vector<scheduler_ue_metrics> ue_metrics;
   /// Whether the per-UE metrics in this report should be consumed/printed by consumers.
   bool report_ue_metrics = true;
+  stage2::window stage2_window;
+  uint64_t stage2_seq = 0;
 };
 
 /// Scheduler metrics report for all active cells of the DU.

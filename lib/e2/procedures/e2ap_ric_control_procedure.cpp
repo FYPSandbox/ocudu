@@ -27,6 +27,12 @@ void e2ap_ric_control_procedure::operator()(coro_context<async_task<void>>& ctx)
   }
 
   ric_ctrl_req    = e2sm_iface->get_e2sm_packer().handle_packed_ric_control_request(e2_request.request);
+  if (stage2::enabled()) {
+    ric_ctrl_req.stage2_trace_id = stage2::next_id();
+    stage2::emit("\"event\":\"control_received\",\"trace_id\":" + std::to_string(ric_ctrl_req.stage2_trace_id) +
+      ",\"requestor\":" + std::to_string(e2_request.request->ric_request_id.ric_requestor_id) +
+      ",\"instance\":" + std::to_string(e2_request.request->ric_request_id.ric_instance_id));
+  }
   control_service = e2sm_iface->get_e2sm_control_service(ric_ctrl_req);
 
   if (!control_service) {

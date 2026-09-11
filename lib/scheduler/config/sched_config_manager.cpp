@@ -229,8 +229,10 @@ ue_config_update_event sched_config_manager::update_ue(const sched_ue_reconfigur
   next_ded_cfg->update(added_cells, group_cfg_pool[group_idx]->reconf_ue(cfg_req));
 
   // Return RAII event.
-  return ue_config_update_event{
+  ue_config_update_event event{
       cfg_req.ue_index, *this, std::move(next_ded_cfg), {}, slot_point(), false, cfg_req.cfg.cause};
+  event.stage2_trace_id = cfg_req.cfg.stage2_trace_id;
+  return event;
 }
 
 ue_config_delete_event sched_config_manager::remove_ue(du_ue_index_t ue_index)

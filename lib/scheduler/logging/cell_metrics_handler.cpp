@@ -412,6 +412,8 @@ void cell_metrics_handler::handle_late_ul_harqs()
 void cell_metrics_handler::report_metrics()
 {
   auto next_report = notifier.get_builder();
+  next_report->stage2_window = stage2::close_window(stage2_previous);
+  if (stage2::enabled()) next_report->stage2_seq = stage2::next_id();
 
   const std::chrono::milliseconds report_period{data.nof_slots / last_slot_tx.nof_slots_per_subframe()};
   for (ue_metric_context& ue : ues) {

@@ -19,6 +19,7 @@ class sched_config_manager;
 class ue_config_update_event
 {
 public:
+  uint64_t stage2_trace_id = 0;
   ue_config_update_event() = default;
   ue_config_update_event(du_ue_index_t                     ue_index_,
                          sched_config_manager&             parent_,
