@@ -59,6 +59,8 @@ struct du_cell_param_config_request {
   std::vector<rrm_policy_ratio_group> rrm_policy_ratio_list;
   /// SIB update. When present, triggers SIB1 systemInfoValueTag increment.
   std::optional<sib_info> new_sys_info;
+  uint64_t stage2_trace_id = 0;
+  std::vector<rrm_policy_ratio_group> expected_rrm_policy_ratio_list;
 };
 
 /// Parameters of the DU that need to be configured during operation.
@@ -132,6 +134,8 @@ public:
   ///
   /// The caller will block until the procedure is complete.
   /// \param[in] req Configuration Request.
+  virtual std::vector<nr_cell_global_id_t> get_cell_global_ids() const { return {}; }
+
   virtual du_param_config_response handle_sync_operator_config(const du_param_config_request& req) = 0;
 
   /// Apply new config updates requested from outside the DU, in a non-blocking fashion.

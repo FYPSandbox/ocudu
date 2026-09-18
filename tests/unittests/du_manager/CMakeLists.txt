@@ -99,3 +99,7 @@ add_executable(asn1_sib1_sched_info_test asn1_sib1_sched_info_test.cpp)
 target_include_directories(asn1_sib1_sched_info_test PRIVATE ${CMAKE_SOURCE_DIR})
 target_link_libraries(asn1_sib1_sched_info_test du_manager_converters ocudu_du_manager ocudu_support ocudulog gtest gtest_main)
 gtest_discover_tests(asn1_sib1_sched_info_test)
+
+add_executable(du_slice_control_test du_slice_control_test.cpp)
+target_link_libraries(du_slice_control_test du_manager_test_helpers gtest ocudu_gtest_main)
+add_test(NAME du_slice_control_test COMMAND du_slice_control_test)

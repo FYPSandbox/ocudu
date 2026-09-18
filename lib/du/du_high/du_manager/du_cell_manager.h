@@ -58,6 +58,7 @@ public:
   du_cell_index_t get_cell_index(pci_t pci) const;
 
   void add_cell(const du_cell_config& cfg);
+  void commit_slice_config(const du_cell_slice_reconfig_request& request);
 
   const du_cell_config& get_cell_cfg(du_cell_index_t cell_index) const
   {

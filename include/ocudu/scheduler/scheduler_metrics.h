@@ -6,6 +6,7 @@
 
 #include "ocudu/support/stage2_trace.h"
 #include "ocudu/ran/du_types.h"
+#include "ocudu/ran/rrm.h"
 #include "ocudu/ran/pci.h"
 #include "ocudu/ran/rnti.h"
 #include "ocudu/ran/sch/sch_mcs.h"
@@ -119,6 +120,13 @@ inline const char* sched_event_to_string(scheduler_cell_event::event_type ev)
 }
 
 /// \brief Snapshot of the metrics for a cell and its UEs.
+/// PRB-slot totals charged to a configured scheduler slice, excluding default SRB/DRB slices.
+struct scheduler_slice_metrics {
+  rrm_policy_member member;
+  uint64_t dl_prbs = 0;
+  uint64_t ul_prbs = 0;
+};
+
 struct scheduler_cell_metrics {
   /// Latency histogram number of bins.
   static constexpr unsigned latency_hist_bins = 10;
@@ -186,6 +194,7 @@ struct scheduler_cell_metrics {
   std::vector<scheduler_ue_metrics> ue_metrics;
   /// Whether the per-UE metrics in this report should be consumed/printed by consumers.
   bool report_ue_metrics = true;
+  std::vector<scheduler_slice_metrics> slice_metrics;
   stage2::window stage2_window;
   uint64_t stage2_seq = 0;
 };

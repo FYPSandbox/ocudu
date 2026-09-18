@@ -53,6 +53,9 @@ bool e2sm_ccc_control_service_style_2::control_request_supported(const e2sm_ric_
   }
 
   const auto& cell_ctrl_list = ctrl_msg.ctrl_msg_format.ctrl_msg_format2().list_of_cells_ctrl;
+  if (cell_ctrl_list.size() != 1 or cell_ctrl_list[0].list_of_cfg_structures.size() == 0) {
+    return false;
+  }
   for (auto const& cell_ctrl : cell_ctrl_list) {
     // Check if requested cells are present.
     if (cell_ctrl.cell_global_id.type() != cell_global_id_c::types::nr_cgi) {

@@ -3,6 +3,7 @@
 // Portions of this file may implement 3GPP specifications, which may be subject to additional licensing requirements.
 
 #include "du_cell_manager.h"
+#include "ocudu/support/stage2_trace.h"
 #include "converters/asn1_sys_info_packer.h"
 #include "converters/scheduler_configuration_helpers.h"
 #include "ocudu/du/du_cell_config_validation.h"
@@ -91,6 +92,64 @@ du_cell_manager::handle_cell_reconf_request(const du_cell_param_config_request& 
   auto& cell = *cells[cell_index];
 
   du_cell_config& cell_cfg   = cell.cfg;
+  // Validate the entire slice batch before changing any live DU configuration.
+  std::vector<rrm_policy_member> requested_members;
+  for (const auto& policy : req.rrm_policy_ratio_list) {
+    if (policy.resource_type != rrm_policy_ratio_group::resource_type_t::prb or
+        not policy.minimum_ratio.has_value() or not policy.maximum_ratio.has_value() or
+        policy.dedicated_ratio.value_or(0) > *policy.minimum_ratio or
+        *policy.minimum_ratio > *policy.maximum_ratio or *policy.maximum_ratio > 100 or
+        policy.policy_members_list.size() != 1) {
+      logger.warning("Unsupported or invalid slice policy; no policies changed");
+      return make_unexpected(default_error_t{});
+    }
+    const auto& member = policy.policy_members_list.front();
+    if (std::find(requested_members.begin(), requested_members.end(), member) != requested_members.end() or
+        std::none_of(cell_cfg.rrm_policy_members.begin(), cell_cfg.rrm_policy_members.end(),
+                     [&member](const auto& existing) { return existing.rrc_member == member; })) {
+      logger.warning("Unknown or duplicate slice {}; no policies changed", member);
+      return make_unexpected(default_error_t{});
+    }
+    requested_members.push_back(member);
+  }
+  if (requested_members.size() > MAX_SLICE_RECONF_POLICIES) {
+    return make_unexpected(default_error_t{});
+  }
+  const unsigned current_cell_rbs = cell_cfg.ran.dl_cfg_common.init_dl_bwp.generic_params.crbs.length();
+  for (const auto& expected : req.expected_rrm_policy_ratio_list) {
+    if (expected.policy_members_list.size() != 1 or not expected.minimum_ratio.has_value() or
+        not expected.maximum_ratio.has_value() or not expected.dedicated_ratio.has_value() or
+        *expected.dedicated_ratio > *expected.minimum_ratio or *expected.minimum_ratio > *expected.maximum_ratio or
+        *expected.maximum_ratio > 100) {
+      logger.warning("Invalid expected slice policy; no policies changed");
+      return make_unexpected(default_error_t{});
+    }
+    const auto& member = expected.policy_members_list.front();
+    auto it = std::find_if(cell_cfg.rrm_policy_members.begin(), cell_cfg.rrm_policy_members.end(),
+                          [&member](const auto& existing) { return existing.rrc_member == member; });
+    if (it == cell_cfg.rrm_policy_members.end() or
+        it->rbs.min() != *expected.minimum_ratio * current_cell_rbs / 100 or
+        it->rbs.max() != *expected.maximum_ratio * current_cell_rbs / 100 or
+        it->rbs.dedicated() != *expected.dedicated_ratio * current_cell_rbs / 100) {
+      logger.warning("Stale slice policy {}; no policies changed", member);
+      return make_unexpected(default_error_t{});
+    }
+  }
+  unsigned total_min_ratio_rbs = 0;
+  const unsigned cell_rbs = cell_cfg.ran.dl_cfg_common.init_dl_bwp.generic_params.crbs.length();
+  for (const auto& existing : cell_cfg.rrm_policy_members) {
+    unsigned minimum = existing.rbs.min();
+    for (const auto& policy : req.rrm_policy_ratio_list) {
+      if (policy.policy_members_list.front() == existing.rrc_member) {
+        minimum = (*policy.minimum_ratio * cell_rbs) / 100;
+      }
+    }
+    total_min_ratio_rbs += minimum;
+  }
+  if (not req.rrm_policy_ratio_list.empty() and total_min_ratio_rbs > cell_rbs) {
+    logger.warning("Slice minimum reservations exceed cell resources; no policies changed");
+    return make_unexpected(default_error_t{});
+  }
   bool            si_updated = false;
 
   if (req.ssb_pwr_mod.has_value() and req.ssb_pwr_mod.value() != cell_cfg.ran.ssb_cfg.ssb_block_power) {
@@ -127,62 +186,25 @@ du_cell_manager::handle_cell_reconf_request(const du_cell_param_config_request& 
     }
   }
 
-  const unsigned nof_prbs = band_helper::get_n_rbs_from_bw(cell_cfg.ran.dl_carrier.carrier_bw,
-                                                           cell_cfg.ran.dl_cfg_common.init_dl_bwp.generic_params.scs,
-                                                           band_helper::get_freq_range(cell_cfg.ran.dl_carrier.band));
-
+  const unsigned nof_prbs = cell_rbs;
   du_cell_reconfig_result result;
   result.slice_reconf_req.emplace();
-  for (const auto& rrm_policy_ratio : req.rrm_policy_ratio_list) {
-    if (not(rrm_policy_ratio.minimum_ratio.has_value() or rrm_policy_ratio.maximum_ratio.has_value())) {
-      continue;
-    }
+  result.slice_reconf_req->cell_index = cell_index;
+  result.slice_reconf_req->stage2_trace_id = req.stage2_trace_id;
+  if (req.stage2_trace_id) {
+    stage2::emit(fmt::format("\"event\":\"slice_target\",\"trace_id\":{},\"cell_index\":{},\"cell_plmn\":\"{}\","
+                             "\"nr_cell_id\":{},\"cell_prbs\":{}",
+                             req.stage2_trace_id, static_cast<unsigned>(cell_index), req.nr_cgi->plmn_id.to_string(),
+                             req.nr_cgi->nci.value(), nof_prbs));
+  }
+  for (const auto& policy : req.rrm_policy_ratio_list) {
+    const auto& member = policy.policy_members_list.front();
+    const rrm_policy_ratio_rb_limits limits{policy.dedicated_ratio.value_or(0) * nof_prbs / 100,
+                                            *policy.minimum_ratio * nof_prbs / 100,
+                                            *policy.maximum_ratio * nof_prbs / 100};
+    // Forward even unchanged policies: the scheduler is the authority for applied state.
+    result.slice_reconf_req->rrm_policies.push_back({member, limits});
 
-    for (const auto& policy_member : rrm_policy_ratio.policy_members_list) {
-      bool found = false;
-      for (auto& policy_cfg : cell_cfg.rrm_policy_members) {
-        if (policy_cfg.rrc_member == policy_member) {
-          found = true;
-          // Update the policy member configuration.
-          unsigned min_prb_ratio = rrm_policy_ratio.minimum_ratio.value_or(0);
-          unsigned max_prb_ratio = rrm_policy_ratio.maximum_ratio.value_or(100);
-
-          min_prb_ratio = std::clamp(min_prb_ratio, static_cast<unsigned>(0), static_cast<unsigned>(100));
-          max_prb_ratio = std::clamp(max_prb_ratio, static_cast<unsigned>(0), static_cast<unsigned>(100));
-
-          const unsigned min_prb = static_cast<int>((1.0 * min_prb_ratio / 100) * nof_prbs);
-          const unsigned max_prb = static_cast<int>((1.0 * max_prb_ratio / 100) * nof_prbs);
-
-          if (min_prb > max_prb) {
-            logger.warning(
-                "Invalid min/max PRB policy ratio for {} in cell {}: min_prb={} > max_prb={}. Skipping update.",
-                policy_member,
-                fmt::underlying(cell_index),
-                min_prb,
-                max_prb);
-            break;
-          }
-
-          if ((policy_cfg.rbs.min() != min_prb) or (policy_cfg.rbs.max() != max_prb)) {
-            // Policy configuration has been updated.
-            result.slice_reconf_req->rrm_policies.push_back(
-                du_cell_slice_reconfig_request::rrm_policy_config{policy_member, {min_prb, max_prb}});
-          }
-
-          policy_cfg.rbs = {min_prb, max_prb};
-          break;
-        }
-      }
-      if (not found) {
-        logger.warning("No RRM policy member found for {} in cell {}", policy_member, fmt::underlying(cell_index));
-      }
-
-      if (result.slice_reconf_req->rrm_policies.full()) {
-        logger.warning("RRM policy update list is full. Discarding further updates for cell {}",
-                       fmt::underlying(cell_index));
-        break;
-      }
-    }
   }
 
   if (si_updated) {
@@ -312,4 +334,14 @@ du_cell_index_t du_cell_manager::get_cell_index(pci_t pci) const
     }
   }
   return cell_index;
+}
+
+void du_cell_manager::commit_slice_config(const du_cell_slice_reconfig_request& request)
+{
+  auto& policies = cells[request.cell_index]->cfg.rrm_policy_members;
+  for (const auto& applied : request.rrm_policies) {
+    for (auto& policy : policies) {
+      if (policy.rrc_member == applied.rrc_member) policy.rbs = applied.rbs;
+    }
+  }
 }

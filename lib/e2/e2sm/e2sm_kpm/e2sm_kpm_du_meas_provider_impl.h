@@ -3,6 +3,7 @@
 // Portions of this file may implement 3GPP specifications, which may be subject to additional licensing requirements.
 
 #pragma once
+#include <mutex>
 
 #include "ocudu/support/stage2_trace.h"
 #include "e2sm_kpm_metric_defs.h"
@@ -138,7 +139,9 @@ private:
   /// Per-UE slice membership, fed by on_ue_context_update/on_ue_context_release (same source the
   /// E2SM-RC Style 4 report service uses), keyed by the same du_ue_index_t used to index
   /// last_ue_metrics.
-  std::map<du_ue_index_t, s_nssai_t> ue_slice_map;
+  std::vector<scheduler_slice_metrics> last_slice_metrics;
+  mutable std::mutex slice_map_mutex;
+  std::map<du_ue_index_t, std::vector<s_nssai_t>> ue_slice_map;
 };
 
 } // namespace ocudu

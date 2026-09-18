@@ -33,15 +33,36 @@ void e2ap_ric_control_procedure::operator()(coro_context<async_task<void>>& ctx)
       ",\"requestor\":" + std::to_string(e2_request.request->ric_request_id.ric_requestor_id) +
       ",\"instance\":" + std::to_string(e2_request.request->ric_request_id.ric_instance_id));
   }
+  if (not ric_ctrl_req.decode_valid) {
+    if (ric_ctrl_req.ric_ctrl_ack_request_present and ric_ctrl_req.ric_ctrl_ack_request) {
+      e2_ric_control_response rejected;
+      rejected.success = false;
+      rejected.failure->cause.set_ric_request() = cause_ric_request_e::options::action_not_supported;
+      send_e2_ric_control_failure(e2_request, rejected);
+    }
+    CORO_EARLY_RETURN();
+  }
   control_service = e2sm_iface->get_e2sm_control_service(ric_ctrl_req);
 
   if (!control_service) {
     logger.error("RIC Control Service not supported");
+    if (ric_ctrl_req.ric_ctrl_ack_request_present and ric_ctrl_req.ric_ctrl_ack_request) {
+      e2_ric_control_response rejected;
+      rejected.success = false;
+      rejected.failure->cause.set_ric_request() = cause_ric_request_e::options::action_not_supported;
+      send_e2_ric_control_failure(e2_request, rejected);
+    }
     CORO_EARLY_RETURN();
   }
 
   if (!control_service->control_request_supported(ric_ctrl_req)) {
     logger.error("RIC Control Request not supported");
+    if (ric_ctrl_req.ric_ctrl_ack_request_present and ric_ctrl_req.ric_ctrl_ack_request) {
+      e2_ric_control_response rejected;
+      rejected.success = false;
+      rejected.failure->cause.set_ric_request() = cause_ric_request_e::options::action_not_supported;
+      send_e2_ric_control_failure(e2_request, rejected);
+    }
     CORO_EARLY_RETURN();
   }
 
@@ -96,9 +117,9 @@ void e2ap_ric_control_procedure::send_e2_ric_control_failure(const e2_ric_contro
   }
   fail->cause                    = ctrl_response.failure->cause;
   fail->ric_ctrl_outcome_present = false;
-  if (ctrl_response.ack->ric_ctrl_outcome_present) {
+  if (ctrl_response.failure->ric_ctrl_outcome_present) {
     fail->ric_ctrl_outcome_present = true;
-    fail->ric_ctrl_outcome         = ctrl_response.ack->ric_ctrl_outcome;
+    fail->ric_ctrl_outcome         = ctrl_response.failure->ric_ctrl_outcome;
   }
   ric_notif.on_new_message(msg);
 }

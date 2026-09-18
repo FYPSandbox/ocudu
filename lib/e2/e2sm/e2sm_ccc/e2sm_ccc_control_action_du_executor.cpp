@@ -55,6 +55,7 @@ static odu::du_param_config_request convert_to_du_config_request(const e2sm_ric_
   const auto&                  e2_cell_ctrl_list = e2_ctrl_msg.ctrl_msg_format.ctrl_msg_format2().list_of_cells_ctrl;
   for (auto const& e2_cell_ctrl : e2_cell_ctrl_list) {
     auto&       cell_cfg    = du_request.cells.emplace_back();
+    cell_cfg.stage2_trace_id = e2sm_ccc_req.stage2_trace_id;
     const auto& e2_plmn_id  = e2_cell_ctrl.cell_global_id.nr_cgi().plmn_id;
     std::string plmn_str    = e2_plmn_id.mcc.to_string() + e2_plmn_id.mnc.to_string();
     auto        plmn_id_exp = plmn_identity::parse(plmn_str);
@@ -113,11 +114,21 @@ static odu::du_param_config_request convert_to_du_config_request(const e2sm_ric_
           rrm_policy.maximum_ratio = ran_cfg_structure.o_rrm_policy_ratio().rrm_policy_max_ratio;
         }
         // Convert Dedicated Ratio.
-        if (ran_cfg_structure.o_rrm_policy_ratio().rrm_policy_ded_ratio) {
+        if (ran_cfg_structure.o_rrm_policy_ratio().rrm_policy_ded_ratio_present) {
           rrm_policy.dedicated_ratio = ran_cfg_structure.o_rrm_policy_ratio().rrm_policy_ded_ratio;
         }
       }
-      cell_cfg.rrm_policy_ratio_list.emplace_back(rrm_policy);
+      // This implementation has shared DL/UL limits. Validation requires an identical
+      // DL/UL pair; collapse it into one cell policy, never silently change one direction.
+      if (rrm_policy.resource_type == rrm_policy_ratio_group::resource_type_t::prb_dl) {
+        rrm_policy.resource_type = rrm_policy_ratio_group::resource_type_t::prb;
+        cell_cfg.rrm_policy_ratio_list.emplace_back(rrm_policy);
+        const auto& old = e2_cfg_struct.old_values_of_attributes.ran_cfg_structure.o_rrm_policy_ratio();
+        rrm_policy.minimum_ratio = old.rrm_policy_min_ratio;
+        rrm_policy.maximum_ratio = old.rrm_policy_max_ratio;
+        rrm_policy.dedicated_ratio = old.rrm_policy_ded_ratio;
+        cell_cfg.expected_rrm_policy_ratio_list.emplace_back(rrm_policy);
+      }
     }
   }
   return du_request;
@@ -249,14 +260,96 @@ bool e2sm_ccc_control_o_rrm_policy_ratio_executor::ric_control_action_supported(
     return false;
   }
 
-  const auto& cell_ctrl      = ctrl_msg.ctrl_msg_format.ctrl_msg_format2().list_of_cells_ctrl[0];
-  const auto& ran_cfg_struct = cell_ctrl.list_of_cfg_structures[0];
-
-  if (ran_cfg_struct.ran_cfg_structure_name.to_string() != ran_cfg_structure_name) {
+  const auto& cells = ctrl_msg.ctrl_msg_format.ctrl_msg_format2().list_of_cells_ctrl;
+  // Atomicity is supported within one cell, not across cells.
+  if (cells.size() != 1 or cells[0].cell_global_id.type() != cell_global_id_c::types::nr_cgi) {
     return false;
   }
-  const auto& rrm_cfg = ran_cfg_struct.new_values_of_attributes.ran_cfg_structure.o_rrm_policy_ratio();
-  return !(rrm_cfg.res_type.value != res_type_opts::prb_dl and rrm_cfg.res_type.value != res_type_opts::prb_ul);
+  const auto& cgi = cells[0].cell_global_id.nr_cgi();
+  if (not plmn_identity::parse(cgi.plmn_id.mcc.to_string() + cgi.plmn_id.mnc.to_string()).has_value()) {
+    return false;
+  }
+  const auto& structures = cells[0].list_of_cfg_structures;
+  if (structures.size() == 0 or structures.size() > 2 * MAX_SLICE_RECONF_POLICIES) {
+    return false;
+  }
+  for (const auto& structure : structures) {
+    if (structure.ran_cfg_structure_name.to_string() != ran_cfg_structure_name or
+        structure.new_values_of_attributes.ran_cfg_structure.type() !=
+            e2_sm_ccc_ran_cfg_structure_c::types::o_rrm_policy_ratio) {
+      return false;
+    }
+    const auto& policy = structure.new_values_of_attributes.ran_cfg_structure.o_rrm_policy_ratio();
+    if (not policy.res_type_present or
+        (policy.res_type != res_type_opts::prb_dl and policy.res_type != res_type_opts::prb_ul) or
+        not policy.rrm_policy_min_ratio_present or not policy.rrm_policy_max_ratio_present or
+        not policy.rrm_policy_ded_ratio_present or policy.rrm_policy_member_list.size() != 1 or
+        policy.rrm_policy_ded_ratio < 0 or policy.rrm_policy_ded_ratio > policy.rrm_policy_min_ratio or
+        policy.rrm_policy_min_ratio > policy.rrm_policy_max_ratio or policy.rrm_policy_max_ratio > 100) {
+      return false;
+    }
+    if (structure.old_values_of_attributes.ran_cfg_structure.type() !=
+        e2_sm_ccc_ran_cfg_structure_c::types::o_rrm_policy_ratio) {
+      return false;
+    }
+    const auto& old = structure.old_values_of_attributes.ran_cfg_structure.o_rrm_policy_ratio();
+    nlohmann::ordered_json old_json = old;
+    nlohmann::ordered_json new_json = policy;
+    for (const char* key : {"rRMPolicyMinRatio", "rRMPolicyMaxRatio", "rRMPolicyDedicatedRatio"}) {
+      old_json.erase(key);
+      new_json.erase(key);
+    }
+    if (old_json != new_json or not old.rrm_policy_min_ratio_present or not old.rrm_policy_max_ratio_present or
+        not old.rrm_policy_ded_ratio_present or old.rrm_policy_ded_ratio < 0 or
+        old.rrm_policy_ded_ratio > old.rrm_policy_min_ratio or
+        old.rrm_policy_min_ratio > old.rrm_policy_max_ratio or old.rrm_policy_max_ratio > 100) {
+      return false;
+    }
+    const auto& member = policy.rrm_policy_member_list[0];
+    if (not member.plmn_id_present or not member.snssai_present or not member.snssai.sst_present or
+        member.snssai.sst < 0 or member.snssai.sst > 255 or
+        not plmn_identity::parse(member.plmn_id.mcc.to_string() + member.plmn_id.mnc.to_string()).has_value() or
+        (member.snssai.sd_present and not slice_differentiator::create(member.snssai.sd.to_number()).has_value())) {
+      return false;
+    }
+    // Exactly one instance in each direction, with identical ratios and identity.
+    unsigned same_direction = 0;
+    unsigned other_direction = 0;
+    for (const auto& other : structures) {
+      if (other.new_values_of_attributes.ran_cfg_structure.type() !=
+          e2_sm_ccc_ran_cfg_structure_c::types::o_rrm_policy_ratio) {
+        return false;
+      }
+      const auto& candidate = other.new_values_of_attributes.ran_cfg_structure.o_rrm_policy_ratio();
+      if (candidate.rrm_policy_member_list.size() != 1) {
+        return false;
+      }
+      const auto& m = candidate.rrm_policy_member_list[0];
+      if (m.plmn_id.mcc.to_string() != member.plmn_id.mcc.to_string() or
+          m.plmn_id.mnc.to_string() != member.plmn_id.mnc.to_string() or m.snssai.sst != member.snssai.sst or
+          m.snssai.sd_present != member.snssai.sd_present or
+          (m.snssai.sd_present and m.snssai.sd.to_number() != member.snssai.sd.to_number())) {
+        continue;
+      }
+      if (candidate.rrm_policy_min_ratio != policy.rrm_policy_min_ratio or
+          candidate.rrm_policy_max_ratio != policy.rrm_policy_max_ratio or
+          candidate.rrm_policy_ded_ratio != policy.rrm_policy_ded_ratio) {
+        return false;
+      }
+      const auto& candidate_old = other.old_values_of_attributes.ran_cfg_structure;
+      if (candidate_old.type() != e2_sm_ccc_ran_cfg_structure_c::types::o_rrm_policy_ratio or
+          candidate_old.o_rrm_policy_ratio().rrm_policy_min_ratio != old.rrm_policy_min_ratio or
+          candidate_old.o_rrm_policy_ratio().rrm_policy_max_ratio != old.rrm_policy_max_ratio or
+          candidate_old.o_rrm_policy_ratio().rrm_policy_ded_ratio != old.rrm_policy_ded_ratio) {
+        return false;
+      }
+      candidate.res_type == policy.res_type ? ++same_direction : ++other_direction;
+    }
+    if (same_direction != 1 or other_direction != 1) {
+      return false;
+    }
+  }
+  return true;
 }
 
 async_task<e2sm_ric_control_response>

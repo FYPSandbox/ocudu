@@ -5,6 +5,8 @@
 #pragma once
 
 #include "ocudu/ran/du_types.h"
+#include <atomic>
+#include <memory>
 #include "ocudu/ran/plmn_identity.h"
 #include "ocudu/ran/resource_block.h"
 #include "ocudu/ran/s_nssai.h"
@@ -75,6 +77,12 @@ private:
 
 constexpr unsigned MAX_SLICE_RECONF_POLICIES = 16;
 
+/// Shared completion state. Pending work can be cancelled before the scheduler claims it.
+struct slice_reconfiguration_completion {
+  enum state { pending, applying, applied, rejected, cancelled };
+  std::atomic<state> status{pending};
+};
+
 /// Request to reconfigure slicing policies for a given DU cell.
 struct du_cell_slice_reconfig_request {
   du_cell_index_t cell_index;
@@ -84,6 +92,8 @@ struct du_cell_slice_reconfig_request {
     rrm_policy_ratio_rb_limits rbs;
   };
   static_vector<rrm_policy_config, MAX_SLICE_RECONF_POLICIES> rrm_policies;
+  uint64_t stage2_trace_id = 0;
+  std::shared_ptr<slice_reconfiguration_completion> completion;
 };
 
 } // namespace ocudu

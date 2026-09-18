@@ -43,6 +43,9 @@ cell_metrics_handler::cell_metrics_handler(
   report_ue_metrics(not metrics_cfg.has_value() or metrics_cfg->report_ue_metrics),
   nof_slots_per_sf(get_nof_slots_per_subframe(cell_cfg.scs_common()))
 {
+  for (const auto& policy : cell_cfg.rrm_policy_members) {
+    slice_metrics.push_back({policy.rrc_member, 0, 0});
+  }
   if (not enabled()) {
     return;
   }
@@ -412,6 +415,8 @@ void cell_metrics_handler::handle_late_ul_harqs()
 void cell_metrics_handler::report_metrics()
 {
   auto next_report = notifier.get_builder();
+  next_report->slice_metrics = slice_metrics;
+  for (auto& metric : slice_metrics) metric.dl_prbs = metric.ul_prbs = 0;
   next_report->stage2_window = stage2::close_window(stage2_previous);
   if (stage2::enabled()) next_report->stage2_seq = stage2::next_id();
 
@@ -537,6 +542,10 @@ void cell_metrics_handler::handle_slot_result(slot_point_extended       sl_tx,
       grant_prbs = (dl_grant.pdsch_cfg.rbs.type1().length());
     }
     u.data.tot_dl_prbs_used += grant_prbs;
+    if (dl_grant.context.slice_index.has_value() and *dl_grant.context.slice_index >= 2 and
+        *dl_grant.context.slice_index - 2 < slice_metrics.size()) {
+      slice_metrics[*dl_grant.context.slice_index - 2].dl_prbs += grant_prbs;
+    }
     if (not dl_prbs_used_per_tdd_slot_idx.empty()) {
       dl_prbs_used_per_tdd_slot_idx[last_slot_tx.count() % dl_prbs_used_per_tdd_slot_idx.size()] += grant_prbs;
     }
@@ -566,6 +575,10 @@ void cell_metrics_handler::handle_slot_result(slot_point_extended       sl_tx,
       grant_prbs = (ul_grant.pusch_cfg.rbs.type1().length());
     }
     ues[it->second].data.tot_ul_prbs_used += grant_prbs;
+    if (ul_grant.context.slice_index.has_value() and *ul_grant.context.slice_index >= 2 and
+        *ul_grant.context.slice_index - 2 < slice_metrics.size()) {
+      slice_metrics[*ul_grant.context.slice_index - 2].ul_prbs += grant_prbs;
+    }
     if (not ul_prbs_used_per_tdd_slot_idx.empty()) {
       ul_prbs_used_per_tdd_slot_idx[last_slot_tx.count() % ul_prbs_used_per_tdd_slot_idx.size()] += grant_prbs;
     }

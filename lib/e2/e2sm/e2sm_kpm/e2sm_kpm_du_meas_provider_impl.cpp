@@ -111,16 +111,14 @@ e2sm_kpm_du_meas_provider_impl::~e2sm_kpm_du_meas_provider_impl()
 
 void e2sm_kpm_du_meas_provider_impl::on_ue_context_update(const e2_ue_context_info& ue_ctx)
 {
-  if (ue_ctx.slices.empty()) {
-    return;
-  }
-  // A UE may carry multiple DRBs/slices; use the first for slice-scoped aggregation, matching the
-  // same single-slice-per-UE assumption E2SM-RC's Style 4 report service already makes.
-  ue_slice_map[ue_ctx.ue_index] = ue_ctx.slices.front();
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
+  // Retain ambiguity: a per-UE counter cannot be attributed to one of several slices.
+  ue_slice_map[ue_ctx.ue_index] = ue_ctx.slices;
 }
 
 void e2sm_kpm_du_meas_provider_impl::on_ue_context_release(du_ue_index_t ue_index)
 {
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
   ue_slice_map.erase(ue_index);
 }
 
@@ -132,31 +130,21 @@ bool e2sm_kpm_du_meas_provider_impl::extract_requested_slice(const asn1::e2sm::l
   }
   const asn1::e2sm::s_nssai_s& asn1_slice = label_info_list[0].meas_label.slice_id;
   uint8_t                      sst_val    = static_cast<uint8_t>(asn1_slice.sst.to_number());
-  uint32_t                     sd_val     = asn1_slice.sd_present ? static_cast<uint32_t>(asn1_slice.sd.to_number())
-                                                                   : slice_differentiator().value();
-  expected<slice_differentiator> sd = slice_differentiator::create(sd_val);
-  if (not sd.has_value()) {
-    return false;
+  slice_differentiator sd;
+  if (asn1_slice.sd_present) {
+    auto parsed = slice_differentiator::create(asn1_slice.sd.to_number());
+    if (not parsed.has_value()) return false;
+    sd = parsed.value();
   }
-  slice_out = s_nssai_t{slice_service_type(sst_val), sd.value()};
+  slice_out = s_nssai_t{slice_service_type(sst_val), sd};
   return true;
 }
 
 bool e2sm_kpm_du_meas_provider_impl::ue_in_slice(du_ue_index_t ue_index, const s_nssai_t& slice) const
 {
+  // Caller holds slice_map_mutex. Absent SD is an identity value, not a wildcard.
   auto it = ue_slice_map.find(ue_index);
-  if (it == ue_slice_map.end() or it->second.sst != slice.sst) {
-    return false;
-  }
-  // This deployment's core doesn't provision a real Slice Differentiator, so DRBs carry the
-  // "no SD" sentinel (slice_differentiator::is_default()) regardless of what SD an E2 client
-  // requests. Only discriminate by SD when both sides actually set one; SST alone differentiates
-  // slices otherwise.
-  const s_nssai_t& ue_slice = it->second;
-  if (ue_slice.sd.is_default() or slice.sd.is_default()) {
-    return true;
-  }
-  return ue_slice.sd == slice.sd;
+  return it != ue_slice_map.end() and it->second.size() == 1 and it->second.front() == slice;
 }
 
 bool e2sm_kpm_du_meas_provider_impl::check_e2sm_kpm_metrics_definitions(span<const e2sm_kpm_metric_t> metric_defs)
@@ -193,6 +181,7 @@ void e2sm_kpm_du_meas_provider_impl::report_metrics(const scheduler_cell_metrics
 {
   stage2_sched_window = cell_metrics.stage2_window;
   stage2_sched_seq = cell_metrics.stage2_seq;
+  last_slice_metrics = cell_metrics.slice_metrics;
   last_ue_metrics.clear();
   nof_cell_prbs          = cell_metrics.nof_prbs;
   nof_dl_slots           = cell_metrics.nof_dl_slots;
@@ -502,10 +491,8 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_dl(const asn1::e2sm::label_inf
                                                      std::vector<asn1::e2sm::meas_record_item_c>& items)
 {
   stage2::source("RRU.PrbUsedDl", -1, stage2_sched_window, stage2_sched_seq);
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
   bool meas_collected = false;
-  if (last_ue_metrics.empty()) {
-    return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
-  }
   s_nssai_t requested_slice;
   bool      slice_scoped = extract_requested_slice(label_info_list, requested_slice);
   if (not slice_scoped and
@@ -513,6 +500,28 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_dl(const asn1::e2sm::label_inf
        (label_info_list.size() == 1 and not label_info_list[0].meas_label.no_label_present))) {
     logger.debug("Metric: RRU.PrbUsedDl supports only NO_LABEL and SliceID labels.");
     return meas_collected;
+  }
+  if (slice_scoped) {
+    // Slice-label reports come from actual grant ownership, never whole-UE totals.
+    // A slice label alone cannot disambiguate two PLMNs sharing one S-NSSAI.
+    const scheduler_slice_metrics* selected = nullptr;
+    unsigned matches = 0;
+    for (const auto& metric : last_slice_metrics) {
+      if (metric.member.s_nssai == requested_slice) { selected = &metric; ++matches; }
+    }
+    for (size_t i = 0; i < std::max(ues.size(), size_t{1}); ++i) {
+      meas_record_item_c item;
+      if (matches == 1 and ues.empty() and nof_dl_slots > 0) {
+        item.set_integer() = selected->dl_prbs / nof_dl_slots;
+      } else {
+        item.set_no_value();
+      }
+      items.push_back(item);
+    }
+    return true;
+  }
+  if (last_ue_metrics.empty()) {
+    return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
   }
   if (ues.empty()) {
     unsigned sum_dl_prbs = 0;
@@ -533,9 +542,11 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_dl(const asn1::e2sm::label_inf
     gnb_cu_ue_f1ap_id_t gnb_cu_ue_f1ap_id = int_to_gnb_cu_ue_f1ap_id(ue.gnb_du_ue_id().gnb_cu_ue_f1ap_id);
     uint32_t            ue_idx            = f1ap_ue_id_provider.get_ue_index(gnb_cu_ue_f1ap_id);
     meas_record_item_c  meas_record_item;
-    if (ue_idx != du_ue_index_t::INVALID_DU_UE_INDEX && ue_idx < last_ue_metrics.size()) {
-      unsigned ue_mean_dl_prbs_used = nof_dl_slots > 0 ? last_ue_metrics[ue_idx].tot_pdsch_prbs_used / nof_dl_slots : 0;
-      meas_record_item.set_integer() = ue_mean_dl_prbs_used;
+    const auto metric = std::find_if(last_ue_metrics.begin(), last_ue_metrics.end(), [ue_idx](const auto& m) {
+      return static_cast<unsigned>(m.ue_index) == ue_idx;
+    });
+    if (metric != last_ue_metrics.end() and (not slice_scoped or ue_in_slice(metric->ue_index, requested_slice))) {
+      meas_record_item.set_integer() = nof_dl_slots > 0 ? metric->tot_pdsch_prbs_used / nof_dl_slots : 0;
     } else {
       meas_record_item.set_no_value();
     }
@@ -552,10 +563,8 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
                                                      std::vector<asn1::e2sm::meas_record_item_c>& items)
 {
   stage2::source("RRU.PrbUsedUl", -1, stage2_sched_window, stage2_sched_seq);
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
   bool meas_collected = false;
-  if (last_ue_metrics.empty()) {
-    return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
-  }
   s_nssai_t requested_slice;
   bool      slice_scoped = extract_requested_slice(label_info_list, requested_slice);
   if (not slice_scoped and
@@ -565,6 +574,28 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
     return meas_collected;
   }
 
+  if (slice_scoped) {
+    // Slice-label reports come from actual grant ownership, never whole-UE totals.
+    // A slice label alone cannot disambiguate two PLMNs sharing one S-NSSAI.
+    const scheduler_slice_metrics* selected = nullptr;
+    unsigned matches = 0;
+    for (const auto& metric : last_slice_metrics) {
+      if (metric.member.s_nssai == requested_slice) { selected = &metric; ++matches; }
+    }
+    for (size_t i = 0; i < std::max(ues.size(), size_t{1}); ++i) {
+      meas_record_item_c item;
+      if (matches == 1 and ues.empty() and nof_ul_slots > 0) {
+        item.set_integer() = selected->ul_prbs / nof_ul_slots;
+      } else {
+        item.set_no_value();
+      }
+      items.push_back(item);
+    }
+    return true;
+  }
+  if (last_ue_metrics.empty()) {
+    return handle_no_meas_data_available(ues, items, asn1::e2sm::meas_record_item_c::types::options::integer);
+  }
   if (ues.empty()) {
     unsigned sum_ul_prbs = 0;
     for (const scheduler_ue_metrics& ue_metric : last_ue_metrics) {
@@ -584,9 +615,11 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
     gnb_cu_ue_f1ap_id_t gnb_cu_ue_f1ap_id = int_to_gnb_cu_ue_f1ap_id(ue.gnb_du_ue_id().gnb_cu_ue_f1ap_id);
     uint32_t            ue_idx            = f1ap_ue_id_provider.get_ue_index(gnb_cu_ue_f1ap_id);
     meas_record_item_c  meas_record_item;
-    if (ue_idx != du_ue_index_t::INVALID_DU_UE_INDEX && ue_idx < last_ue_metrics.size()) {
-      unsigned ue_mean_ul_prbs_used = nof_ul_slots > 0 ? last_ue_metrics[ue_idx].tot_pusch_prbs_used / nof_ul_slots : 0;
-      meas_record_item.set_integer() = ue_mean_ul_prbs_used;
+    const auto metric = std::find_if(last_ue_metrics.begin(), last_ue_metrics.end(), [ue_idx](const auto& m) {
+      return static_cast<unsigned>(m.ue_index) == ue_idx;
+    });
+    if (metric != last_ue_metrics.end() and (not slice_scoped or ue_in_slice(metric->ue_index, requested_slice))) {
+      meas_record_item.set_integer() = nof_ul_slots > 0 ? metric->tot_pusch_prbs_used / nof_ul_slots : 0;
     } else {
       meas_record_item.set_no_value();
     }

@@ -134,6 +134,8 @@ struct dl_msg_alloc {
     unsigned buffer_occupancy;
     /// Offset that the OLLA algorithm applied to the DL MCS candidate to account for channel impairments.
     std::optional<float> olla_offset;
+    /// Scheduler slice owning this grant, retained across HARQ retransmissions.
+    std::optional<unsigned> slice_index;
   } context;
 };
 
