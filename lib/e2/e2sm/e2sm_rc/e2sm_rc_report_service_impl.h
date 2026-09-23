@@ -82,9 +82,6 @@ private:
   /// Stores: UE Index -> (C-RNTI, S-NSSAI)
   std::map<du_ue_index_t, std::pair<rnti_t, s_nssai_t>> ue_context_cache;
 
-  /// Track which UE triggered the current event (for single-UE indications)
-  std::optional<du_ue_index_t> triggered_ue_index;
-  bool is_disconnect_event = false;
 };
 
 } // namespace ocudu

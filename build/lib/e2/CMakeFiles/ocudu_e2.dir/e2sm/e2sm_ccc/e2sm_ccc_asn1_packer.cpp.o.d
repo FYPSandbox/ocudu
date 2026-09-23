@@ -261,6 +261,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_ccc/e2sm_ccc_asn1_packer.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2ap/e2ap.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_ap_utils.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
  /home/fyp5g/fyp/ocudu/external/nlohmann/json.hpp \
@@ -314,4 +315,9 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_ccc/e2sm_ccc_asn1_packer.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/detail/type_list.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/async/manual_event.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/async/detail/event_impl.h \
- /usr/include/c++/11/variant
+ /usr/include/c++/11/variant \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_cgi.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_cell_identity.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_id.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h

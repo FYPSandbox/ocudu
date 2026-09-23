@@ -250,14 +250,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
+  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/11/bits/align.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/bits/uses_allocator.h \
+  /usr/include/c++/11/bits/unique_ptr.h \
+  /usr/include/c++/11/tuple \
+  /usr/include/c++/11/array \
+  /usr/include/c++/11/bits/shared_ptr.h \
+  /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/allocated_ptr.h \
+  /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/bits/shared_ptr_atomic.h \
+  /usr/include/c++/11/backward/auto_ptr.h \
+  /usr/include/c++/11/pstl/glue_memory_defs.h \
+  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/plmn_identity.h \
   ../include/ocudu/adt/expected.h \
   ../external/TartanLlama/expected.hpp \
   /usr/include/c++/11/functional \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/refwrap.h \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -266,14 +281,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/erase_if.h \
   /usr/include/c++/11/vector \
-  /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/bits/stl_heap.h \
-  /usr/include/c++/11/bits/stl_tempbuf.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
   /usr/include/c++/11/cassert \
   /usr/include/assert.h \
@@ -286,19 +299,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/bits/streambuf.tcc \
-  /usr/include/c++/11/memory \
-  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/11/bits/align.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/bits/unique_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr_base.h \
-  /usr/include/c++/11/bits/allocated_ptr.h \
-  /usr/include/c++/11/ext/concurrence.h \
-  /usr/include/c++/11/bits/shared_ptr_atomic.h \
-  /usr/include/c++/11/backward/auto_ptr.h \
-  /usr/include/c++/11/pstl/glue_memory_defs.h \
-  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/bcd_helper.h \
   ../include/ocudu/adt/span.h \
   ../include/ocudu/adt/detail/type_traits.h \
@@ -679,14 +679,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
+  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/11/bits/align.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/bits/uses_allocator.h \
+  /usr/include/c++/11/bits/unique_ptr.h \
+  /usr/include/c++/11/tuple \
+  /usr/include/c++/11/array \
+  /usr/include/c++/11/bits/shared_ptr.h \
+  /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/allocated_ptr.h \
+  /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/bits/shared_ptr_atomic.h \
+  /usr/include/c++/11/backward/auto_ptr.h \
+  /usr/include/c++/11/pstl/glue_memory_defs.h \
+  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/plmn_identity.h \
   ../include/ocudu/adt/expected.h \
   ../external/TartanLlama/expected.hpp \
   /usr/include/c++/11/functional \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/refwrap.h \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -695,14 +710,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/erase_if.h \
   /usr/include/c++/11/vector \
-  /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/bits/stl_heap.h \
-  /usr/include/c++/11/bits/stl_tempbuf.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
   /usr/include/c++/11/cassert \
   /usr/include/assert.h \
@@ -715,19 +728,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/bits/streambuf.tcc \
-  /usr/include/c++/11/memory \
-  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/11/bits/align.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/bits/unique_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr_base.h \
-  /usr/include/c++/11/bits/allocated_ptr.h \
-  /usr/include/c++/11/ext/concurrence.h \
-  /usr/include/c++/11/bits/shared_ptr_atomic.h \
-  /usr/include/c++/11/backward/auto_ptr.h \
-  /usr/include/c++/11/pstl/glue_memory_defs.h \
-  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/bcd_helper.h \
   ../include/ocudu/adt/span.h \
   ../include/ocudu/adt/detail/type_traits.h \
@@ -1107,14 +1107,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o: ../lib/schedu
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
+  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/11/bits/align.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/bits/uses_allocator.h \
+  /usr/include/c++/11/bits/unique_ptr.h \
+  /usr/include/c++/11/tuple \
+  /usr/include/c++/11/array \
+  /usr/include/c++/11/bits/shared_ptr.h \
+  /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/allocated_ptr.h \
+  /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/bits/shared_ptr_atomic.h \
+  /usr/include/c++/11/backward/auto_ptr.h \
+  /usr/include/c++/11/pstl/glue_memory_defs.h \
+  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/plmn_identity.h \
   ../include/ocudu/adt/expected.h \
   ../external/TartanLlama/expected.hpp \
   /usr/include/c++/11/functional \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/refwrap.h \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -1123,14 +1138,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o: ../lib/schedu
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/erase_if.h \
   /usr/include/c++/11/vector \
-  /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/bits/stl_heap.h \
-  /usr/include/c++/11/bits/stl_tempbuf.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
   /usr/include/c++/11/cassert \
   /usr/include/assert.h \
@@ -1143,19 +1156,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o: ../lib/schedu
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/bits/streambuf.tcc \
-  /usr/include/c++/11/memory \
-  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/11/bits/align.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/bits/unique_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr_base.h \
-  /usr/include/c++/11/bits/allocated_ptr.h \
-  /usr/include/c++/11/ext/concurrence.h \
-  /usr/include/c++/11/bits/shared_ptr_atomic.h \
-  /usr/include/c++/11/backward/auto_ptr.h \
-  /usr/include/c++/11/pstl/glue_memory_defs.h \
-  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/bcd_helper.h \
   ../include/ocudu/adt/span.h \
   ../include/ocudu/adt/detail/type_traits.h \
@@ -1350,6 +1350,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o: ../lib/schedu
   ../include/ocudu/ran/band_helper.h \
   ../include/ocudu/ran/band_helper_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/scheduler/config/si_scheduling_config.h \
@@ -1860,6 +1861,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell.cpp.o: ../lib/s
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -2393,6 +2395,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell_repository.cpp.
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -3122,14 +3125,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
+  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/11/bits/align.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/bits/uses_allocator.h \
+  /usr/include/c++/11/bits/unique_ptr.h \
+  /usr/include/c++/11/tuple \
+  /usr/include/c++/11/array \
+  /usr/include/c++/11/bits/shared_ptr.h \
+  /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/allocated_ptr.h \
+  /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/bits/shared_ptr_atomic.h \
+  /usr/include/c++/11/backward/auto_ptr.h \
+  /usr/include/c++/11/pstl/glue_memory_defs.h \
+  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/plmn_identity.h \
   ../include/ocudu/adt/expected.h \
   ../external/TartanLlama/expected.hpp \
   /usr/include/c++/11/functional \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/refwrap.h \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -3138,14 +3156,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/erase_if.h \
   /usr/include/c++/11/vector \
-  /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
   /usr/include/c++/11/bits/stl_heap.h \
-  /usr/include/c++/11/bits/stl_tempbuf.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
   /usr/include/c++/11/cassert \
   /usr/include/assert.h \
@@ -3158,19 +3174,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/bits/streambuf.tcc \
-  /usr/include/c++/11/memory \
-  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/11/bits/align.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/bits/unique_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr.h \
-  /usr/include/c++/11/bits/shared_ptr_base.h \
-  /usr/include/c++/11/bits/allocated_ptr.h \
-  /usr/include/c++/11/ext/concurrence.h \
-  /usr/include/c++/11/bits/shared_ptr_atomic.h \
-  /usr/include/c++/11/backward/auto_ptr.h \
-  /usr/include/c++/11/pstl/glue_memory_defs.h \
-  /usr/include/c++/11/pstl/execution_defs.h \
   ../include/ocudu/ran/bcd_helper.h \
   ../include/ocudu/adt/span.h \
   ../include/ocudu/adt/detail/type_traits.h \
@@ -3732,6 +3735,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_link_adaptation_cont
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -3753,7 +3760,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_link_adaptation_cont
   ../lib/scheduler/support/outer_loop_link_adaptation.h \
   /usr/include/c++/11/math.h \
   ../lib/scheduler/ue_context/ue_channel_state_manager.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
   ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
@@ -4225,6 +4231,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -4276,7 +4286,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
@@ -4301,8 +4310,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -4400,11 +4407,17 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 ../include/ocudu/ran/sch/tbs_calculator.h:
 
-/usr/include/c++/11/bits/refwrap.h:
+../lib/scheduler/support/pdcch_aggregation_level_calculator.h:
+
+/usr/include/c++/11/bits/unique_ptr.h:
 
 /usr/include/c++/11/bits/uses_allocator.h:
 
-../external/TartanLlama/expected.hpp:
+/usr/include/c++/11/bits/align.h:
+
+/usr/include/c++/11/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/11/bits/stl_uninitialized.h:
 
 ../include/ocudu/ran/du_types.h:
 
@@ -4415,8 +4428,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 ../include/ocudu/ran/qos/qos_prio_level.h:
 
 ../include/ocudu/ran/qos/packet_error_rate.h:
-
-/usr/include/c++/11/tr1/beta_function.tcc:
 
 /usr/include/c++/11/climits:
 
@@ -4433,10 +4444,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 /usr/include/c++/11/bits/enable_special_members.h:
 
 /usr/include/c++/11/bits/basic_ios.tcc:
-
-../include/ocudu/ran/plmn_identity.h:
-
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
 /usr/include/c++/11/utility:
 
@@ -4592,8 +4599,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/c++/11/tr1/riemann_zeta.tcc:
 
-../lib/scheduler/support/pdcch_aggregation_level_calculator.h:
-
 /usr/include/c++/11/tr1/poly_hermite.tcc:
 
 /usr/include/c++/11/tr1/legendre_function.tcc:
@@ -4603,8 +4608,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 ../include/ocudu/adt/static_flat_map.h:
 
 ../include/ocudu/ran/srs/srs_constants.h:
-
-/usr/include/c++/11/bits/stl_tempbuf.h:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
@@ -4655,10 +4658,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 ../include/ocudu/scheduler/config/serving_cell_config.h:
 
 ../include/ocudu/ran/qos/five_qi.h:
-
-/usr/include/linux/errno.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
@@ -4734,6 +4733,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+../include/ocudu/ran/plmn_identity.h:
+
 /usr/include/c++/11/tuple:
 
 ../include/ocudu/ran/pusch/pusch_tpc.h:
@@ -4757,6 +4760,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 ../include/ocudu/support/ocudu_assert.h:
 
 ../include/ocudu/ran/pucch/pucch_mapping.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
+
+/usr/include/linux/errno.h:
 
 /usr/include/c++/11/debug/assertions.h:
 
@@ -4848,6 +4855,8 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 
+/usr/include/c++/11/bits/stl_tempbuf.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 ../include/ocudu/adt/detail/slotted_array_detail.h:
@@ -4928,10 +4937,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 ../include/ocudu/ran/logical_channel/bsr_format.h:
 
-/usr/include/c++/11/array:
-
-../include/ocudu/adt/circular_vector.h:
-
 /usr/include/stdlib.h:
 
 /usr/include/c++/11/tr1/special_function_util.h:
@@ -4978,9 +4983,19 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/alloca.h:
 
+../include/ocudu/adt/slotted_vector.h:
+
+/usr/include/c++/11/bits/specfun.h:
+
 /usr/include/c++/11/ext/atomicity.h:
 
 /usr/include/c++/11/bits/stl_pair.h:
+
+/usr/include/c++/11/tr1/beta_function.tcc:
+
+../include/ocudu/adt/circular_vector.h:
+
+/usr/include/c++/11/array:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
 
@@ -4994,83 +5009,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/c++/11/tr1/hypergeometric.tcc:
 
-/usr/include/c++/11/functional:
-
-../include/ocudu/scheduler/sched_consts.h:
-
-/usr/include/c++/11/bits/hashtable.h:
-
-/usr/include/c++/11/bits/hashtable_policy.h:
-
-../include/ocudu/ran/precoding/precoding_constants.h:
-
-/usr/include/c++/11/bits/unordered_map.h:
-
-../include/ocudu/ran/precoding/precoding_matrix_indicator.h:
-
-../include/ocudu/ran/prach/prach_configuration.h:
-
-/usr/include/c++/11/vector:
-
-/usr/include/c++/11/bits/stl_uninitialized.h:
-
-/usr/include/c++/11/bits/stl_algo.h:
-
-/usr/include/c++/11/bits/cxxabi_forced.h:
-
-/usr/include/c++/11/bits/algorithmfwd.h:
-
-../include/ocudu/scheduler/config/logical_channel_config.h:
-
-/usr/include/c++/11/pstl/execution_defs.h:
-
-/usr/include/c++/11/bits/stl_vector.h:
-
-../include/ocudu/ran/harq_id.h:
-
-../include/ocudu/scheduler/scheduler_paging_handler.h:
-
-/usr/include/c++/11/bits/uniform_int_dist.h:
-
-../external/rigtorp/MPMCQueue.h:
-
-/usr/include/c++/11/bits/basic_ios.h:
-
-/usr/include/c++/11/cassert:
-
-../include/ocudu/adt/static_vector.h:
-
-/usr/include/c++/11/bits/stream_iterator.h:
-
-/usr/include/c++/11/bits/streambuf_iterator.h:
-
-/usr/include/c++/11/streambuf:
-
-/usr/include/c++/11/bits/ios_base.h:
-
-../include/ocudu/support/compiler.h:
-
-/usr/include/c++/11/bits/locale_classes.h:
-
-../include/ocudu/ran/pusch/pusch_configuration.h:
-
-/usr/include/c++/11/ext/aligned_buffer.h:
-
-/usr/include/c++/11/bits/locale_classes.tcc:
-
-/usr/include/c++/11/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/11/bits/align.h:
-
-/usr/include/c++/11/bits/specfun.h:
-
-../include/ocudu/adt/slotted_vector.h:
-
-/usr/include/c++/11/bits/unique_ptr.h:
-
-/usr/include/assert.h:
-
-/usr/include/c++/11/bits/allocated_ptr.h:
+/usr/include/c++/11/bits/refwrap.h:
 
 /usr/include/c++/11/ext/concurrence.h:
 
@@ -5091,6 +5030,74 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 ../include/ocudu/ran/sch/sch_mcs.h:
+
+../include/ocudu/scheduler/config/logical_channel_config.h:
+
+/usr/include/c++/11/pstl/execution_defs.h:
+
+/usr/include/c++/11/bits/cxxabi_forced.h:
+
+/usr/include/c++/11/bits/algorithmfwd.h:
+
+/usr/include/c++/11/bits/stl_vector.h:
+
+../include/ocudu/ran/harq_id.h:
+
+../include/ocudu/scheduler/scheduler_paging_handler.h:
+
+../external/TartanLlama/expected.hpp:
+
+/usr/include/c++/11/functional:
+
+../include/ocudu/scheduler/sched_consts.h:
+
+/usr/include/c++/11/bits/hashtable.h:
+
+/usr/include/c++/11/bits/hashtable_policy.h:
+
+../include/ocudu/ran/precoding/precoding_constants.h:
+
+/usr/include/c++/11/bits/unordered_map.h:
+
+../include/ocudu/ran/precoding/precoding_matrix_indicator.h:
+
+../include/ocudu/ran/prach/prach_configuration.h:
+
+/usr/include/c++/11/vector:
+
+/usr/include/c++/11/bits/stl_algo.h:
+
+/usr/include/c++/11/bits/uniform_int_dist.h:
+
+../external/rigtorp/MPMCQueue.h:
+
+/usr/include/c++/11/bits/basic_ios.h:
+
+/usr/include/c++/11/cassert:
+
+/usr/include/c++/11/bits/allocated_ptr.h:
+
+/usr/include/assert.h:
+
+../include/ocudu/adt/static_vector.h:
+
+/usr/include/c++/11/bits/stream_iterator.h:
+
+/usr/include/c++/11/bits/streambuf_iterator.h:
+
+/usr/include/c++/11/streambuf:
+
+/usr/include/c++/11/bits/ios_base.h:
+
+../include/ocudu/support/compiler.h:
+
+/usr/include/c++/11/bits/locale_classes.h:
+
+../include/ocudu/ran/pusch/pusch_configuration.h:
+
+/usr/include/c++/11/ext/aligned_buffer.h:
+
+/usr/include/c++/11/bits/locale_classes.tcc:
 
 ../include/ocudu/ran/bcd_helper.h:
 
@@ -5116,9 +5123,9 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 ../include/ocudu/ocuduvec/sc_prod.h:
 
-/usr/include/c++/11/bits/std_function.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/c++/11/bits/std_function.h:
 
 ../external/fmt/include/fmt/core.h:
 
@@ -5223,6 +5230,8 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 /usr/include/c++/11/cwctype:
 
 ../include/ocudu/scheduler/scheduler_rach_handler.h:
+
+../include/ocudu/support/stage2_trace.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 

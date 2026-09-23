@@ -676,6 +676,37 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
   ../include/ocudu/mac/mac_metrics.h \
   ../include/ocudu/ran/pci.h \
   ../include/ocudu/scheduler/scheduler_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
+  ../include/ocudu/ocudulog/log_channel.h \
+  ../include/ocudu/ocudulog/detail/log_backend.h \
+  ../include/ocudu/ocudulog/shared_types.h \
+  ../external/fmt/include/fmt/args.h \
+  ../external/fmt/include/fmt/core.h \
+  ../include/ocudu/ocudulog/detail/log_entry.h \
+  ../include/ocudu/ocudulog/detail/log_entry_metadata.h \
+  ../include/ocudu/ocudulog/detail/support/thread_utils.h \
+  ../include/ocudu/ocudulog/sink.h \
+  ../include/ocudu/ocudulog/detail/support/error_string.h \
+  ../include/ocudu/ocudulog/detail/support/memory_buffer.h \
+  ../include/ocudu/ocudulog/formatter.h \
+  ../include/ocudu/ocudulog/context.h \
+  ../include/ocudu/ocudulog/detail/support/tmpl_utils.h \
+  ../external/fmt/include/fmt/ranges.h \
+  ../include/ocudu/ran/rrm.h \
+  ../include/ocudu/ran/plmn_identity.h \
+  ../include/ocudu/adt/expected.h \
+  ../external/TartanLlama/expected.hpp \
+  ../include/ocudu/ran/bcd_helper.h \
+  ../include/ocudu/adt/span.h \
+  ../include/ocudu/adt/detail/type_traits.h \
+  ../include/ocudu/ran/resource_block.h \
+  ../include/ocudu/ran/bs_channel_bandwidth.h \
+  ../include/ocudu/ran/subcarrier_spacing.h \
+  ../include/ocudu/ran/frequency_range.h \
+  ../include/ocudu/ran/s_nssai.h \
   ../include/ocudu/ran/rnti.h \
   ../include/ocudu/ran/sch/sch_mcs.h \
   ../include/ocudu/adt/bounded_integer.h \
@@ -683,8 +714,6 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
   ../include/ocudu/ran/sch/modulation_scheme.h \
   ../include/ocudu/ran/slot_point.h \
   ../include/ocudu/adt/interval.h \
-  ../include/ocudu/ran/subcarrier_spacing.h \
-  ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/time/radio_frame_constants.h \
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/support/math/stats.h \
@@ -1389,6 +1418,32 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 
 ../include/ocudu/du/du_low/o_du_low_metrics.h:
 
+../apps/helpers/metrics/json_generators/o_du_low.h:
+
+../include/ocudu/support/math/stats.h:
+
+../include/ocudu/ran/time/radio_frame_constants.h:
+
+../include/ocudu/ran/sch/modulation_scheme.h:
+
+../include/ocudu/ran/rnti.h:
+
+../include/ocudu/ran/s_nssai.h:
+
+../include/ocudu/ran/subcarrier_spacing.h:
+
+../include/ocudu/ran/bs_channel_bandwidth.h:
+
+../include/ocudu/ran/resource_block.h:
+
+../include/ocudu/adt/detail/type_traits.h:
+
+../include/ocudu/adt/span.h:
+
+../include/ocudu/ran/bcd_helper.h:
+
+../include/ocudu/ran/rrm.h:
+
 ../external/fmt/include/fmt/ranges.h:
 
 ../include/ocudu/ocudulog/detail/support/tmpl_utils.h:
@@ -1415,23 +1470,9 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 
 ../include/ocudu/ocudulog/log_channel.h:
 
-../include/ocudu/adt/detail/type_traits.h:
-
-../include/ocudu/adt/span.h:
-
-../apps/helpers/metrics/json_generators/o_du_low.h:
-
-../include/ocudu/support/math/stats.h:
-
-../include/ocudu/ran/time/radio_frame_constants.h:
-
-../include/ocudu/ran/subcarrier_spacing.h:
-
 ../include/ocudu/adt/interval.h:
 
-../include/ocudu/ran/sch/modulation_scheme.h:
-
-../include/ocudu/ran/rnti.h:
+../include/ocudu/ocudulog/logger.h:
 
 ../include/ocudu/scheduler/scheduler_metrics.h:
 
@@ -1467,6 +1508,8 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 
 /usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 
+../include/ocudu/ran/plmn_identity.h:
+
 /usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
@@ -1487,6 +1530,8 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 
 /usr/include/c++/11/bits/fs_dir.h:
 
+../include/ocudu/ocudulog/detail/support/any.h:
+
 /usr/include/c++/11/bits/istream.tcc:
 
 /usr/include/c++/11/bits/ostream.tcc:
@@ -1500,6 +1545,8 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 /usr/include/c++/11/bits/quoted_string.h:
 
 /usr/include/c++/11/bits/locale_conv.h:
+
+../include/ocudu/ocudulog/ocudulog.h:
 
 /usr/include/c++/11/bits/locale_facets_nonio.tcc:
 
@@ -1520,6 +1567,8 @@ apps/helpers/metrics/json_generators/CMakeFiles/ocudu_metrics_json_generators.di
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 ../include/ocudu/adt/bounded_integer.h:
+
+../include/ocudu/support/stage2_trace.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 

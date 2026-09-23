@@ -185,31 +185,86 @@ apps/units/flexible_o_du/o_du_high/du_high/metrics/CMakeFiles/ocudu_du_high_unit
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rb_id.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/logical_channel/lcid.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
- /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/core.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
+ /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_tempbuf.h \
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
+ /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/utility \
+ /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/tuple \
+ /usr/include/c++/11/array /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
+ /usr/include/c++/11/bits/refwrap.h \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/ext/concurrence.h \
+ /usr/include/c++/11/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11/bits/atomic_base.h \
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/11/backward/auto_ptr.h \
+ /usr/include/c++/11/pstl/glue_memory_defs.h \
+ /usr/include/c++/11/pstl/execution_defs.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/log_channel.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_backend.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/shared_types.h \
+ /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
+ /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_algo.h \
+ /usr/include/c++/11/bits/algorithmfwd.h \
+ /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h \
+ /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/args.h \
  /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/format.h \
- /usr/include/c++/11/array /usr/include/c++/11/utility \
- /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/cfloat \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
- /usr/include/c++/11/iomanip /usr/include/c++/11/bits/ios_base.h \
+ /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/core.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_entry.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_entry_metadata.h \
+ /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/thread_utils.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/sink.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/error_string.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/memory_buffer.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/formatter.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/context.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/tmpl_utils.h \
+ /usr/include/c++/11/cassert /usr/include/assert.h \
+ /usr/include/c++/11/optional \
+ /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/ranges.h \
+ /usr/include/c++/11/iterator /usr/include/c++/11/bits/stream_iterator.h \
+ /usr/include/c++/11/bits/streambuf_iterator.h \
+ /usr/include/c++/11/streambuf /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h \
- /usr/include/c++/11/bits/locale_classes.tcc /usr/include/c++/11/locale \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/bits/streambuf.tcc /usr/include/c++/11/atomic \
+ /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
+ /usr/include/c++/11/cfloat \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
+ /usr/include/c++/11/iomanip /usr/include/c++/11/locale \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h \
- /usr/include/c++/11/streambuf /usr/include/c++/11/bits/streambuf.tcc \
- /usr/include/c++/11/bits/streambuf_iterator.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
  /usr/include/c++/11/bits/locale_facets.tcc \
- /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/locale_facets_nonio.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
  /usr/include/c++/11/bits/locale_conv.h \
- /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/sstream \
  /usr/include/c++/11/istream /usr/include/c++/11/ios \
  /usr/include/c++/11/bits/basic_ios.h \
@@ -222,26 +277,8 @@ apps/units/flexible_o_du/o_du_high/du_high/metrics/CMakeFiles/ocudu_du_high_unit
  /home/fyp5g/fyp/ocudu/include/ocudu/support/error_handling.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/rtsan.h \
  /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/base.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/bits/atomic_base.h \
- /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/executors/task_executor.h \
- /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
- /usr/include/c++/11/bits/parse_numbers.h /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_tempbuf.h \
- /usr/include/c++/11/bits/stl_raw_storage_iter.h \
- /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
- /usr/include/c++/11/bits/shared_ptr.h \
- /usr/include/c++/11/bits/shared_ptr_base.h \
- /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/bits/refwrap.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/ext/concurrence.h \
- /usr/include/c++/11/bits/shared_ptr_atomic.h \
- /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/variant \
- /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/variant \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_tx_metrics.h \
  /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/std.h \
  /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/ostream.h \
@@ -250,29 +287,13 @@ apps/units/flexible_o_du/o_du_high/du_high/metrics/CMakeFiles/ocudu_du_high_unit
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc \
  /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/chrono.h \
- /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
- /usr/include/c++/11/bits/algorithmfwd.h \
- /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/uniform_int_dist.h \
- /usr/include/c++/11/pstl/glue_algorithm_defs.h \
- /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
- /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/vector \
- /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/iterator \
- /usr/include/c++/11/bits/stream_iterator.h /usr/include/c++/11/bitset \
- /usr/include/c++/11/complex /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bitset /usr/include/c++/11/complex \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/this_thread_sleep.h \
  /usr/include/c++/11/filesystem /usr/include/c++/11/bits/fs_fwd.h \
  /usr/include/c++/11/bits/fs_path.h /usr/include/c++/11/codecvt \
  /usr/include/c++/11/bits/fs_dir.h /usr/include/c++/11/bits/fs_ops.h \
- /usr/include/c++/11/optional /usr/include/c++/11/version \
- /usr/include/c++/11/cxxabi.h \
+ /usr/include/c++/11/version /usr/include/c++/11/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
  /home/fyp5g/fyp/ocudu/apps/units/flexible_o_du/o_du_high/du_high/metrics/du_high_rlc_metrics.h \
  /home/fyp5g/fyp/ocudu/apps/services/metrics/metrics_consumer.h \
@@ -283,21 +304,5 @@ apps/units/flexible_o_du/o_du_high/du_high/metrics/CMakeFiles/ocudu_du_high_unit
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/static_vector.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/compiler.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/ocudu_assert.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/log_channel.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_backend.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/shared_types.h \
- /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/args.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_entry.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/log_entry_metadata.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/thread_utils.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/sink.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/error_string.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/memory_buffer.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/formatter.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/context.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/tmpl_utils.h \
- /usr/include/c++/11/cassert /usr/include/assert.h \
- /home/fyp5g/fyp/ocudu/external/fmt/include/fmt/ranges.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/synchronization/stop_event.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/synchronization/futex_util.h

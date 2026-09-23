@@ -294,6 +294,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/procedures/ric_reconnection_routine.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_id.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm_manager.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
  /home/fyp5g/fyp/ocudu/external/nlohmann/json.hpp \

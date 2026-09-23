@@ -251,14 +251,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_types.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_cell_index.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_constants.h
+ /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/stl_uninitialized.h
+ /usr/include/c++/11/bits/stl_tempbuf.h
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h
+ /usr/include/c++/11/bits/align.h
+ /usr/include/c++/11/bit
+ /usr/include/c++/11/bits/uses_allocator.h
+ /usr/include/c++/11/bits/unique_ptr.h
+ /usr/include/c++/11/tuple
+ /usr/include/c++/11/array
+ /usr/include/c++/11/bits/shared_ptr.h
+ /usr/include/c++/11/bits/shared_ptr_base.h
+ /usr/include/c++/11/bits/allocated_ptr.h
+ /usr/include/c++/11/bits/refwrap.h
+ /usr/include/c++/11/ext/concurrence.h
+ /usr/include/c++/11/bits/shared_ptr_atomic.h
+ /usr/include/c++/11/backward/auto_ptr.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/expected.h
  /home/fyp5g/fyp/ocudu/external/TartanLlama/expected.hpp
  /usr/include/c++/11/functional
- /usr/include/c++/11/tuple
- /usr/include/c++/11/array
- /usr/include/c++/11/bits/uses_allocator.h
- /usr/include/c++/11/bits/refwrap.h
  /usr/include/c++/11/bits/std_function.h
  /usr/include/c++/11/unordered_map
  /usr/include/c++/11/bits/hashtable.h
@@ -267,14 +282,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
  /usr/include/c++/11/bits/unordered_map.h
  /usr/include/c++/11/bits/erase_if.h
  /usr/include/c++/11/vector
- /usr/include/c++/11/bits/stl_uninitialized.h
  /usr/include/c++/11/bits/stl_vector.h
  /usr/include/c++/11/bits/stl_bvector.h
  /usr/include/c++/11/bits/vector.tcc
  /usr/include/c++/11/bits/stl_algo.h
  /usr/include/c++/11/bits/algorithmfwd.h
  /usr/include/c++/11/bits/stl_heap.h
- /usr/include/c++/11/bits/stl_tempbuf.h
  /usr/include/c++/11/bits/uniform_int_dist.h
  /usr/include/c++/11/cassert
  /usr/include/assert.h
@@ -287,19 +300,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
  /usr/include/c++/11/bits/locale_classes.h
  /usr/include/c++/11/bits/locale_classes.tcc
  /usr/include/c++/11/bits/streambuf.tcc
- /usr/include/c++/11/memory
- /usr/include/c++/11/bits/stl_raw_storage_iter.h
- /usr/include/c++/11/bits/align.h
- /usr/include/c++/11/bit
- /usr/include/c++/11/bits/unique_ptr.h
- /usr/include/c++/11/bits/shared_ptr.h
- /usr/include/c++/11/bits/shared_ptr_base.h
- /usr/include/c++/11/bits/allocated_ptr.h
- /usr/include/c++/11/ext/concurrence.h
- /usr/include/c++/11/bits/shared_ptr_atomic.h
- /usr/include/c++/11/backward/auto_ptr.h
- /usr/include/c++/11/pstl/glue_memory_defs.h
- /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/span.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/detail/type_traits.h
@@ -681,14 +681,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_types.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_cell_index.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_constants.h
+ /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/stl_uninitialized.h
+ /usr/include/c++/11/bits/stl_tempbuf.h
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h
+ /usr/include/c++/11/bits/align.h
+ /usr/include/c++/11/bit
+ /usr/include/c++/11/bits/uses_allocator.h
+ /usr/include/c++/11/bits/unique_ptr.h
+ /usr/include/c++/11/tuple
+ /usr/include/c++/11/array
+ /usr/include/c++/11/bits/shared_ptr.h
+ /usr/include/c++/11/bits/shared_ptr_base.h
+ /usr/include/c++/11/bits/allocated_ptr.h
+ /usr/include/c++/11/bits/refwrap.h
+ /usr/include/c++/11/ext/concurrence.h
+ /usr/include/c++/11/bits/shared_ptr_atomic.h
+ /usr/include/c++/11/backward/auto_ptr.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/expected.h
  /home/fyp5g/fyp/ocudu/external/TartanLlama/expected.hpp
  /usr/include/c++/11/functional
- /usr/include/c++/11/tuple
- /usr/include/c++/11/array
- /usr/include/c++/11/bits/uses_allocator.h
- /usr/include/c++/11/bits/refwrap.h
  /usr/include/c++/11/bits/std_function.h
  /usr/include/c++/11/unordered_map
  /usr/include/c++/11/bits/hashtable.h
@@ -697,14 +712,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
  /usr/include/c++/11/bits/unordered_map.h
  /usr/include/c++/11/bits/erase_if.h
  /usr/include/c++/11/vector
- /usr/include/c++/11/bits/stl_uninitialized.h
  /usr/include/c++/11/bits/stl_vector.h
  /usr/include/c++/11/bits/stl_bvector.h
  /usr/include/c++/11/bits/vector.tcc
  /usr/include/c++/11/bits/stl_algo.h
  /usr/include/c++/11/bits/algorithmfwd.h
  /usr/include/c++/11/bits/stl_heap.h
- /usr/include/c++/11/bits/stl_tempbuf.h
  /usr/include/c++/11/bits/uniform_int_dist.h
  /usr/include/c++/11/cassert
  /usr/include/assert.h
@@ -717,19 +730,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
  /usr/include/c++/11/bits/locale_classes.h
  /usr/include/c++/11/bits/locale_classes.tcc
  /usr/include/c++/11/bits/streambuf.tcc
- /usr/include/c++/11/memory
- /usr/include/c++/11/bits/stl_raw_storage_iter.h
- /usr/include/c++/11/bits/align.h
- /usr/include/c++/11/bit
- /usr/include/c++/11/bits/unique_ptr.h
- /usr/include/c++/11/bits/shared_ptr.h
- /usr/include/c++/11/bits/shared_ptr_base.h
- /usr/include/c++/11/bits/allocated_ptr.h
- /usr/include/c++/11/ext/concurrence.h
- /usr/include/c++/11/bits/shared_ptr_atomic.h
- /usr/include/c++/11/backward/auto_ptr.h
- /usr/include/c++/11/pstl/glue_memory_defs.h
- /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/span.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/detail/type_traits.h
@@ -1110,14 +1110,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_types.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_cell_index.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_constants.h
+ /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/stl_uninitialized.h
+ /usr/include/c++/11/bits/stl_tempbuf.h
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h
+ /usr/include/c++/11/bits/align.h
+ /usr/include/c++/11/bit
+ /usr/include/c++/11/bits/uses_allocator.h
+ /usr/include/c++/11/bits/unique_ptr.h
+ /usr/include/c++/11/tuple
+ /usr/include/c++/11/array
+ /usr/include/c++/11/bits/shared_ptr.h
+ /usr/include/c++/11/bits/shared_ptr_base.h
+ /usr/include/c++/11/bits/allocated_ptr.h
+ /usr/include/c++/11/bits/refwrap.h
+ /usr/include/c++/11/ext/concurrence.h
+ /usr/include/c++/11/bits/shared_ptr_atomic.h
+ /usr/include/c++/11/backward/auto_ptr.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/expected.h
  /home/fyp5g/fyp/ocudu/external/TartanLlama/expected.hpp
  /usr/include/c++/11/functional
- /usr/include/c++/11/tuple
- /usr/include/c++/11/array
- /usr/include/c++/11/bits/uses_allocator.h
- /usr/include/c++/11/bits/refwrap.h
  /usr/include/c++/11/bits/std_function.h
  /usr/include/c++/11/unordered_map
  /usr/include/c++/11/bits/hashtable.h
@@ -1126,14 +1141,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o
  /usr/include/c++/11/bits/unordered_map.h
  /usr/include/c++/11/bits/erase_if.h
  /usr/include/c++/11/vector
- /usr/include/c++/11/bits/stl_uninitialized.h
  /usr/include/c++/11/bits/stl_vector.h
  /usr/include/c++/11/bits/stl_bvector.h
  /usr/include/c++/11/bits/vector.tcc
  /usr/include/c++/11/bits/stl_algo.h
  /usr/include/c++/11/bits/algorithmfwd.h
  /usr/include/c++/11/bits/stl_heap.h
- /usr/include/c++/11/bits/stl_tempbuf.h
  /usr/include/c++/11/bits/uniform_int_dist.h
  /usr/include/c++/11/cassert
  /usr/include/assert.h
@@ -1146,19 +1159,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o
  /usr/include/c++/11/bits/locale_classes.h
  /usr/include/c++/11/bits/locale_classes.tcc
  /usr/include/c++/11/bits/streambuf.tcc
- /usr/include/c++/11/memory
- /usr/include/c++/11/bits/stl_raw_storage_iter.h
- /usr/include/c++/11/bits/align.h
- /usr/include/c++/11/bit
- /usr/include/c++/11/bits/unique_ptr.h
- /usr/include/c++/11/bits/shared_ptr.h
- /usr/include/c++/11/bits/shared_ptr_base.h
- /usr/include/c++/11/bits/allocated_ptr.h
- /usr/include/c++/11/ext/concurrence.h
- /usr/include/c++/11/bits/shared_ptr_atomic.h
- /usr/include/c++/11/backward/auto_ptr.h
- /usr/include/c++/11/pstl/glue_memory_defs.h
- /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/span.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/detail/type_traits.h
@@ -1353,6 +1353,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/band_helper.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/band_helper_constants.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/si_scheduling_config.h
@@ -1864,6 +1865,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/direct_current_offset.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/sib_configuration.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h
@@ -2398,6 +2400,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell_repository.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/direct_current_offset.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/sib_configuration.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h
@@ -3129,14 +3132,29 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_types.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/du_cell_index.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_constants.h
+ /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/stl_uninitialized.h
+ /usr/include/c++/11/bits/stl_tempbuf.h
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h
+ /usr/include/c++/11/bits/align.h
+ /usr/include/c++/11/bit
+ /usr/include/c++/11/bits/uses_allocator.h
+ /usr/include/c++/11/bits/unique_ptr.h
+ /usr/include/c++/11/tuple
+ /usr/include/c++/11/array
+ /usr/include/c++/11/bits/shared_ptr.h
+ /usr/include/c++/11/bits/shared_ptr_base.h
+ /usr/include/c++/11/bits/allocated_ptr.h
+ /usr/include/c++/11/bits/refwrap.h
+ /usr/include/c++/11/ext/concurrence.h
+ /usr/include/c++/11/bits/shared_ptr_atomic.h
+ /usr/include/c++/11/backward/auto_ptr.h
+ /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/expected.h
  /home/fyp5g/fyp/ocudu/external/TartanLlama/expected.hpp
  /usr/include/c++/11/functional
- /usr/include/c++/11/tuple
- /usr/include/c++/11/array
- /usr/include/c++/11/bits/uses_allocator.h
- /usr/include/c++/11/bits/refwrap.h
  /usr/include/c++/11/bits/std_function.h
  /usr/include/c++/11/unordered_map
  /usr/include/c++/11/bits/hashtable.h
@@ -3145,14 +3163,12 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
  /usr/include/c++/11/bits/unordered_map.h
  /usr/include/c++/11/bits/erase_if.h
  /usr/include/c++/11/vector
- /usr/include/c++/11/bits/stl_uninitialized.h
  /usr/include/c++/11/bits/stl_vector.h
  /usr/include/c++/11/bits/stl_bvector.h
  /usr/include/c++/11/bits/vector.tcc
  /usr/include/c++/11/bits/stl_algo.h
  /usr/include/c++/11/bits/algorithmfwd.h
  /usr/include/c++/11/bits/stl_heap.h
- /usr/include/c++/11/bits/stl_tempbuf.h
  /usr/include/c++/11/bits/uniform_int_dist.h
  /usr/include/c++/11/cassert
  /usr/include/assert.h
@@ -3165,19 +3181,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
  /usr/include/c++/11/bits/locale_classes.h
  /usr/include/c++/11/bits/locale_classes.tcc
  /usr/include/c++/11/bits/streambuf.tcc
- /usr/include/c++/11/memory
- /usr/include/c++/11/bits/stl_raw_storage_iter.h
- /usr/include/c++/11/bits/align.h
- /usr/include/c++/11/bit
- /usr/include/c++/11/bits/unique_ptr.h
- /usr/include/c++/11/bits/shared_ptr.h
- /usr/include/c++/11/bits/shared_ptr_base.h
- /usr/include/c++/11/bits/allocated_ptr.h
- /usr/include/c++/11/ext/concurrence.h
- /usr/include/c++/11/bits/shared_ptr_atomic.h
- /usr/include/c++/11/backward/auto_ptr.h
- /usr/include/c++/11/pstl/glue_memory_defs.h
- /usr/include/c++/11/pstl/execution_defs.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/span.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/detail/type_traits.h
@@ -3740,6 +3743,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_link_adaptation_cont
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/sib_configuration.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_pdu_capacity_constants.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h
@@ -3761,7 +3768,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_link_adaptation_cont
  /home/fyp5g/fyp/ocudu/lib/scheduler/support/outer_loop_link_adaptation.h
  /usr/include/c++/11/math.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/ue_channel_state_manager.h
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/csi_report/csi_report_data.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/csi_report/csi_report_configuration.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/precoding/precoding_codebook_configuration.h
@@ -4234,6 +4240,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/sib_configuration.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_pdu_capacity_constants.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h
@@ -4285,7 +4295,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o
  /usr/include/c++/11/bits/this_thread_sleep.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/detail/concurrent_queue_params.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/noop_functor.h
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/scheduler_config.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/logical_channel_system.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
@@ -4310,8 +4319,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/ue_cell.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/cell/cell_harq_manager.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/intrusive_list.h
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/support/pucch_power_controller.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/circular_array.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/pucch/pucch_uci_bits.h

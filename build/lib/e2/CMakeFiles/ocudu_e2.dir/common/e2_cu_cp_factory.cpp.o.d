@@ -429,6 +429,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o: \
  /home/fyp5g/fyp/ocudu/lib/e2/common/e2_entity.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2_agent_dependencies.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
  /home/fyp5g/fyp/ocudu/external/nlohmann/json.hpp \
@@ -539,6 +540,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_tx_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sch/sch_mcs.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sch/modulation_scheme.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h \
@@ -569,7 +571,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_cu_cp_factory.cpp.o: \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_action_cu_executor.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_action_du_executor.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/du/du_high/du_manager/du_configurator.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/system_info_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/cell_reselection.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_control_service_impl.h \

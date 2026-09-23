@@ -4735,6 +4735,19 @@ asn1_sib1_sched_info_test/fast:
 .PHONY : asn1_sib1_sched_info_test/fast
 
 #=============================================================================
+# Target rules for targets named du_slice_control_test
+
+# Build rule for target.
+du_slice_control_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 du_slice_control_test
+.PHONY : du_slice_control_test
+
+# fast build rule for target.
+du_slice_control_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build
+.PHONY : du_slice_control_test/fast
+
+#=============================================================================
 # Target rules for targets named e1ap_test_helpers
 
 # Build rule for target.
@@ -5032,6 +5045,19 @@ asn1_e2sm_ccc_test: cmake_check_build_system
 asn1_e2sm_ccc_test/fast:
 	$(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/asn1_e2sm_ccc_test.dir/build.make tests/unittests/e2/CMakeFiles/asn1_e2sm_ccc_test.dir/build
 .PHONY : asn1_e2sm_ccc_test/fast
+
+#=============================================================================
+# Target rules for targets named e2sm_ccc_control_test
+
+# Build rule for target.
+e2sm_ccc_control_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 e2sm_ccc_control_test
+.PHONY : e2sm_ccc_control_test
+
+# fast build rule for target.
+e2sm_ccc_control_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build.make tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build
+.PHONY : e2sm_ccc_control_test/fast
 
 #=============================================================================
 # Target rules for targets named f1ap_asn1_packer_test
@@ -10006,6 +10032,7 @@ help:
 	@echo "... du_processor_test_helpers"
 	@echo "... du_ran_resource_manager_test"
 	@echo "... du_resource_manager"
+	@echo "... du_slice_control_test"
 	@echo "... du_test_doubles"
 	@echo "... du_test_suite"
 	@echo "... du_ue"
@@ -10030,6 +10057,7 @@ help:
 	@echo "... e2ap_asn1"
 	@echo "... e2ap_integration_test"
 	@echo "... e2ap_network_adapter_test"
+	@echo "... e2sm_ccc_control_test"
 	@echo "... e2sm_kpm_meas_provider_metrics_test"
 	@echo "... e2sm_kpm_meas_provider_test"
 	@echo "... e2sm_kpm_test"

@@ -661,6 +661,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_bearer_metrics_collector.cpp.o: ../lib/rlc/
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -1086,6 +1087,10 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_factory.cpp.o: ../lib/rlc/rlc_factory.cpp \
   ../include/ocudu/rlc/rlc_entity.h \
   ../include/ocudu/rlc/rlc_metrics.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -1101,9 +1106,6 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_factory.cpp.o: ../lib/rlc/rlc_factory.cpp \
   ../lib/rlc/rlc_bearer_logger.h \
   ../include/ocudu/support/format/fmt_to_c_str.h \
   ../include/ocudu/support/format/prefixed_logger.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/rlc/rlc_rx_entity.h \
   ../lib/rlc/rlc_bearer_metrics_collector.h \
   ../include/ocudu/adt/lockfree_triple_buffer.h \
@@ -1523,6 +1525,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_rx_am_entity.cpp.o: ../lib/rlc/rlc_rx_am_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -1845,6 +1848,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_rx_tm_entity.cpp.o: ../lib/rlc/rlc_rx_tm_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -2227,6 +2231,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_rx_um_entity.cpp.o: ../lib/rlc/rlc_rx_um_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -2714,6 +2719,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_tx_am_entity.cpp.o: ../lib/rlc/rlc_tx_am_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -3117,6 +3123,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_tx_tm_entity.cpp.o: ../lib/rlc/rlc_tx_tm_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -3511,6 +3518,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_tx_um_entity.cpp.o: ../lib/rlc/rlc_tx_um_en
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -3912,6 +3920,7 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_window_seg_pool_factory.cpp.o: ../lib/rlc/r
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -4104,6 +4113,8 @@ lib/rlc/CMakeFiles/ocudu_rlc.dir/rlc_window_seg_pool_factory.cpp.o: ../lib/rlc/r
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
+
+../include/ocudu/support/stage2_trace.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 

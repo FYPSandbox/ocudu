@@ -467,6 +467,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/grant_params_selector.cpp.o:
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -1037,6 +1038,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/intra_slice_scheduler.cpp.o:
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -1088,7 +1093,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/intra_slice_scheduler.cpp.o:
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
@@ -1104,8 +1108,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/intra_slice_scheduler.cpp.o:
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -1615,6 +1617,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/triggered_ul_grant_scheduler
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -1666,7 +1672,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/triggered_ul_grant_scheduler
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
@@ -1691,8 +1696,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/triggered_ul_grant_scheduler
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -2184,6 +2187,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_cell_grid_allocator.cpp.o
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -2262,7 +2269,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_cell_grid_allocator.cpp.o
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
@@ -2276,8 +2282,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_cell_grid_allocator.cpp.o
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/scheduler/resource_grid_util.h \
@@ -2767,6 +2771,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_event_manager.cpp.o: ../l
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -2818,7 +2826,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_event_manager.cpp.o: ../l
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/logging/cell_event_tracer.h \
   ../include/ocudu/scheduler/input/uci_inputs.h \
@@ -2851,8 +2858,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_event_manager.cpp.o: ../l
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -3371,6 +3376,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_fallback_scheduler.cpp.o:
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -3396,7 +3405,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_fallback_scheduler.cpp.o:
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/ran/pdcch/pdcch_candidates.h \
   ../lib/scheduler/ue_context/ue_channel_state_manager.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
   ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
@@ -3456,8 +3464,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_fallback_scheduler.cpp.o:
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -3978,6 +3984,10 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -4029,7 +4039,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/adt/noop_functor.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
@@ -4045,8 +4054,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
   ../lib/scheduler/ue_context/ue_cell.h \
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/scheduler/support/pucch_power_controller.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
@@ -4237,6 +4244,8 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 ../lib/scheduler/ue_context/ue_fsm_states.h:
 
 ../lib/scheduler/ue_context/ue_drx_controller.h:
+
+../include/ocudu/ocuduvec/zero.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
@@ -5046,6 +5055,8 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 
 ../include/ocudu/adt/bounded_integer.h:
 
+../include/ocudu/support/stage2_trace.h:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
@@ -5237,8 +5248,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 ../include/ocudu/scheduler/config/cg_builder_params.h:
 
 ../include/ocudu/ran/configured_grant/cg_configuration.h:
-
-../include/ocudu/ocuduvec/zero.h:
 
 ../include/ocudu/ran/ssb/ssb_properties.h:
 

@@ -51,5 +51,8 @@ private:
 
   std::mutex                                   report_services_mutex;
   std::vector<e2sm_rc_report_service_style4*>  active_report_services;
+  // Retain live UE contexts even when no xApp has an RC subscription. A new
+  // report service needs this snapshot to identify UEs attached beforehand.
+  std::map<du_ue_index_t, e2_ue_context_info>  ue_context_cache;
 };
 } // namespace ocudu

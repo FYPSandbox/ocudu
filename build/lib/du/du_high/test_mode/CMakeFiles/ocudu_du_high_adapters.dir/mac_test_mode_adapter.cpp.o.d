@@ -297,6 +297,10 @@ lib/du/du_high/test_mode/CMakeFiles/ocudu_du_high_adapters.dir/mac_test_mode_ada
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_properties.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_configuration.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point.h \
@@ -472,9 +476,6 @@ lib/du/du_high/test_mode/CMakeFiles/ocudu_du_high_adapters.dir/mac_test_mode_ada
  /home/fyp5g/fyp/ocudu/include/ocudu/mac/mac_cell_result.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/pdcch/dci_packing.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/shared_transport_block.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
  /home/fyp5g/fyp/ocudu/lib/du/du_high/test_mode/du_test_mode_controller.h \
  /home/fyp5g/fyp/ocudu/lib/du/du_high/test_mode/f1c_du_test_mode_adapter.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/f1ap/f1ap_ue_id_types.h \

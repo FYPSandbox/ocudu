@@ -306,6 +306,7 @@ lib/du/du_high/test_mode/CMakeFiles/ocudu_du_high_adapters.dir/du_test_mode_cont
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_properties.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_configuration.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point.h \

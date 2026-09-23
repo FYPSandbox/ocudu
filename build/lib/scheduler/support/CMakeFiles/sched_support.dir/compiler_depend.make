@@ -834,6 +834,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/dci_builder.cpp.o: ../lib/sch
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -861,9 +865,6 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/dci_builder.cpp.o: ../lib/sch
   ../lib/scheduler/cell/cell_harq_manager.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/intrusive_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
   ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
@@ -1623,6 +1624,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/mcs_tbs_calculator.cpp.o: ../
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -1659,7 +1664,6 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/mcs_tbs_calculator.cpp.o: ../
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/ran/pdcch/pdcch_candidates.h \
   ../lib/scheduler/ue_context/ue_channel_state_manager.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
   ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
@@ -2133,6 +2137,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/paging_helpers.cpp.o: ../lib/
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -2597,6 +2605,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/pdcch/pdcch_type0_helpers.cpp
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -3438,6 +3450,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/pdsch/pdsch_config_params.cpp
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -5197,6 +5213,9 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/pucch_power_controller.cpp.o:
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -6457,6 +6476,9 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/pusch_power_controller.cpp.o:
   ../include/ocudu/ran/band_helper.h \
   ../include/ocudu/ran/band_helper_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -6480,8 +6502,6 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/pusch_power_controller.cpp.o:
   ../include/ocudu/adt/detail/intrusive_ptr.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/ran/pdcch/pdcch_candidates.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/power_control/tpc_mapping.h
 
 lib/scheduler/support/CMakeFiles/sched_support.dir/sch_pdu_builder.cpp.o: ../lib/scheduler/support/sch_pdu_builder.cpp \
@@ -6936,6 +6956,10 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/sch_pdu_builder.cpp.o: ../lib
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -6961,7 +6985,6 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/sch_pdu_builder.cpp.o: ../lib
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/ran/pdcch/pdcch_candidates.h \
   ../lib/scheduler/ue_context/ue_channel_state_manager.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
   ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
@@ -7379,6 +7402,8 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/sr_helper.cpp.o: ../lib/sched
 ../include/ocudu/adt/circular_array.h:
 
 ../lib/scheduler/support/pucch/pucch_collision.h:
+
+../lib/scheduler/support/pucch/pucch_collision.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
@@ -8104,6 +8129,8 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/sr_helper.cpp.o: ../lib/sched
 
 /usr/include/c++/11/cwctype:
 
+../include/ocudu/support/stage2_trace.h:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
@@ -8481,5 +8508,3 @@ lib/scheduler/support/CMakeFiles/sched_support.dir/sr_helper.cpp.o: ../lib/sched
 ../lib/scheduler/support/pdsch/pdsch_default_time_allocation.cpp:
 
 ../lib/scheduler/support/pdsch/pdsch_default_time_allocation.h:
-
-../lib/scheduler/support/pucch/pucch_collision.cpp:

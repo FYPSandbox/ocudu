@@ -293,6 +293,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/procedures/e2_setup_routine.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_id.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm_manager.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
  /home/fyp5g/fyp/ocudu/external/nlohmann/json.hpp \
@@ -333,10 +334,13 @@ lib/e2/CMakeFiles/ocudu_e2.dir/procedures/e2_setup_routine.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_rc_ies.h \
  /home/fyp5g/fyp/ocudu/lib/e2/procedures/../common/e2ap_asn1_helpers.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_ccc/e2sm_ccc_asn1_packer.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_cgi.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/nr_cell_identity.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_kpm/e2sm_kpm_asn1_packer.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm_kpm.h \
  /home/fyp5g/fyp/ocudu/lib/e2/e2sm/e2sm_rc/e2sm_rc_asn1_packer.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/security/security.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/pci.h \
  /home/fyp5g/fyp/ocudu/lib/e2/procedures/../common/e2ap_asn1_utils.h

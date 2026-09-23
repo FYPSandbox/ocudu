@@ -385,6 +385,9 @@ lib/du/du_high/du_manager/du_ue/CMakeFiles/du_ue.dir/du_bearer.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_entity.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
  /usr/include/c++/11/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -550,6 +553,4 @@ lib/du/du_high/du_manager/du_ue/CMakeFiles/du_ue.dir/du_bearer.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/mac/mac_manager.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/pcap/rlc_pcap.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_factory.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/f1u/du/f1u_bearer_factory.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h
+ /home/fyp5g/fyp/ocudu/include/ocudu/f1u/du/f1u_bearer_factory.h
