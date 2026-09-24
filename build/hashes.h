@@ -19,8 +19,8 @@ static const char build_mode[] = "unknown";
 #endif
 #endif
 
-static const char build_hash[] = "44c6ec2d14";
+static const char build_hash[] = "2541cec16a";
 
-static const char build_info[] = "commit 44c6ec2d14 on branch fyp-branch";
+static const char build_info[] = "commit 2541cec16a on branch fyp-branch";
 
 } // namespace ocudu
