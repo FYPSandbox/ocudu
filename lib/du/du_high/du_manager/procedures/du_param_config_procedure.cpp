@@ -72,6 +72,13 @@ void du_param_config_procedure::operator()(coro_context<async_task<du_param_conf
     // Reconfigure cell in the MAC.
     // TODO: Use when_all.
     CORO_AWAIT_VALUE(mac_cell_reconfig_response macresp, handle_mac_cell_update(changed_cells[next_cell_idx]));
+    if (changed_cells[next_cell_idx].slice_reconf_req.has_value()) {
+      if (not macresp.slices_applied) {
+        resp.success = false;
+        CORO_EARLY_RETURN(resp);
+      }
+      du_cells.commit_slice_config(*changed_cells[next_cell_idx].slice_reconf_req);
+    }
     if (changed_cells[next_cell_idx].sched_notif_required and not macresp.si_updated) {
       resp.success = false;
       CORO_EARLY_RETURN(resp);

@@ -127,6 +127,9 @@ e2sm_control_service* e2sm_rc_impl::get_e2sm_control_service(const e2sm_ric_cont
 void e2sm_rc_impl::on_ue_context_update(const e2_ue_context_info& ue_ctx)
 {
   std::lock_guard<std::mutex> lock(report_services_mutex);
+  if (!ue_ctx.slices.empty()) {
+    ue_context_cache[ue_ctx.ue_index] = ue_ctx;
+  }
   for (auto* service : active_report_services) {
     if (service) {
       service->on_ue_context_update(ue_ctx);
@@ -137,6 +140,7 @@ void e2sm_rc_impl::on_ue_context_update(const e2_ue_context_info& ue_ctx)
 void e2sm_rc_impl::on_ue_context_release(du_ue_index_t ue_index)
 {
   std::lock_guard<std::mutex> lock(report_services_mutex);
+  ue_context_cache.erase(ue_index);
   for (auto* service : active_report_services) {
     if (service) {
       service->on_ue_context_release(ue_index);
@@ -148,6 +152,9 @@ void e2sm_rc_impl::register_service(e2sm_rc_report_service_style4* service)
 {
   std::lock_guard<std::mutex> lock(report_services_mutex);
   active_report_services.push_back(service);
+  for (const auto& [ue_index, ue_ctx] : ue_context_cache) {
+    service->on_ue_context_update(ue_ctx);
+  }
 }
 
 void e2sm_rc_impl::unregister_service(e2sm_rc_report_service_style4* service)

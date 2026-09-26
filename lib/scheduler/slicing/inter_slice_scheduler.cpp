@@ -3,6 +3,7 @@
 // Portions of this file may implement 3GPP specifications, which may be subject to additional licensing requirements.
 
 #include "inter_slice_scheduler.h"
+#include "ocudu/support/stage2_trace.h"
 #include "../config/time_domain_mapper.h"
 #include "../policy/scheduler_policy_factory.h"
 #include "../ue_scheduling/ue_cell_grid_allocator.h"
@@ -350,20 +351,48 @@ std::optional<ul_ran_slice_candidate> inter_slice_scheduler::get_next_ul_candida
 
 void inter_slice_scheduler::handle_slice_reconfiguration_request(const du_cell_slice_reconfig_request& req)
 {
-  for (const auto& rrm : req.rrm_policies) {
-    bool found = false;
-    for (auto& slice : slices) {
-      if (slice.inst.cfg.rrc_member == rrm.rrc_member) {
-        found              = true;
-        slice.inst.cfg.rbs = rrm.rbs;
-      }
-    }
-
-    if (not found) {
-      logger.warning(
-          "No slice RRM policy found for {} in cell {}.", rrm.rrc_member, fmt::underlying(cell_cfg.cell_index));
+  if (req.completion) {
+    auto expected = slice_reconfiguration_completion::pending;
+    if (not req.completion->status.compare_exchange_strong(expected, slice_reconfiguration_completion::applying)) {
+      return; // Cancelled while queued; no late mutation after a timeout.
     }
   }
+  // Prevalidate the whole batch before mutating scheduler state.
+  for (const auto& rrm : req.rrm_policies) {
+    if (std::none_of(slices.begin(), slices.end(), [&rrm](const auto& slice) {
+          return slice.inst.cfg.rrc_member == rrm.rrc_member;
+        })) {
+      logger.warning("Unknown slice {}; rejecting scheduler batch", rrm.rrc_member);
+      if (req.completion) req.completion->status.store(slice_reconfiguration_completion::rejected);
+      if (req.stage2_trace_id) {
+        stage2::emit("\"event\":\"slice_rejected\",\"trace_id\":" + std::to_string(req.stage2_trace_id));
+      }
+      return;
+    }
+  }
+  std::string policies = "[";
+  for (const auto& rrm : req.rrm_policies) {
+    for (auto& slice : slices) {
+      if (slice.inst.cfg.rrc_member == rrm.rrc_member) {
+        const auto old = slice.inst.cfg.rbs;
+        slice.inst.cfg.rbs = rrm.rbs;
+        if (req.stage2_trace_id) {
+          if (policies.size() > 1) policies += ",";
+          policies += fmt::format("{{\"plmn\":\"{}\",\"sst\":{},\"sd\":{},\"min_prbs\":{},\"max_prbs\":{},"
+                                  "\"ded_prbs\":{},\"old_min_prbs\":{},\"old_max_prbs\":{},\"old_ded_prbs\":{}}}",
+                                  rrm.rrc_member.plmn_id.to_string(), rrm.rrc_member.s_nssai.sst.value(),
+                                  rrm.rrc_member.s_nssai.sd.value(), rrm.rbs.min(), rrm.rbs.max(), rrm.rbs.dedicated(),
+                                  old.min(), old.max(), old.dedicated());
+        }
+      }
+    }
+  }
+  if (req.stage2_trace_id) {
+    stage2::emit("\"event\":\"slice_applied\",\"trace_id\":" + std::to_string(req.stage2_trace_id) +
+                 ",\"cell_index\":" + std::to_string(static_cast<unsigned>(req.cell_index)) +
+                 ",\"policies\":" + policies + "]");
+  }
+  if (req.completion) req.completion->status.store(slice_reconfiguration_completion::applied);
 }
 
 template <bool IsDownlink>

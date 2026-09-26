@@ -54,10 +54,6 @@ void e2sm_rc_report_service_style4::on_ue_context_update(const e2_ue_context_inf
     const auto& s_nssai = ue_ctx.slices.front();
     ue_context_cache[ue_ctx.ue_index] = std::make_pair(ue_ctx.crnti, s_nssai);
 
-    // Track this UE as the one that triggered the event
-    triggered_ue_index = ue_ctx.ue_index;
-    is_disconnect_event = false;
-
     // Mark indication as ready and signal event for event-triggered reporting
     is_ind_msg_ready_ = true;
     report_event.set(); // Signal the event to wake up indication procedure
@@ -77,13 +73,12 @@ void e2sm_rc_report_service_style4::on_ue_context_release(du_ue_index_t ue_index
   if (it != ue_context_cache.end()) {
     ue_context_cache.erase(it);
 
-    // Mark as disconnect event (send empty indication)
-    triggered_ue_index.reset(); // No specific UE to report
-    is_disconnect_event = true;
-
-    // Trigger indication to notify xApp of UE removal
-    is_ind_msg_ready_ = true;
-    report_event.set(); // Signal the event to wake up indication procedure
+    // Re-report the surviving UEs. An empty Format 2 indication cannot be
+    // encoded, so the xApp expires the last UE using its timeout.
+    if (!ue_context_cache.empty()) {
+      is_ind_msg_ready_ = true;
+      report_event.set();
+    }
 
     logger.info("RC Report Style 4: UE context release, ue_index={}, cache_size={}", ue_index, ue_context_cache.size());
   }
@@ -95,27 +90,14 @@ bool e2sm_rc_report_service_style4::collect_measurements()
   auto& msg_format2 = ric_ind_message.ric_ind_msg_formats.ind_msg_format2();
   msg_format2.ue_param_list.clear();
 
-  // If disconnect event, send empty indication
-  if (is_disconnect_event) {
-    return true;
-  }
-
-  // If no specific UE triggered the event, skip
-  if (!triggered_ue_index.has_value()) {
+  if (ue_context_cache.empty()) {
+    is_ind_msg_ready_ = false;
     return false;
   }
 
-  // Only process the UE that triggered this event
-  du_ue_index_t ue_index = triggered_ue_index.value();
-  auto it = ue_context_cache.find(ue_index);
-
-  if (it == ue_context_cache.end()) {
-    return false;
-  }
-
-  // Build indication message for single UE
-  {
-    const auto& [ue_idx, ue_context] = *it;
+  // A full snapshot preserves every UE when several updates arrive before the
+  // event-driven indication procedure runs, or when a service is resubscribed.
+  for (const auto& [ue_idx, ue_context] : ue_context_cache) {
     const rnti_t& rnti = ue_context.first;
     const s_nssai_t& s_nssai = ue_context.second;
     e2sm_rc_ind_msg_format2_item_s ue_param_item;
@@ -125,7 +107,7 @@ bool e2sm_rc_report_service_style4::collect_measurements()
     std::optional<gnb_cu_ue_f1ap_id_t> gnb_cu_ue_f1ap_id = f1ap_ue_id_provider.get_gnb_cu_ue_f1ap_id(ue_idx);
     if (!gnb_cu_ue_f1ap_id.has_value()) {
       logger.debug("RC Report Style 4: no F1AP ID for UE {}, skipping", ue_idx);
-      return false;
+      continue;
     }
 
     // Set UE ID with F1AP ID
@@ -170,6 +152,10 @@ bool e2sm_rc_report_service_style4::collect_measurements()
                 s_nssai.sd.is_set() ? s_nssai.sd.value() : 0);
   }
 
+  if (msg_format2.ue_param_list.size() == 0) {
+    is_ind_msg_ready_ = false;
+    return false;
+  }
   return true;
 }
 
@@ -212,6 +198,4 @@ void e2sm_rc_report_service_style4::clear_pending_indications()
 {
   // Clear the event-triggered state after sending indication
   is_ind_msg_ready_ = false;
-  triggered_ue_index.reset();
-  is_disconnect_event = false;
 }

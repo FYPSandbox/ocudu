@@ -123,6 +123,8 @@ struct ul_sched_info {
     std::optional<unsigned> rapid;
     /// Offset that the OLLA algorithm applied to derive the UL MCS.
     std::optional<float> olla_offset;
+    /// Scheduler slice owning this grant, retained across HARQ retransmissions.
+    std::optional<unsigned> slice_index;
     /// Number of overhead PRBs.
     unsigned nof_oh_prb;
   } context;

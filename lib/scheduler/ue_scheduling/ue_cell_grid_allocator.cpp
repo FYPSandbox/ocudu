@@ -412,6 +412,9 @@ void ue_cell_grid_allocator::set_pdsch_params(dl_grant_info&                    
 
   // Save PDSCH parameters in DL HARQ.
   grant.h_dl.save_grant_params(pdsch_sched_ctx, msg);
+  if (grant.h_dl.get_grant_params().slice_id.has_value()) {
+    msg.context.slice_index = grant.h_dl.get_grant_params().slice_id->value();
+  }
 
   // Update DRX state given the new allocation.
   u.drx_controller().on_new_dl_pdcch_alloc(pdcch_alloc.slot);
@@ -833,6 +836,9 @@ void ue_cell_grid_allocator::set_pusch_params(ul_grant_info& grant, const vrb_in
   }
 
   grant.h_ul.save_grant_params(pusch_sched_ctx, msg.pusch_cfg);
+  if (grant.h_ul.get_grant_params().slice_id.has_value()) {
+    msg.context.slice_index = grant.h_ul.get_grant_params().slice_id->value();
+  }
 
   // Register UL allocations for this slot.
   u.logical_channels().handle_ul_grant(grant.h_ul.get_grant_params().tbs);

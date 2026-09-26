@@ -618,6 +618,7 @@ apps/units/flexible_o_du/o_du_high/CMakeFiles/ocudu_o_du_high_unit_helpers.dir/o
   ../include/ocudu/pcap/rlc_pcap.h \
   ../include/ocudu/rlc/rlc_metrics.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -1732,6 +1733,8 @@ apps/units/flexible_o_du/o_du_high/CMakeFiles/ocudu_o_du_high_unit_helpers.dir/o
 ../include/ocudu/ran/rb_id.h:
 
 ../include/ocudu/adt/bounded_integer.h:
+
+../include/ocudu/support/stage2_trace.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 

@@ -138,7 +138,10 @@ async_task<void> mac_cell_processor::stop()
 
 async_task<mac_cell_reconfig_response> mac_cell_processor::reconfigure(const mac_cell_reconfig_request& request)
 {
-  return launch_async([this, request, resp = mac_cell_reconfig_response{}](
+  return launch_async([this, request, resp = mac_cell_reconfig_response{},
+                       completion = std::make_shared<slice_reconfiguration_completion>(),
+                       poll_timer = timers.create_unique_timer(ctrl_exec),
+                       elapsed = std::chrono::milliseconds{0}](
                           coro_context<async_task<mac_cell_reconfig_response>>& ctx) mutable {
     CORO_BEGIN(ctx);
 
@@ -166,11 +169,26 @@ async_task<mac_cell_reconfig_response> mac_cell_processor::reconfigure(const mac
 
       {
         OCUDU_RTSAN_SCOPED_ENABLER;
-        sched.handle_slice_reconfiguration_request(request.slice_reconf_req.value());
+        auto slice_request = request.slice_reconf_req.value();
+        slice_request.completion = completion;
+        sched.handle_slice_reconfiguration_request(slice_request);
       }
 
       // Change back to CTRL executor context.
       CORO_AWAIT(execute_on_blocking(ctrl_exec, timers));
+      // ACK only after actual application. Polling affects ACK latency, not t_apply.
+      while (completion->status.load() == slice_reconfiguration_completion::pending or
+             completion->status.load() == slice_reconfiguration_completion::applying) {
+        if (elapsed >= std::chrono::milliseconds{2000}) {
+          auto expected = slice_reconfiguration_completion::pending;
+          if (completion->status.compare_exchange_strong(expected, slice_reconfiguration_completion::cancelled)) {
+            break;
+          }
+        }
+        CORO_AWAIT(async_wait_for(poll_timer, std::chrono::milliseconds{1}));
+        elapsed += std::chrono::milliseconds{1};
+      }
+      resp.slices_applied = completion->status.load() == slice_reconfiguration_completion::applied;
     }
 
     CORO_RETURN(resp);

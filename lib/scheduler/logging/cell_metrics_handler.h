@@ -25,6 +25,8 @@ struct uci_action;
 ///\brief Handler of scheduler slot metrics for a given cell.
 class cell_metrics_handler final : public sched_metrics_ue_configurator
 {
+  stage2::window stage2_previous;
+  std::vector<scheduler_slice_metrics> slice_metrics;
   using msecs = std::chrono::milliseconds;
   using usecs = std::chrono::microseconds;
 

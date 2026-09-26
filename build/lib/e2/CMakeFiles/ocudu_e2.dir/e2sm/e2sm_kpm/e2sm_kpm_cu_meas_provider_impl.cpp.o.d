@@ -470,6 +470,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/e2sm/e2sm_kpm/e2sm_kpm_cu_meas_provider_impl.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/pdcp/pdcp_tx.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/pdcp/pdcp_tx_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/e2/e2sm/e2sm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/e2sm/e2sm_ccc.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_json_utils.h \
  /home/fyp5g/fyp/ocudu/external/nlohmann/json.hpp \

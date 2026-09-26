@@ -1952,6 +1952,7 @@
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/sib19_ntn_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/sib19_value_tag_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/asn1_sib1_sched_info_test.dir
+/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/edit_cache.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/CMakeFiles/rebuild_cache.dir
@@ -2017,6 +2018,7 @@
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/e2sm_kpm_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/e2_conn_upd_procedure_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/asn1_e2sm_ccc_test.dir
+/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/edit_cache.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/e2/CMakeFiles/rebuild_cache.dir

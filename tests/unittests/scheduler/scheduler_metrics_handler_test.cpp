@@ -410,3 +410,39 @@ TEST_F(scheduler_metrics_handler_tester, failed_pdcch_allocs_are_accumulated_per
   ASSERT_EQ(metrics_notif.last_report.failed_ul_pdcch, 0);
   ASSERT_EQ(metrics_notif.last_report.failed_common_ul_pdcch, 0);
 }
+
+TEST(scheduler_slice_metrics_test, counts_grants_by_slice_and_resets_each_window)
+{
+  test_helpers::test_sched_config_manager manager{config_helpers::make_default_scheduler_expert_config()};
+  auto request = sched_config_helper::make_default_sched_cell_configuration_request();
+  request.rrm_policy_members = {{{plmn_identity::test_value(), s_nssai_t{slice_service_type{1}}}, {0, 50}}};
+  const auto& cfg = *manager.add_cell(request);
+  test_scheduler_cell_metrics_notifier notifier;
+  notifier.period_slots = 1;
+  cell_metrics_handler handler(cfg, sched_cell_configuration_request_message::metrics_config{&notifier});
+  handler.handle_ue_creation(to_du_ue_index(0), to_rnti(0x4601), pci_t{0});
+  handler.handle_ue_creation(to_du_ue_index(1), to_rnti(0x4602), pci_t{0});
+  sched_result result;
+  result.dl.nof_dl_symbols = result.ul.nof_ul_symbols = 14;
+  for (unsigned i = 0; i != 2; ++i) {
+    auto& dl = result.dl.ue_grants.emplace_back();
+    dl.pdsch_cfg.rnti = to_rnti(0x4601+i);
+    dl.pdsch_cfg.rbs = vrb_interval{0, 10};
+    dl.context.slice_index = 2;
+    auto& ul = result.ul.puschs.emplace_back();
+    ul.pusch_cfg.rnti = to_rnti(0x4601+i);
+    ul.pusch_cfg.rbs = vrb_interval{0, 7};
+    ul.context.slice_index = 2;
+  }
+  slot_point_extended slot{subcarrier_spacing::kHz15, 0};
+  handler.push_result(slot, result, std::chrono::microseconds{0});
+  ASSERT_EQ(notifier.last_report.slice_metrics.size(), 1);
+  ASSERT_EQ(notifier.last_report.slice_metrics[0].dl_prbs, 20);
+  ASSERT_EQ(notifier.last_report.slice_metrics[0].ul_prbs, 14);
+  // Next window: no grants; prior counts must not leak into it.
+  sched_result empty;
+  empty.dl.nof_dl_symbols = empty.ul.nof_ul_symbols = 14;
+  handler.push_result(slot+1, empty, std::chrono::microseconds{0});
+  ASSERT_EQ(notifier.last_report.slice_metrics[0].dl_prbs, 0);
+  ASSERT_EQ(notifier.last_report.slice_metrics[0].ul_prbs, 0);
+}

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: BSD-3-Clause-Open-MPI
 // Portions of this file may implement 3GPP specifications, which may be subject to additional licensing requirements.
 
+#include "ocudu/support/stage2_trace.h"
 #include "e2ap_indication_procedure.h"
 #include "ocudu/asn1/e2ap/e2ap.h"
 #include "ocudu/support/async/async_timer.h"
@@ -90,6 +91,7 @@ void e2ap_indication_procedure::operator()(coro_context<eager_async_task<void>>&
       e2_ind.indication->ric_request_id.ric_instance_id  = subscription.request_id.ric_instance_id;
       e2_ind.indication->ric_request_id.ric_requestor_id = subscription.request_id.ric_requestor_id;
 
+      stage2::collection_scope stage2_collection;
       byte_buffer ind_msg_bytes;
       byte_buffer ind_hdr_bytes;
       switch (action.ric_action_type) {
@@ -101,6 +103,7 @@ void e2ap_indication_procedure::operator()(coro_context<eager_async_task<void>>&
             // Get RIC indication msg content.
             ind_msg_bytes = action.report_service->get_indication_message();
             ind_hdr_bytes = action.report_service->get_indication_header();
+            stage2::report(ind_hdr_bytes, ind_msg_bytes);
           } else {
             continue;
           }

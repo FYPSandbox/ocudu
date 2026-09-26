@@ -18,4 +18,6 @@ include("/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/cbs_encoder_test
 include("/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/sib19_ntn_test[1]_include.cmake")
 include("/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/sib19_value_tag_test[1]_include.cmake")
 include("/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/asn1_sib1_sched_info_test[1]_include.cmake")
+add_test(du_slice_control_test "/home/fyp5g/fyp/ocudu/build/tests/unittests/du_manager/du_slice_control_test")
+set_tests_properties(du_slice_control_test PROPERTIES  _BACKTRACE_TRIPLES "/home/fyp5g/fyp/ocudu/tests/unittests/du_manager/CMakeLists.txt;105;add_test;/home/fyp5g/fyp/ocudu/tests/unittests/du_manager/CMakeLists.txt;0;")
 set_directory_properties(PROPERTIES LABELS "du_manager;du_high")

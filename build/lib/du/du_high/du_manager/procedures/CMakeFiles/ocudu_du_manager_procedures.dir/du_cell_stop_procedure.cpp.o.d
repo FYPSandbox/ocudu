@@ -533,6 +533,7 @@ lib/du/du_high/du_manager/procedures/CMakeFiles/ocudu_du_manager_procedures.dir/
  /home/fyp5g/fyp/ocudu/include/ocudu/pcap/rlc_pcap.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
  /usr/include/c++/11/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \

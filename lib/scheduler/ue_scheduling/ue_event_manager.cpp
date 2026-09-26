@@ -363,6 +363,8 @@ void ue_cell_event_manager::handle_ue_reconfiguration(ue_config_update_event ev)
 
     // Update slice scheduler.
     slice_sched.reconf_ue(u.ue_index);
+    if (ev.stage2_trace_id) stage2::emit("\"event\":\"applied\",\"trace_id\":" + std::to_string(ev.stage2_trace_id) +
+      ",\"ue_index\":" + std::to_string(static_cast<unsigned>(u.ue_index)));
 
     // Log event.
     ev_logger.enqueue(scheduler_event_logger::ue_reconf_event{ue_idx, u.crnti});

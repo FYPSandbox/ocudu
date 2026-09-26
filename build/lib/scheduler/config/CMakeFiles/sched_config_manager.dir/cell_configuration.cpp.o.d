@@ -390,6 +390,10 @@ lib/scheduler/config/CMakeFiles/sched_config_manager.dir/cell_configuration.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sib/sib_configuration.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_pdu_capacity_constants.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h \

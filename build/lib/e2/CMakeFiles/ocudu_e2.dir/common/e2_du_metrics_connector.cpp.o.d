@@ -293,6 +293,7 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_metrics_connector.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_constants.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/gnb_du_id.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
  /usr/include/c++/11/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -332,6 +333,14 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_metrics_connector.cpp.o: \
  /usr/include/c++/11/version /usr/include/c++/11/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/rrm.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/plmn_identity.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/bcd_helper.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/resource_block.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/bs_channel_bandwidth.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/pci.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/rnti.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sch/sch_mcs.h \
@@ -340,8 +349,6 @@ lib/e2/CMakeFiles/ocudu_e2.dir/common/e2_du_metrics_connector.cpp.o: \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/sch/modulation_scheme.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/interval.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/time/radio_frame_constants.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point_extended.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/math/stats.h \

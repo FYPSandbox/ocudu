@@ -66,6 +66,7 @@ struct mac_cell_reconfig_response {
   bool si_updated = false;
   /// Whether a SI PDUs were successfully enqueued.
   bool si_pdus_enqueued = false;
+  bool slices_applied = false;
 };
 
 /// Interface used to handle a MAC cell activation/reconfiguration/deactivation.

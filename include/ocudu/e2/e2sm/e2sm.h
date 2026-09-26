@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/asn1/e2ap/e2ap.h"
 #include "ocudu/asn1/e2sm/e2sm_ccc.h"
 #include "ocudu/asn1/e2sm/e2sm_kpm_ies.h"
@@ -37,6 +38,8 @@ struct e2sm_ric_control_request {
   std::variant<asn1::e2sm::e2sm_rc_ctrl_hdr_s, asn1::e2sm_ccc::ric_ctrl_hdr_s> request_ctrl_hdr;
   std::variant<asn1::e2sm::e2sm_rc_ctrl_msg_s, asn1::e2sm_ccc::ric_ctrl_msg_s> request_ctrl_msg;
   bool                                                                         ric_ctrl_ack_request;
+  uint64_t stage2_trace_id = 0;
+  bool decode_valid = true;
 };
 
 struct e2sm_ric_control_response {

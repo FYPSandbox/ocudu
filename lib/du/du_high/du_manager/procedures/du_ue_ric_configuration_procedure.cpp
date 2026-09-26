@@ -74,6 +74,7 @@ async_task<mac_ue_reconfiguration_response> du_ue_ric_configuration_procedure::h
 {
   mac_ue_reconfiguration_request mac_request;
 
+  mac_request.sched_cfg.stage2_trace_id = request.stage2_trace_id;
   mac_request.ue_index        = ue->ue_index;
   mac_request.crnti           = ue->rnti;
   mac_request.pcell_index     = ue->pcell_index;
@@ -99,6 +100,9 @@ async_task<mac_ue_reconfiguration_response> du_ue_ric_configuration_procedure::h
   unsigned min_prb_limit = static_cast<int>((1.0 * min_prb_ratio / 100) * nof_prbs);
   unsigned max_prb_limit = static_cast<int>((1.0 * max_prb_ratio / 100) * nof_prbs);
 
+  if (request.stage2_trace_id) stage2::emit("\"event\":\"control_target\",\"trace_id\":" + std::to_string(request.stage2_trace_id) +
+    ",\"ue_index\":" + std::to_string(static_cast<unsigned>(ue->ue_index)) +
+    ",\"min_prbs\":" + std::to_string(min_prb_limit) + ",\"max_prbs\":" + std::to_string(max_prb_limit));
   res_alloc_cfg.pdsch_grant_size_limits = {min_prb_limit, max_prb_limit};
   res_alloc_cfg.pusch_grant_size_limits = {min_prb_limit, max_prb_limit};
 

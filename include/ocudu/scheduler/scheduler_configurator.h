@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/ran/drx_config.h"
 #include "ocudu/ran/du_types.h"
 #include "ocudu/ran/meas_gap_config.h"
@@ -97,6 +98,7 @@ struct sched_ue_config_request {
   std::optional<meas_gap_config> meas_gap_cfg;
   /// Whether this configuration was triggered by RRC.
   causes cause = causes::other_rrc_proc;
+  uint64_t stage2_trace_id = 0;
 };
 
 /// Request to create a new UE in scheduler.

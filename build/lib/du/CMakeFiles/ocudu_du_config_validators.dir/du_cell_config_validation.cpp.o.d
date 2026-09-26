@@ -430,6 +430,7 @@ lib/du/CMakeFiles/ocudu_du_config_validators.dir/du_cell_config_validation.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/sched_cell_config_helpers.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/serving_cell_config_factory.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/logical_channel_config.h \

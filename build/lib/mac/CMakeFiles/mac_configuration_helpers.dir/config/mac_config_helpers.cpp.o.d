@@ -294,6 +294,10 @@ lib/mac/CMakeFiles/mac_configuration_helpers.dir/config/mac_config_helpers.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_properties.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/ssb/ssb_configuration.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_configurator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/logger.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/drx_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/meas_gap_config.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/slot_point.h \

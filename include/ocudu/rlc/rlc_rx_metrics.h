@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "ocudu/support/stage2_trace.h"
 #include "ocudu/support/engineering_notation.h"
 #include "ocudu/support/timers.h"
 #include "fmt/format.h"
@@ -89,6 +90,7 @@ struct rlc_rx_metrics {
 
     // do not reset mode or counter
   }
+  stage2::window stage2_window;
 };
 
 class rlc_rx_metrics_interface

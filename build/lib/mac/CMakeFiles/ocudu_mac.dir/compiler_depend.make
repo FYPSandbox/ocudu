@@ -354,6 +354,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_controller.cpp.o: ../lib/mac/mac_c
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -524,9 +528,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_controller.cpp.o: ../lib/mac/mac_c
   ../include/ocudu/support/tracing/resource_usage.h \
   ../include/ocudu/support/format/fmt_basic_parser.h \
   ../lib/mac/mac_ctrl/mac_config.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_metrics_aggregator.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/adt/slotted_array.h \
@@ -902,6 +903,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_metrics_aggregator.cpp.o: ../lib/m
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -1061,9 +1066,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_metrics_aggregator.cpp.o: ../lib/m
   ../include/ocudu/ran/time/radio_frame.h \
   ../include/ocudu/mac/mac_pdu_handler.h \
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/adt/detail/slotted_array_detail.h \
@@ -1436,6 +1438,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_ue_removal_procedure.cpp.o: ../lib
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -1595,9 +1601,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/mac_ue_removal_procedure.cpp.o: ../lib
   ../include/ocudu/mac/mac_pdu_handler.h \
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
   ../lib/mac/mac_ctrl/mac_config.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_scheduler_configurator.h \
   ../lib/mac/mac_ctrl/proc_logger.h \
   ../include/ocudu/support/async/when_all.h \
@@ -1956,6 +1959,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/ue_creation_procedure.cpp.o: ../lib/ma
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -2115,9 +2122,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/ue_creation_procedure.cpp.o: ../lib/ma
   ../include/ocudu/mac/mac_pdu_handler.h \
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
   ../lib/mac/mac_ctrl/mac_config.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_scheduler_configurator.h \
   ../lib/mac/mac_ctrl/proc_logger.h \
   ../include/ocudu/support/async/when_all.h \
@@ -2476,6 +2480,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/ue_reconfiguration_procedure.cpp.o: ..
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -2634,9 +2642,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ctrl/ue_reconfiguration_procedure.cpp.o: ..
   ../include/ocudu/ran/time/radio_frame.h \
   ../include/ocudu/mac/mac_pdu_handler.h \
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_config.h \
   ../lib/mac/mac_ctrl/mac_scheduler_configurator.h \
   ../lib/mac/mac_ctrl/proc_logger.h
@@ -3373,6 +3378,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/dl_sch_pdu_assembler.cpp.o: ../lib/mac/m
   ../include/ocudu/rlc/rlc_buffer_state.h \
   ../include/ocudu/ran/harq_id.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
   ../include/ocudu/ran/plmn_identity.h \
@@ -3472,11 +3481,8 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/dl_sch_pdu_assembler.cpp.o: ../lib/mac/m
   ../include/ocudu/ran/du_ue_list.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/adt/detail/slotted_array_detail.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/logical_channel/lcid_dl_sch.h \
   ../lib/mac/mac_dl/cell_dl_harq_buffer_pool.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/mac/mac_pdu_format.h \
   ../include/ocudu/ran/pdsch/pdsch_constants.h \
   ../include/ocudu/scheduler/result/pdsch_info.h \
@@ -3890,6 +3896,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_cell_processor.cpp.o: ../lib/mac/mac
   ../include/ocudu/adt/byte_buffer_chain.h \
   ../include/ocudu/rlc/rlc_buffer_state.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
   ../include/ocudu/ran/plmn_identity.h \
@@ -4413,6 +4420,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_metric_handler.cpp.o: ../lib/mac/
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -4558,10 +4569,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_metric_handler.cpp.o: ../lib/mac/
   /usr/include/c++/11/bits/this_thread_sleep.h \
   ../include/ocudu/adt/detail/concurrent_queue_params.h \
   ../include/ocudu/support/tracing/resource_usage.h \
-  ../include/ocudu/support/format/fmt_basic_parser.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h
+  ../include/ocudu/support/format/fmt_basic_parser.h
 
 lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_processor.cpp.o: ../lib/mac/mac_dl/mac_dl_processor.cpp \
   /usr/include/stdc-predef.h \
@@ -4916,6 +4924,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_processor.cpp.o: ../lib/mac/mac_d
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -5076,9 +5088,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_processor.cpp.o: ../lib/mac/mac_d
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
   ../lib/mac/mac_dl/mac_cell_processor.h \
   ../lib/mac/mac_dl/cell_dl_harq_buffer_pool.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/support/shared_transport_block.h \
   ../lib/mac/mac_dl/dl_sch_pdu_assembler.h \
   ../lib/mac/mac_dl/mac_dl_ue_repository.h \
@@ -5525,6 +5534,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_dl_ue_repository.cpp.o: ../lib/mac/m
   ../include/ocudu/rlc/rlc_buffer_state.h \
   ../include/ocudu/ran/harq_id.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
   ../include/ocudu/ran/plmn_identity.h \
@@ -5976,6 +5989,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_subframe_time_mapper_impl.cpp.o: ../
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -6109,10 +6126,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/mac_subframe_time_mapper_impl.cpp.o: ../
   ../include/ocudu/mac/mac_cell_slot_handler.h \
   ../include/ocudu/mac/mac_cell_timing_context.h \
   ../include/ocudu/ran/slot_point_extended.h \
-  ../include/ocudu/mac/mac_subframe_time_mapper.h \
-  ../include/ocudu/ocudulog/logger.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h
+  ../include/ocudu/mac/mac_subframe_time_mapper.h
 
 lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/paging_pdu_assembler.cpp.o: ../lib/mac/mac_dl/paging_pdu_assembler.cpp \
   /usr/include/stdc-predef.h \
@@ -6874,6 +6888,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/rar_pdu_assembler.cpp.o: ../lib/mac/mac_
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -6992,9 +7010,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/rar_pdu_assembler.cpp.o: ../lib/mac/mac_
   ../include/ocudu/support/memory_pool/heap_memory_resource.h \
   ../include/ocudu/mac/mac_cell_rach_handler.h \
   ../include/ocudu/mac/ue_con_res_id.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/result/pdsch_info.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
@@ -7359,6 +7374,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/si_message_extension_handler_impl.cpp.o:
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -7495,7 +7514,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/si_message_extension_handler_impl.cpp.o:
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/adt/lockfree_triple_buffer.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/result/pdsch_info.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
@@ -7516,9 +7534,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/si_message_extension_handler_impl.cpp.o:
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
-  ../include/ocudu/adt/detail/concurrent_queue_params.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h
+  ../include/ocudu/adt/detail/concurrent_queue_params.h
 
 lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/sib_pdu_assembler.cpp.o: ../lib/mac/mac_dl/sib_pdu_assembler.cpp \
   /usr/include/stdc-predef.h \
@@ -7872,6 +7888,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/sib_pdu_assembler.cpp.o: ../lib/mac/mac_
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -8008,7 +8028,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/sib_pdu_assembler.cpp.o: ../lib/mac/mac_
   ../include/ocudu/mac/mac_ue_control_information_handler.h \
   ../include/ocudu/ran/slot_point_extended.h \
   ../include/ocudu/adt/lockfree_triple_buffer.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/result/pdsch_info.h \
   ../include/ocudu/ran/csi_report/csi_report_data.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
@@ -8026,8 +8045,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/sib_pdu_assembler.cpp.o: ../lib/mac/mac_
   ../lib/mac/mac_dl/segmented_sib_list.h \
   ../include/ocudu/asn1/rrc_nr/bcch_dl_sch_msg.h \
   ../include/ocudu/asn1/asn1_utils.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   /usr/include/c++/11/any \
   ../include/ocudu/asn1/rrc_nr/sys_info.h \
   ../include/ocudu/asn1/rrc_nr/serving_cell.h \
@@ -8384,6 +8401,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_dl/ssb_assembler.cpp.o: ../lib/mac/mac_dl/s
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -8927,6 +8948,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_factory.cpp.o: ../lib/mac/mac_factory.cpp \
   ../include/ocudu/ran/nr_band.h \
   ../include/ocudu/ran/pdcch/coreset.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -9049,9 +9074,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_factory.cpp.o: ../lib/mac/mac_factory.cpp \
   ../include/ocudu/support/tracing/resource_usage.h \
   ../include/ocudu/support/format/fmt_basic_parser.h \
   ../lib/mac/mac_ctrl/mac_config.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_metrics_aggregator.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/adt/slotted_array.h \
@@ -9486,6 +9508,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_impl.cpp.o: ../lib/mac/mac_impl.cpp \
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -9656,9 +9682,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_impl.cpp.o: ../lib/mac/mac_impl.cpp \
   ../include/ocudu/support/tracing/resource_usage.h \
   ../include/ocudu/support/format/fmt_basic_parser.h \
   ../lib/mac/mac_ctrl/mac_config.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_ctrl/mac_metrics_aggregator.h \
   ../include/ocudu/adt/circular_array.h \
   ../include/ocudu/adt/slotted_array.h \
@@ -10123,6 +10146,9 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/mac_rach_handler.cpp.o: ../lib/mac/ma
   ../include/ocudu/ran/prach/prach_format_type.h \
   ../include/ocudu/ran/prach/ra_helper.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -10574,6 +10600,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../include/ocudu/ran/physical_cell_group.h \
   ../include/ocudu/ran/rnti.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
@@ -10710,7 +10740,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../include/ocudu/adt/detail/slotted_array_detail.h \
   ../include/ocudu/mac/mac_cell_rach_handler.h \
   ../include/ocudu/mac/ue_con_res_id.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../lib/mac/mac_sched/mac_scheduler_adapter.h \
   ../lib/mac/mac_dl/mac_scheduler_cell_info_handler.h \
   ../include/ocudu/mac/mac_cell_manager.h \
@@ -10751,8 +10780,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../include/ocudu/mac/mac_executor_mapper.h \
   ../include/ocudu/mac/mac_pdu_handler.h \
   ../include/ocudu/pcap/mac_pcap.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../lib/mac/mac_sched/uci_cell_decoder.h \
   ../include/ocudu/adt/spmc_slot_ring.h \
   ../include/ocudu/ran/csi_report/csi_report_configuration.h \
@@ -11165,6 +11192,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/positioning_handler.cpp.o: ../lib/mac
   ../include/ocudu/ran/pdcch/pdcch_constants.h \
   ../include/ocudu/ran/resource_allocation/rb_interval.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -11284,7 +11315,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/positioning_handler.cpp.o: ../lib/mac
   ../include/ocudu/support/async/detail/function_signature.h \
   ../include/ocudu/support/detail/type_list.h \
   ../include/ocudu/mac/mac_positioning_measurement_handler.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/support/timers.h \
   ../include/ocudu/adt/unique_function.h \
   ../include/ocudu/support/executors/task_executor.h \
@@ -11300,8 +11330,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/positioning_handler.cpp.o: ../lib/mac
   ../include/ocudu/support/zero_copy_notifier.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/adt/detail/slotted_array_detail.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/scheduler/scheduler_positioning_handler.h \
   ../include/ocudu/support/async/async_no_op_task.h \
   ../include/ocudu/support/async/manual_event.h \
@@ -11702,6 +11730,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/uci_cell_decoder.cpp.o: ../lib/mac/ma
   ../include/ocudu/rlc/rlc_buffer_state.h \
   ../include/ocudu/ran/harq_id.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
   ../include/ocudu/ran/plmn_identity.h \
@@ -11797,9 +11829,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/uci_cell_decoder.cpp.o: ../lib/mac/ma
   ../include/ocudu/support/async/detail/awaiter_memory_storage.h \
   ../include/ocudu/support/async/detail/function_signature.h \
   ../include/ocudu/support/detail/type_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/adt/spmc_slot_ring.h \
   ../include/ocudu/mac/mac_cell_control_information_handler.h \
   ../include/ocudu/ran/srs/srs_channel_matrix.h \
@@ -12186,6 +12215,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_processor.cpp.o: ../lib/mac/mac_u
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/ssb/ssb_configuration.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/slot_point.h \
@@ -12348,7 +12381,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_processor.cpp.o: ../lib/mac/mac_u
   ../lib/mac/rnti_value_table.h \
   ../include/ocudu/adt/slotted_vector.h \
   ../include/ocudu/adt/detail/slotted_array_detail.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/du_ue_list.h \
   ../include/ocudu/adt/slotted_array.h \
   ../lib/mac/mac_ul/pdu_rx_handler.h \
@@ -12397,8 +12429,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_processor.cpp.o: ../lib/mac/mac_u
   ../include/ocudu/mac/mac_cell_result.h \
   ../include/ocudu/ran/pdcch/dci_packing.h \
   ../include/ocudu/support/shared_transport_block.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/support/async/execute_on_blocking.h \
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/support/async/execute_on.h \
@@ -13129,6 +13159,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_ue_manager.cpp.o: ../lib/mac/mac_
   ../include/ocudu/ran/logical_channel/lcid.h \
   ../include/ocudu/ran/physical_cell_group.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/du_types.h \
   ../include/ocudu/ran/du_cell_index.h \
   ../include/ocudu/ran/gnb_constants.h \
@@ -13258,11 +13292,8 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_ue_manager.cpp.o: ../lib/mac/mac_
   ../include/ocudu/support/async/detail/awaiter_memory_storage.h \
   ../include/ocudu/support/async/detail/function_signature.h \
   ../include/ocudu/support/detail/type_list.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/du_ue_list.h \
-  ../include/ocudu/adt/slotted_array.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h
+  ../include/ocudu/adt/slotted_array.h
 
 lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/pdu_rx_handler.cpp \
   /usr/include/stdc-predef.h \
@@ -13665,6 +13696,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   /usr/include/inttypes.h \
   ../include/ocudu/ran/physical_cell_group.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
   ../include/ocudu/ran/plmn_identity.h \
@@ -13784,7 +13819,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/support/async/detail/awaiter_memory_storage.h \
   ../include/ocudu/support/async/detail/function_signature.h \
   ../include/ocudu/support/detail/type_list.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/du_ue_list.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/mac/mac.h \
@@ -13816,8 +13850,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/support/tracing/event_tracing.h \
   ../include/ocudu/support/tracing/resource_usage.h \
   ../include/ocudu/support/format/fmt_basic_parser.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/support/format/fmt_to_c_str.h
 
 lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/ul_bsr.cpp.o: ../lib/mac/mac_ul/ul_bsr.cpp \
@@ -14330,6 +14362,10 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/ul_bsr.cpp.o: ../lib/mac/mac_ul/ul_bsr.c
 /usr/include/c++/11/bits/fs_fwd.h:
 
 ../lib/mac/mac_ctrl/ue_creation_procedure.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h:
+
+../lib/mac/rnti_manager.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
@@ -15171,6 +15207,8 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/ul_bsr.cpp.o: ../lib/mac/mac_ul/ul_bsr.c
 
 /usr/include/c++/11/cwctype:
 
+../include/ocudu/support/stage2_trace.h:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
@@ -15540,7 +15578,3 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/ul_bsr.cpp.o: ../lib/mac/mac_ul/ul_bsr.c
 ../include/ocudu/scheduler/config/ue_bwp_config.h:
 
 ../include/ocudu/ran/du_ue_list.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h:
-
-../lib/mac/rnti_manager.h:

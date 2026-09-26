@@ -395,6 +395,20 @@ asn1_e2sm_ccc_test/fast:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/asn1_e2sm_ccc_test.dir/build.make tests/unittests/e2/CMakeFiles/asn1_e2sm_ccc_test.dir/build
 .PHONY : asn1_e2sm_ccc_test/fast
 
+# Convenience name for target.
+tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/rule:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/rule
+.PHONY : tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/rule
+
+# Convenience name for target.
+e2sm_ccc_control_test: tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/rule
+.PHONY : e2sm_ccc_control_test
+
+# fast build rule for target.
+e2sm_ccc_control_test/fast:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build.make tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build
+.PHONY : e2sm_ccc_control_test/fast
+
 asn1_e2sm_ccc_test.o: asn1_e2sm_ccc_test.cpp.o
 .PHONY : asn1_e2sm_ccc_test.o
 
@@ -659,6 +673,30 @@ e2ap_network_adapter_test.cpp.s:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2ap_network_adapter_test.dir/build.make tests/unittests/e2/CMakeFiles/e2ap_network_adapter_test.dir/e2ap_network_adapter_test.cpp.s
 .PHONY : e2ap_network_adapter_test.cpp.s
 
+e2sm_ccc_control_test.o: e2sm_ccc_control_test.cpp.o
+.PHONY : e2sm_ccc_control_test.o
+
+# target to build an object file
+e2sm_ccc_control_test.cpp.o:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build.make tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/e2sm_ccc_control_test.cpp.o
+.PHONY : e2sm_ccc_control_test.cpp.o
+
+e2sm_ccc_control_test.i: e2sm_ccc_control_test.cpp.i
+.PHONY : e2sm_ccc_control_test.i
+
+# target to preprocess a source file
+e2sm_ccc_control_test.cpp.i:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build.make tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/e2sm_ccc_control_test.cpp.i
+.PHONY : e2sm_ccc_control_test.cpp.i
+
+e2sm_ccc_control_test.s: e2sm_ccc_control_test.cpp.s
+.PHONY : e2sm_ccc_control_test.s
+
+# target to generate assembly for a file
+e2sm_ccc_control_test.cpp.s:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/build.make tests/unittests/e2/CMakeFiles/e2sm_ccc_control_test.dir/e2sm_ccc_control_test.cpp.s
+.PHONY : e2sm_ccc_control_test.cpp.s
+
 e2sm_kpm_meas_provider_metrics_test.o: e2sm_kpm_meas_provider_metrics_test.cpp.o
 .PHONY : e2sm_kpm_meas_provider_metrics_test.o
 
@@ -826,6 +864,7 @@ help:
 	@echo "... e2_subscription_setup_test"
 	@echo "... e2_test_helpers"
 	@echo "... e2ap_network_adapter_test"
+	@echo "... e2sm_ccc_control_test"
 	@echo "... e2sm_kpm_meas_provider_metrics_test"
 	@echo "... e2sm_kpm_meas_provider_test"
 	@echo "... e2sm_kpm_test"
@@ -865,6 +904,9 @@ help:
 	@echo "... e2ap_network_adapter_test.o"
 	@echo "... e2ap_network_adapter_test.i"
 	@echo "... e2ap_network_adapter_test.s"
+	@echo "... e2sm_ccc_control_test.o"
+	@echo "... e2sm_ccc_control_test.i"
+	@echo "... e2sm_ccc_control_test.s"
 	@echo "... e2sm_kpm_meas_provider_metrics_test.o"
 	@echo "... e2sm_kpm_meas_provider_metrics_test.i"
 	@echo "... e2sm_kpm_meas_provider_metrics_test.s"

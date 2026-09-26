@@ -381,6 +381,20 @@ asn1_sib1_sched_info_test/fast:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/asn1_sib1_sched_info_test.dir/build.make tests/unittests/du_manager/CMakeFiles/asn1_sib1_sched_info_test.dir/build
 .PHONY : asn1_sib1_sched_info_test/fast
 
+# Convenience name for target.
+tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/rule:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/rule
+.PHONY : tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/rule
+
+# Convenience name for target.
+du_slice_control_test: tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/rule
+.PHONY : du_slice_control_test
+
+# fast build rule for target.
+du_slice_control_test/fast:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build
+.PHONY : du_slice_control_test/fast
+
 asn1_sib1_sched_info_test.o: asn1_sib1_sched_info_test.cpp.o
 .PHONY : asn1_sib1_sched_info_test.o
 
@@ -572,6 +586,30 @@ du_ran_resource_manager_test.s: du_ran_resource_manager_test.cpp.s
 du_ran_resource_manager_test.cpp.s:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_ran_resource_manager_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_ran_resource_manager_test.dir/du_ran_resource_manager_test.cpp.s
 .PHONY : du_ran_resource_manager_test.cpp.s
+
+du_slice_control_test.o: du_slice_control_test.cpp.o
+.PHONY : du_slice_control_test.o
+
+# target to build an object file
+du_slice_control_test.cpp.o:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/du_slice_control_test.cpp.o
+.PHONY : du_slice_control_test.cpp.o
+
+du_slice_control_test.i: du_slice_control_test.cpp.i
+.PHONY : du_slice_control_test.i
+
+# target to preprocess a source file
+du_slice_control_test.cpp.i:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/du_slice_control_test.cpp.i
+.PHONY : du_slice_control_test.cpp.i
+
+du_slice_control_test.s: du_slice_control_test.cpp.s
+.PHONY : du_slice_control_test.s
+
+# target to generate assembly for a file
+du_slice_control_test.cpp.s:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/build.make tests/unittests/du_manager/CMakeFiles/du_slice_control_test.dir/du_slice_control_test.cpp.s
+.PHONY : du_slice_control_test.cpp.s
 
 du_ue/du_bearer_test.o: du_ue/du_bearer_test.cpp.o
 .PHONY : du_ue/du_bearer_test.o
@@ -930,6 +968,7 @@ help:
 	@echo "... du_manager_test_helpers"
 	@echo "... du_manager_ue_creation_test"
 	@echo "... du_ran_resource_manager_test"
+	@echo "... du_slice_control_test"
 	@echo "... du_ue_config_test"
 	@echo "... mac_cell_group_config_converter_test"
 	@echo "... serving_cell_config_converter_test"
@@ -961,6 +1000,9 @@ help:
 	@echo "... du_ran_resource_manager_test.o"
 	@echo "... du_ran_resource_manager_test.i"
 	@echo "... du_ran_resource_manager_test.s"
+	@echo "... du_slice_control_test.o"
+	@echo "... du_slice_control_test.i"
+	@echo "... du_slice_control_test.s"
 	@echo "... du_ue/du_bearer_test.o"
 	@echo "... du_ue/du_bearer_test.i"
 	@echo "... du_ue/du_bearer_test.s"

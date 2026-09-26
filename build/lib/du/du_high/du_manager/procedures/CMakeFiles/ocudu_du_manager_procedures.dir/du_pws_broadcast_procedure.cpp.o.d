@@ -528,6 +528,9 @@ lib/du/du_high/du_manager/procedures/CMakeFiles/ocudu_du_manager_procedures.dir/
  /home/fyp5g/fyp/ocudu/include/ocudu/pcap/rlc_pcap.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_metrics.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/rlc/rlc_rx_metrics.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/support/stage2_trace.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/support/engineering_notation.h \
  /usr/include/c++/11/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -555,8 +558,6 @@ lib/du/du_high/du_manager/procedures/CMakeFiles/ocudu_du_manager_procedures.dir/
  /home/fyp5g/fyp/ocudu/lib/du/du_high/du_manager/procedures/../du_cell_manager.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/rrc_nr/bcch_dl_sch_msg.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/asn1_utils.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/ocudulog.h \
- /home/fyp5g/fyp/ocudu/include/ocudu/ocudulog/detail/support/any.h \
  /usr/include/c++/11/any \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/rrc_nr/sys_info.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/asn1/rrc_nr/serving_cell.h \

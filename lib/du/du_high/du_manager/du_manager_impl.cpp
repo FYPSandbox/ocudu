@@ -200,3 +200,10 @@ du_manager_impl::handle_write_replace_warning(const write_replace_warning_inform
 {
   return launch_async<du_pws_broadcast_procedure>(req, params, cell_mng);
 }
+
+std::vector<nr_cell_global_id_t> du_manager_impl::get_cell_global_ids() const
+{
+  std::vector<nr_cell_global_id_t> result;
+  for (const auto& cell : params.ran.cells) result.push_back(cell.nr_cgi);
+  return result;
+}

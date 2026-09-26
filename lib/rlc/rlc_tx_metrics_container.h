@@ -87,6 +87,7 @@ public:
 class rlc_tx_metrics_low_container
 {
   rlc_tx_metrics_lower metrics_lo = {};
+  stage2::window stage2_previous;
   bool                 enabled    = false;
 
 public:
@@ -303,6 +304,7 @@ public:
       return {};
     }
     rlc_tx_metrics_lower ret = get_low_metrics();
+    ret.stage2_window = stage2::close_window(stage2_previous);
     reset_metrics();
     return ret;
   }

@@ -69,7 +69,7 @@ ocudu::create_e2_du_agent(const e2ap_configuration&                          e2a
 
   // E2SM-CCC
   if (e2ap_cfg_.e2sm_ccc_enabled) {
-    auto                                  e2sm_ccc_packer = std::make_unique<e2sm_ccc_asn1_packer>();
+    auto                                  e2sm_ccc_packer = std::make_unique<e2sm_ccc_asn1_packer>(du_configurator_->get_cell_global_ids());
     auto                                  e2sm_ccc_iface  = std::make_unique<e2sm_ccc_impl>(logger, *e2sm_ccc_packer);
     std::unique_ptr<e2sm_control_service> ccc_control_service_style =
         std::make_unique<e2sm_ccc_control_service_style_2>();

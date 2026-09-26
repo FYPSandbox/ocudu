@@ -8,6 +8,7 @@
 #include "ocudu/asn1/asn1_utils.h"
 #include "ocudu/asn1/e2ap/e2ap.h"
 #include "ocudu/e2/e2sm/e2sm.h"
+#include "ocudu/ran/nr_cgi.h"
 
 namespace ocudu {
 
@@ -20,7 +21,7 @@ public:
   static const uint32_t    ran_func_id;
   static const uint32_t    revision;
 
-  e2sm_ccc_asn1_packer();
+  explicit e2sm_ccc_asn1_packer(std::vector<nr_cell_global_id_t> cells = {});
 
   /// Receive populated ASN1 struct that needs to be unpacked and forwarded.
   e2sm_action_definition   handle_packed_e2sm_action_definition(const byte_buffer& action_definition) override;
@@ -35,6 +36,7 @@ public:
   bool add_e2sm_control_service(e2sm_control_service* control_service);
 
 private:
+  std::vector<nr_cell_global_id_t> cells;
   std::map<uint32_t, e2sm_control_service*> control_services;
 };
 

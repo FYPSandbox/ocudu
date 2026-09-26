@@ -217,6 +217,7 @@ odu::du_mac_sched_control_config
 e2sm_rc_control_action_2_6_du_executor::convert_to_du_config_request(const e2sm_ric_control_request& e2sm_req_)
 {
   odu::du_mac_sched_control_config  ctrl_config = {};
+  ctrl_config.stage2_trace_id = e2sm_req_.stage2_trace_id;
   const e2sm_rc_ctrl_hdr_format1_s& ctrl_hdr =
       std::get<e2sm_rc_ctrl_hdr_s>(e2sm_req_.request_ctrl_hdr).ric_ctrl_hdr_formats.ctrl_hdr_format1();
   const e2sm_rc_ctrl_msg_format1_s& ctrl_msg =

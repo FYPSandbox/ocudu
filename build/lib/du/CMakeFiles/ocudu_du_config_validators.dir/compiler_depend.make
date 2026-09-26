@@ -487,6 +487,7 @@ lib/du/CMakeFiles/ocudu_du_config_validators.dir/du_cell_config_validation.cpp.o
   ../include/ocudu/scheduler/config/sched_cell_config_helpers.h \
   ../include/ocudu/scheduler/config/serving_cell_config_factory.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/scheduler/config/logical_channel_config.h \
@@ -1189,6 +1190,8 @@ lib/du/CMakeFiles/ocudu_du_config_validators.dir/du_update_config_helpers.cpp.o:
 ../include/ocudu/ran/n_ta_offset.h:
 
 ../include/ocudu/ran/bs_channel_bandwidth.h:
+
+../include/ocudu/support/stage2_trace.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 

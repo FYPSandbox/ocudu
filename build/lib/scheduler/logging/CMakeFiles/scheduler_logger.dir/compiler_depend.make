@@ -452,6 +452,9 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_event_tracer.cpp.o: .
   ../include/ocudu/ran/sib/sib_configuration.h \
   ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -470,9 +473,7 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_event_tracer.cpp.o: .
   ../include/ocudu/ran/qos/qos_parameters.h \
   ../include/ocudu/scheduler/config/si_scheduling_config.h \
   ../include/ocudu/scheduler/config/slice_rrm_policy_config.h \
-  ../include/ocudu/instrumentation/traces/scheduler_event_tracer.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h
+  ../include/ocudu/instrumentation/traces/scheduler_event_tracer.h
 
 lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_metrics_handler.cpp.o: ../lib/scheduler/logging/cell_metrics_handler.cpp \
   /usr/include/stdc-predef.h \
@@ -782,6 +783,10 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_metrics_handler.cpp.o
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/time/radio_frame_constants.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
+  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/adt/bounded_bitset.h \
@@ -965,7 +970,6 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_metrics_handler.cpp.o
   ../lib/scheduler/uci_scheduling/uci_indication_selector.h \
   ../include/ocudu/adt/circular_vector.h \
   ../include/ocudu/adt/stable_id_map.h \
-  ../include/ocudu/ocudulog/logger.h \
   ../include/ocudu/scheduler/result/sched_result.h \
   ../include/ocudu/scheduler/result/csi_rs_info.h \
   ../include/ocudu/scheduler/result/pdcch_info.h \
@@ -982,8 +986,6 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/cell_metrics_handler.cpp.o
   ../include/ocudu/ran/pucch/pucch_uci_bits.h \
   ../include/ocudu/scheduler/result/pusch_info.h \
   ../include/ocudu/scheduler/result/srs_info.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/scheduler/scheduler_rach_handler.h
 
 lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_event_logger.cpp.o: ../lib/scheduler/logging/scheduler_event_logger.cpp \
@@ -1346,6 +1348,9 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_event_logger.cpp
   ../include/ocudu/ran/precoding/precoding_matrix_indicator.h \
   ../include/ocudu/ran/precoding/precoding_codebook_helpers.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
+  ../include/ocudu/support/stage2_trace.h \
+  ../include/ocudu/ocudulog/ocudulog.h \
+  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/drx_config.h \
   ../include/ocudu/ran/meas_gap_config.h \
   ../include/ocudu/ran/rrm.h \
@@ -1479,8 +1484,6 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_event_logger.cpp
   ../include/ocudu/support/memory_pool/linear_memory_allocator.h \
   ../include/ocudu/support/memory_pool/memory_pool_utils.h \
   ../include/ocudu/support/detail/type_list.h \
-  ../include/ocudu/ocudulog/ocudulog.h \
-  ../include/ocudu/ocudulog/detail/support/any.h \
   ../include/ocudu/ran/csi_report/csi_report_formatters.h \
   ../include/ocudu/ran/csi_report/csi_report_size.h \
   ../include/ocudu/ran/uci/uci_part2_size_description.h \
@@ -2035,6 +2038,8 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_result_logger.cp
 /usr/include/c++/11/bits/fstream.tcc:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
 
 /usr/include/c++/11/utility:
 
@@ -2814,6 +2819,8 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_result_logger.cp
 
 ../include/ocudu/adt/bounded_integer.h:
 
+../include/ocudu/support/stage2_trace.h:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
@@ -3145,5 +3152,3 @@ lib/scheduler/logging/CMakeFiles/scheduler_logger.dir/scheduler_result_logger.cp
 ../external/fmt/include/fmt/ostream.h:
 
 /usr/include/c++/11/fstream:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:

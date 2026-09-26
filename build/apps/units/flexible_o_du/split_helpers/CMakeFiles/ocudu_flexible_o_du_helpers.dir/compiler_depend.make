@@ -1040,6 +1040,7 @@ apps/units/flexible_o_du/split_helpers/CMakeFiles/ocudu_flexible_o_du_helpers.di
   ../include/ocudu/pcap/rlc_pcap.h \
   ../include/ocudu/rlc/rlc_metrics.h \
   ../include/ocudu/rlc/rlc_rx_metrics.h \
+  ../include/ocudu/support/stage2_trace.h \
   ../include/ocudu/support/engineering_notation.h \
   /usr/include/c++/11/cfloat \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
@@ -3552,6 +3553,8 @@ apps/units/flexible_o_du/split_helpers/CMakeFiles/ocudu_flexible_o_du_helpers.di
 /usr/include/c++/11/filesystem:
 
 /usr/include/c++/11/cwctype:
+
+../include/ocudu/support/stage2_trace.h:
 
 ../include/ocudu/cu_up/cu_up_executor_mapper.h:
 

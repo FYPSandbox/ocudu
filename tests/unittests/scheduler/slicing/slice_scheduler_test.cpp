@@ -898,3 +898,60 @@ TEST_F(dedicated_empty_slice_scheduler_test, when_slice_has_no_ues_its_rbs_will_
     }
   }
 }
+
+TEST_F(rb_ratio_slice_scheduler_test, runtime_quota_is_shared_by_two_ues_in_the_same_slice)
+{
+  ASSERT_NE(add_ue(to_du_ue_index(0)), nullptr);
+  ASSERT_NE(add_ue(to_du_ue_index(1)), nullptr);
+  du_cell_slice_reconfig_request request;
+  request.cell_index = cell_cfg.cell_index;
+  request.rrm_policies.push_back({slice_sched.slice_config(drb2_slice_id).rrc_member, {0, 23}});
+  slice_sched.handle_slice_reconfiguration_request(request);
+  ASSERT_EQ(slice_sched.slice_config(drb2_slice_id).rbs.max(), 23);
+  ASSERT_EQ(slice_sched.slice_config(ran_slice_id_t{2}).rbs.max(), MAX_SLICE_RB);
+  run_slot();
+  auto candidate = slice_sched.get_next_dl_candidate();
+  ASSERT_TRUE(candidate.has_value());
+  ASSERT_EQ(candidate->id(), SRB_RAN_SLICE_ID);
+  candidate = slice_sched.get_next_dl_candidate();
+  ASSERT_TRUE(candidate.has_value());
+  ASSERT_EQ(candidate->id(), drb2_slice_id);
+  ASSERT_TRUE(candidate->is_candidate(to_du_ue_index(0), LCID_MIN_DRB));
+  ASSERT_TRUE(candidate->is_candidate(to_du_ue_index(1), LCID_MIN_DRB));
+  ASSERT_EQ(candidate->remaining_rbs(), 23);
+  candidate->store_grant(10);
+  ASSERT_EQ(candidate->remaining_rbs(), 13); // shared budget, not 23 per UE.
+}
+
+TEST_F(rb_ratio_slice_scheduler_test, runtime_unknown_slice_rejects_whole_batch)
+{
+  du_cell_slice_reconfig_request request;
+  request.cell_index = cell_cfg.cell_index;
+  request.rrm_policies.push_back({slice_sched.slice_config(drb2_slice_id).rrc_member, {0, 23}});
+  request.rrm_policies.push_back({{plmn_identity::test_value(), s_nssai_t{slice_service_type{99}}}, {0, 17}});
+  slice_sched.handle_slice_reconfiguration_request(request);
+  ASSERT_EQ(slice_sched.slice_config(drb2_slice_id).rbs.max(), MAX_SLICE_RB);
+}
+
+TEST_F(rb_ratio_slice_scheduler_test, cancelled_runtime_request_does_not_apply_late)
+{
+  du_cell_slice_reconfig_request request;
+  request.cell_index = cell_cfg.cell_index;
+  request.rrm_policies.push_back({slice_sched.slice_config(drb2_slice_id).rrc_member, {0, 23}});
+  request.completion = std::make_shared<slice_reconfiguration_completion>();
+  request.completion->status = slice_reconfiguration_completion::cancelled;
+  slice_sched.handle_slice_reconfiguration_request(request);
+  ASSERT_EQ(slice_sched.slice_config(drb2_slice_id).rbs.max(), MAX_SLICE_RB);
+}
+
+TEST_F(rb_ratio_slice_scheduler_test, completion_follows_slice_application)
+{
+  du_cell_slice_reconfig_request request;
+  request.cell_index = cell_cfg.cell_index;
+  request.rrm_policies.push_back({slice_sched.slice_config(drb2_slice_id).rrc_member, {0, 23}});
+  request.completion = std::make_shared<slice_reconfiguration_completion>();
+  ASSERT_EQ(request.completion->status.load(), slice_reconfiguration_completion::pending);
+  slice_sched.handle_slice_reconfiguration_request(request);
+  ASSERT_EQ(request.completion->status.load(), slice_reconfiguration_completion::applied);
+  ASSERT_EQ(slice_sched.slice_config(drb2_slice_id).rbs.max(), 23);
+}
