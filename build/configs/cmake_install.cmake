@@ -71,6 +71,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/fyp5g/fyp/ocudu/configs/gnb_ru_picocom_scb_tdd_n78_20mhz.yml"
     "/home/fyp5g/fyp/ocudu/configs/gnb_ru_ran550_tdd_n78_100mhz_4x2.yml"
     "/home/fyp5g/fyp/ocudu/configs/gnb_ru_rpqn4800e_tdd_n78_20mhz_2x2.yml"
+    "/home/fyp5g/fyp/ocudu/configs/gnb_zmq_srsue.yml"
+    "/home/fyp5g/fyp/ocudu/configs/gnb_zmq_srsue_e2.yml"
     "/home/fyp5g/fyp/ocudu/configs/low_latency.yml"
     "/home/fyp5g/fyp/ocudu/configs/mimo_usrp.yml"
     "/home/fyp5g/fyp/ocudu/configs/mobility.yml"
