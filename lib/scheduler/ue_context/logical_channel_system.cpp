@@ -648,6 +648,19 @@ void logical_channel_system::handle_dl_buffer_status_indication(soa::row_id ue_r
   buf_st                    = units::bytes{std::min(buffer_status, max_buffer_status)};
   lc_mapper.hol_toa(lc_rid) = hol_toa;
 
+  // FYP: offered DL traffic = data entering the RLC queue. Grants already lowered buf_st when they were allocated,
+  // so an increase at a buffer state report is new data; a decrease is a discard or an estimate correction.
+  if (const auto slice_id = lc_mapper.dl_slice_id(lc_rid);
+      slice_id.has_value() and not u.at<ue_context>().fallback_state) {
+    auto&          acc    = u.at<ue_dl_slice_context>().arrivals_per_slice[*slice_id];
+    const unsigned new_bs = buf_st.value();
+    if (new_bs >= prev_buf_st) {
+      acc.arrived_bytes += new_bs - prev_buf_st;
+    } else {
+      acc.decreased_bytes += prev_buf_st - new_bs;
+    }
+  }
+
   // Update slice pending bytes.
   on_single_channel_buf_st_update(u, lc_mapper.dl_slice_id(lc_rid), buf_st.value(), prev_buf_st);
 }
@@ -780,6 +793,21 @@ void logical_channel_system::handle_bsr_indication(soa::row_id ue_row_id, const 
   auto  u     = get_ue(ue_row_id);
   auto& ue_ch = u.at<ue_ul_channel_context>();
 
+  // FYP: data received since the previous BSR, per LCG. The BSR excludes RLC headers (TS 38.321 6.1.3.1) but the
+  // MAC SDU includes one, so subtract the same per-SDU estimate the scheduler adds (LCG 0 has none).
+  const auto& lc_cfgs = u.at<ue_config_context>().channel_configs;
+  for (const auto& rx : msg.rx_sdus_since_last_bsr) {
+    if (not lc_cfgs.has_value() or not lc_cfgs->contains(rx.lcid)) {
+      continue;
+    }
+    const lcg_id_t lcg       = (*lc_cfgs)[rx.lcid]->lc_group;
+    const uint64_t hdr_bytes = lcg == 0 ? 0U : uint64_t{3} * rx.nof_sdus;
+    if (lcg < ue_ch.rx_bytes_since_lcg_report.size()) {
+      ue_ch.rx_bytes_since_lcg_report[lcg] += rx.nof_bytes > hdr_bytes ? rx.nof_bytes - hdr_bytes : 0;
+    }
+  }
+  bool any_applied = false;
+
   for (const auto& lcg_report : msg.reported_lcgs) {
     // In the scheduler, we use 300000 to indicate the max (unbounded) S-BSR value; therefore, if the short or short
     // truncated BSRs report a value that is > 150000 and the current status of the lcg_id is > 150000, we can't
@@ -800,8 +828,25 @@ void logical_channel_system::handle_bsr_indication(soa::row_id ue_row_id, const 
       if (unsigned* sched_bytes_accum = lc_mapper.ul_sched_bytes_accum(lcg_rid); sched_bytes_accum != nullptr) {
         *sched_bytes_accum = 0;
       }
+      // FYP: arrivals since the previous applied BSR of this LCG = queue change + data received in between.
+      any_applied             = true;
+      uint64_t& rx_since      = ue_ch.rx_bytes_since_lcg_report[lcg_report.lcg_id];
+      const int64_t net_bytes = static_cast<int64_t>(buf_st.value()) - static_cast<int64_t>(prev_buf_st) +
+                                static_cast<int64_t>(rx_since);
+      rx_since = 0;
+      if (const auto slice_id = lc_mapper.ul_slice_id(lcg_rid);
+          slice_id.has_value() and not u.at<ue_context>().fallback_state) {
+        u.at<ue_ul_slice_context>().arrivals_per_slice[*slice_id].net_bytes += net_bytes;
+      }
       on_single_lcg_buf_st_update(u, it->first, lc_mapper.ul_slice_id(lcg_rid), buf_st.value(), prev_buf_st);
+    } else if (const auto slice_id = lc_mapper.ul_slice_id(lcg_rid); slice_id.has_value()) {
+      // FYP: saturated short BSR could not be applied; the arrivals are attributed to a later report, so the current
+      // conversion window cannot be trusted.
+      u.at<ue_ul_slice_context>().arrivals_per_slice[*slice_id].unknown = true;
     }
+  }
+  if (any_applied) {
+    ++ue_ch.nof_applied_bsrs;
   }
 }
 

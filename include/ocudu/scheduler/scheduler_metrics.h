@@ -125,6 +125,44 @@ struct scheduler_slice_metrics {
   rrm_policy_member member;
   uint64_t dl_prbs = 0;
   uint64_t ul_prbs = 0;
+  /// Sum of per-slot pending new-transmission bytes before slice grant allocation.
+  /// These are queue snapshots, not newly arrived bytes or requested PRBs.
+  uint64_t dl_pending_bytes = 0;
+  uint64_t ul_pending_bytes = 0;
+  uint64_t dl_pending_samples = 0;
+  uint64_t ul_pending_samples = 0;
+  /// Counterfactual queued service need sampled before configured slice grants.
+  /// These are NOT newly offered traffic and are NOT the rApp training target.
+  uint64_t dl_queue_newtx_prbs = 0;
+  uint64_t ul_queue_newtx_prbs = 0;
+  uint64_t dl_queue_retx_prbs = 0;
+  uint64_t ul_queue_retx_prbs = 0;
+  uint64_t dl_queue_unserved_bytes = 0;
+  uint64_t ul_queue_unserved_bytes = 0;
+  uint64_t dl_queue_samples = 0;
+  uint64_t ul_queue_samples = 0;
+  /// If nonzero, the corresponding PRB estimate is incomplete and E2 must return no_value.
+  uint64_t dl_queue_invalid_samples = 0;
+  uint64_t ul_queue_invalid_samples = 0;
+  /// FYP: newly arrived (offered) traffic, the rApp Bi-LSTM input. NOT grants and NOT queue levels.
+  /// Sum over 100 ms sub-windows of (peer-scale requested PRBs x sub-window slots); divide by offered_slots.
+  double dl_offered_prb_peer_slots = 0;
+  double ul_offered_prb_peer_slots = 0;
+  /// Slots covered by closed offered-traffic sub-windows in this report.
+  uint64_t offered_slots = 0;
+  /// Bytes that entered the slice queues (DL: RLC buffer increases; UL: BSR change + received MAC SDU bytes).
+  uint64_t dl_arrived_bytes = 0;
+  uint64_t ul_arrived_bytes = 0;
+  /// DL queue decreases at RLC buffer state reports (discards and estimate corrections).
+  uint64_t dl_queue_decrease_bytes = 0;
+  /// Pending newTx bytes of the slice at the last sample of the report.
+  uint64_t dl_queue_end_bytes = 0;
+  uint64_t ul_queue_end_bytes = 0;
+  /// Sub-windows whose conversion is untrustworthy (missing CQI/MCS, unsupported SST, unapplied BSR).
+  uint64_t dl_offered_invalid_subwindows = 0;
+  uint64_t ul_offered_invalid_subwindows = 0;
+  /// Largest observed age of the last applied BSR among slice UEs with pending UL data, in milliseconds.
+  uint32_t ul_bsr_age_max_ms = 0;
 };
 
 struct scheduler_cell_metrics {

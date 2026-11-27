@@ -191,6 +191,11 @@ TEST_F(e2sm_kpm_meas_provider_metrics_test, e2sm_kpm_supported_metrics_are_suppo
   metric_level      = E2_NODE_LEVEL;
   supported_metrics = du_meas_provider->get_supported_metric_names(metric_level);
   for (auto& metric : supported_metrics) {
+    // Vendor slice measurements require a SliceID label. The generic test
+    // supplies only NO_LABEL; exercise slice-scoped metrics separately.
+    if (metric.rfind("FYP.Slice", 0) == 0) {
+      continue;
+    }
     meas_type.set_meas_name().from_string(metric);
     metric_supported = du_meas_provider->is_metric_supported(meas_type, meas_label, metric_level, cell_scope);
     ASSERT_TRUE(metric_supported) << "Metric: " << metric << " Level: " << e2sm_kpm_scope_2_str(metric_level)
@@ -229,6 +234,9 @@ TEST_F(e2sm_kpm_meas_provider_metrics_test, e2sm_kpm_return_e2_level_metric_with
 
   std::vector<std::string> supported_metrics = du_meas_provider->get_supported_metric_names(metric_level);
   for (auto& metric : supported_metrics) {
+    if (metric.rfind("FYP.Slice", 0) == 0) {
+      continue;
+    }
     meas_type.set_meas_name().from_string(metric);
 
     meas_records_items.clear();
@@ -300,6 +308,9 @@ TEST_F(e2sm_kpm_meas_provider_metrics_test, e2sm_kpm_return_e2_level_metric_with
 
   std::vector<std::string> supported_metrics = du_meas_provider->get_supported_metric_names(metric_level);
   for (auto& metric : supported_metrics) {
+    if (metric.rfind("FYP.Slice", 0) == 0) {
+      continue;
+    }
     meas_type.set_meas_name().from_string(metric);
 
     meas_records_items.clear();

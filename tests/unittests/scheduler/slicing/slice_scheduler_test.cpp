@@ -4,6 +4,7 @@
 
 #include "lib/scheduler/config/time_domain_mapper.h"
 #include "lib/scheduler/slicing/inter_slice_scheduler.h"
+#include "lib/scheduler/logging/cell_metrics_handler.h"
 #include "tests/unittests/scheduler/test_utils/config_generators.h"
 #include "tests/unittests/scheduler/test_utils/dummy_test_components.h"
 #include "ocudu/ocudulog/ocudulog.h"
@@ -18,6 +19,15 @@ static constexpr logical_channel_config create_logical_channel_config(lcid_t lci
   lc_ch.rrm_policy             = policy;
   return lc_ch;
 }
+
+class queue_need_test_notifier : public scheduler_cell_metrics_notifier
+{
+public:
+  scheduler_cell_metrics report;
+  scheduler_cell_metrics& get_next() override { return report; }
+  void commit(scheduler_cell_metrics&) override {}
+  bool is_sched_report_required(slot_point_extended) const override { return true; }
+};
 
 class slice_scheduler_test
 {
@@ -70,7 +80,10 @@ protected:
   ue_repository ues;
 
   cell_resource_allocator dummy_alloc{cell_cfg};
-  inter_slice_scheduler   slice_sched{cell_cfg, ues};
+  queue_need_test_notifier metrics_notifier;
+  cell_metrics_handler    cell_metrics{
+      cell_cfg, sched_cell_configuration_request_message::metrics_config{&metrics_notifier}};
+  inter_slice_scheduler   slice_sched{cell_cfg, ues, cell_metrics};
 
 public:
   slot_point next_slot{to_numerology_value(cell_cfg.params.dl_cfg_common.freq_info_dl.scs_carrier_list.back().scs), 0};
@@ -332,6 +345,36 @@ protected:
     return this->add_ue(ue_idx, lc_chs);
   }
 };
+
+TEST_F(rb_ratio_slice_scheduler_test, queue_need_samples_all_configured_slices_without_policy_grants)
+{
+  ASSERT_NE(add_ue(to_du_ue_index(0)), nullptr);
+  ues[to_du_ue_index(0)].handle_dl_buffer_state_indication(LCID_MIN_DRB, 10000);
+  const lcg_id_t drb_lcg = config_helpers::create_default_logical_channel_config(LCID_MIN_DRB).lc_group;
+  ul_bsr_indication_message bsr{
+      to_du_cell_index(0), to_du_ue_index(0), to_rnti(0x4601), bsr_format::SHORT_BSR, {}};
+  bsr.reported_lcgs.push_back(ul_bsr_lcg_report{drb_lcg, 10000});
+  ues[to_du_ue_index(0)].handle_bsr_indication(bsr);
+  const slot_point measured_slot = next_slot;
+  run_slot();
+  sched_result result;
+  result.dl.nof_dl_symbols = result.ul.nof_ul_symbols = 14;
+  cell_metrics.push_result(slot_point_extended{measured_slot}, result, std::chrono::microseconds{0});
+
+  ASSERT_EQ(metrics_notifier.report.slice_metrics.size(), 2U);
+  const auto& empty_slice = metrics_notifier.report.slice_metrics[0];
+  const auto& loaded_slice = metrics_notifier.report.slice_metrics[1];
+  EXPECT_EQ(empty_slice.dl_queue_samples, 1U);
+  EXPECT_EQ(empty_slice.dl_queue_newtx_prbs, 0U);
+  EXPECT_EQ(empty_slice.dl_queue_invalid_samples, 0U);
+  EXPECT_EQ(loaded_slice.dl_queue_samples, 1U);
+  // A positive queue must either have a sized PRB estimate or be explicitly
+  // marked incomplete (for example when no usable CQI exists).
+  EXPECT_TRUE(loaded_slice.dl_queue_newtx_prbs > 0 or loaded_slice.dl_queue_invalid_samples > 0);
+  if (loaded_slice.ul_queue_samples > 0) {
+    EXPECT_TRUE(loaded_slice.ul_queue_newtx_prbs > 0 or loaded_slice.ul_queue_invalid_samples > 0);
+  }
+}
 
 TEST_F(rb_ratio_slice_scheduler_test, when_slice_with_min_rb_has_ues_it_is_prioritized_over_empty_slice_with_no_ded_rb)
 {

@@ -6,13 +6,22 @@
 #include "ocudu/support/stage2_trace.h"
 #include "../config/time_domain_mapper.h"
 #include "../policy/scheduler_policy_factory.h"
+#include "../logging/cell_metrics_handler.h"
+#include "../support/mcs_tbs_calculator.h"
+#include "../ue_context/ue_cell.h"
+#include "../ue_scheduling/grant_params_selector.h"
 #include "../ue_scheduling/ue_cell_grid_allocator.h"
 #include "ocudu/ocudulog/ocudulog.h"
 
 using namespace ocudu;
 
-inter_slice_scheduler::inter_slice_scheduler(const cell_configuration& cell_cfg_, ue_repository& ues_) :
-  cell_cfg(cell_cfg_), logger(ocudulog::fetch_basic_logger("SCHED")), ues(ues_)
+inter_slice_scheduler::inter_slice_scheduler(const cell_configuration& cell_cfg_,
+                                             ue_repository&            ues_,
+                                             cell_metrics_handler&     metrics_) :
+  metrics(metrics_),
+  cell_cfg(cell_cfg_),
+  logger(ocudulog::fetch_basic_logger("SCHED")),
+  ues(ues_)
 {
   // Create a number of slices equal to the number of configured RRM Policy members + 1 (default SRB slice) + 1 (default
   // DRB slice).
@@ -72,6 +81,24 @@ void inter_slice_scheduler::slot_indication(slot_point slot_tx, const cell_resou
       slice.inst.slot_indication(current_slot);
     }
   }
+
+  // Snapshot per-slice queues before any slice grants. This is deliberately
+  // separate from PRB-used counters and from new offered-traffic demand.
+  for (size_t slice_index = 2; slice_index < slices.size(); ++slice_index) {
+    uint64_t dl_bytes = 0;
+    uint64_t ul_bytes = 0;
+    for (const auto& user : slices[slice_index].inst.get_ues()) {
+      dl_bytes += user.pending_dl_newtx_bytes();
+      ul_bytes += user.pending_ul_newtx_bytes();
+    }
+    metrics.handle_slice_pending_bytes(slice_index - 2,
+                                       dl_bytes,
+                                       ul_bytes,
+                                       cell_cfg.is_dl_enabled(slot_tx),
+                                       cell_cfg.is_ul_enabled(slot_tx));
+  }
+  sample_queue_service_need(slot_tx, res_grid);
+  collect_offered_arrivals(slot_tx);
 
   // Clear the priority queues.
   dl_prio_queue.clear();
@@ -176,6 +203,202 @@ void inter_slice_scheduler::slot_indication(slot_point slot_tx, const cell_resou
     }
   }
   ul_prio_queue.sort();
+}
+
+/// FYP: spectral efficiency of the UE's wideband CQI, read in the CQI table the UE reports with (the same report the
+/// scheduler uses, see ue_cell::get_aggregation_level) and clamped to the peer domain. Empty if no CQI is available
+/// or the table is not one of tables 1..3.
+static std::optional<double> offered_dl_spectral_efficiency(const ue_cell& ue_cc)
+{
+  const csi_meas_config* csi = ue_cc.cfg().csi_meas_cfg();
+  if (csi == nullptr or csi->csi_report_cfg_list.empty()) {
+    return std::nullopt;
+  }
+  const cqi_table_t table = csi->csi_report_cfg_list.back().cqi_table.value_or(cqi_table_t::table1);
+  if (table == cqi_table_t::table4) {
+    return std::nullopt;
+  }
+  return fyp_offered::peer_se_from_cqi(ue_cc.channel_state_manager().get_wideband_cqi().value(),
+                                       static_cast<unsigned>(table) + 1);
+}
+
+/// FYP: spectral efficiency of the PUSCH MCS link adaptation would choose now for a newTx.
+static std::optional<double> offered_ul_spectral_efficiency(const ue_cell& ue_cc)
+{
+  const ue_cell_configuration& cfg   = ue_cc.cfg();
+  const pusch_mcs_table        table = cfg.init_bwp().ul.pusch_ded() != nullptr ? cfg.init_bwp().ul.pusch_ded()->mcs_table
+                                                                               : pusch_mcs_table::qam64;
+  const bool          tp  = cfg.use_pusch_transform_precoding_dci_0_1();
+  const sch_mcs_index mcs = ue_cc.link_adaptation_controller().calculate_ul_mcs(table, tp);
+  return fyp_offered::peer_se(pusch_mcs_get_config(table, mcs, tp, false).get_spectral_efficiency());
+}
+
+void inter_slice_scheduler::collect_offered_arrivals(slot_point slot_tx)
+{
+  if (not metrics.enabled()) {
+    return;
+  }
+  if (bsr_seen.empty()) {
+    bsr_seen.resize(MAX_NOF_DU_UES);
+  }
+  for (size_t slice_index = 2; slice_index < slices.size(); ++slice_index) {
+    const ran_slice_id_t slice_id = slices[slice_index].inst.id;
+    for (const slice_ue& user : slices[slice_index].inst.get_ues()) {
+      const du_ue_index_t ue_index = user.ue_index();
+      if (not ues.contains(ue_index)) {
+        continue;
+      }
+      auto&      lc = ues[ue_index].logical_channels();
+      const auto dl = lc.take_dl_arrivals(slice_id);
+      const auto ul = lc.take_ul_arrivals(slice_id);
+      if (dl.arrived_bytes != 0 or dl.decreased_bytes != 0 or ul.net_bytes != 0 or ul.unknown) {
+        const ue_cell& ue_cc = user.get_cc();
+        metrics.handle_slice_ue_arrivals(slice_index - 2,
+                                         ue_index,
+                                         dl,
+                                         dl.arrived_bytes > 0 ? offered_dl_spectral_efficiency(ue_cc) : std::nullopt,
+                                         ul,
+                                         ul.net_bytes != 0 ? offered_ul_spectral_efficiency(ue_cc) : std::nullopt);
+      }
+
+      // BSR age: slots since the applied-BSR count last changed, for UEs that still have UL data pending.
+      bsr_seen_context& seen = bsr_seen[ue_index];
+      const uint32_t    n    = lc.nof_applied_bsrs();
+      if (not seen.changed.valid() or seen.count != n) {
+        seen = {n, slot_tx};
+      }
+      if (user.pending_ul_newtx_bytes() > 0) {
+        const unsigned age_slots = static_cast<unsigned>(slot_tx - seen.changed);
+        metrics.handle_slice_bsr_age(slice_index - 2, age_slots / slot_tx.nof_slots_per_subframe());
+      }
+    }
+  }
+}
+
+void inter_slice_scheduler::sample_queue_service_need(slot_point slot_tx, const cell_resource_allocator& res_grid)
+{
+  if (not metrics.enabled() or not cell_cfg.is_dl_enabled(slot_tx)) {
+    return;
+  }
+  cell_harq_manager& cell_harqs = ues.cell(cell_cfg.cell_index).get_cell_harqs();
+
+  // UL grants are chosen in a PDCCH slot for a future PUSCH slot (k2). Use
+  // one representative supported PUSCH opportunity per PDCCH slot. This
+  // denominator is deliberately distinct from RRU.PrbUsedUl's UL-slot count.
+  slot_point  ul_target;
+  const auto& ul_td_list = cell_cfg.params.ul_cfg_common.init_ul_bwp.pusch_cfg_common.value().pusch_td_alloc_list;
+  for (uint8_t td_index : cell_cfg.init_bwp.ul.td_mapper().pusch_td_res_indices(slot_tx.count())) {
+    const auto&    td          = ul_td_list[td_index];
+    const unsigned pusch_delay = td.k2 + cell_cfg.ntn_cs_koffset;
+    slot_point     target      = slot_tx + pusch_delay;
+    if (cell_cfg.is_ul_enabled(target) and cell_cfg.get_nof_ul_symbol_per_slot(target) >= td.symbols.stop()) {
+      ul_target = target;
+      break;
+    }
+  }
+  // Same symbol rule as intra_slice_scheduler: SRS is scheduled before slice
+  // grants, and PUSCH must end before the first SRS symbol of the target slot.
+  unsigned ul_symbol_stop = NOF_OFDM_SYM_PER_SLOT_NORMAL_CP;
+  if (ul_target.valid()) {
+    for (const auto& srs : res_grid[ul_target - slot_tx].result.ul.srss) {
+      ul_symbol_stop = std::min(static_cast<unsigned>(srs.symbols.start()), ul_symbol_stop);
+    }
+  }
+
+  for (size_t slice_index = 2; slice_index < slices.size(); ++slice_index) {
+    const auto& slice = slices[slice_index].inst;
+    const auto& slice_ues = slice.get_ues();
+    for (bool dl : {true, false}) {
+      if (not dl and not ul_target.valid()) {
+        continue;
+      }
+      uint64_t newtx_prbs = 0;
+      uint64_t retx_prbs = 0;
+      uint64_t unserved_bytes = 0;
+      bool complete = true;
+
+      for (const slice_ue& user : slice_ues) {
+        const unsigned pending = dl ? user.pending_dl_newtx_bytes() : user.pending_ul_newtx_bytes();
+        if (pending == 0) {
+          continue;
+        }
+        const ue_cell& ue_cc = user.get_cc();
+        if (dl) {
+          if (not ue_cc.is_pdsch_enabled(slot_tx, slot_tx)) {
+            complete = false;
+            continue;
+          }
+          // The scheduler's DL grant helper assumes a valid CQI/MCS. Check
+          // it first so a starved UE with CQI=0 yields unknown, not a crash.
+          const auto& ss = ue_cc.cfg().search_space(to_search_space_id(2));
+          const auto td_indices = ue_cc.active_bwp().dl.td_mapper().pdsch_td_res_indices(
+              ss.get_dl_dci_format(), slot_tx.count());
+          if (td_indices.empty()) {
+            complete = false;
+            continue;
+          }
+          const auto& first_pdsch = ss.get_pdsch_config(
+              td_indices[0], ue_cc.channel_state_manager().get_nof_dl_layers());
+          if (not ue_cc.link_adaptation_controller().calculate_dl_mcs(first_pdsch.mcs_table).has_value()) {
+            complete = false;
+            continue;
+          }
+          auto ctxt = sched_helper::get_newtx_dl_sched_context(
+              user, slot_tx, slot_tx, false, units::bytes{pending});
+          if (not ctxt.has_value()) {
+            complete = false;
+            continue;
+          }
+          const auto& pdsch = ss.get_pdsch_config(ctxt->pdsch_td_res_index, ctxt->recommended_ri);
+          auto tbs = compute_dl_mcs_tbs(pdsch, ctxt->recommended_mcs, ctxt->expected_nof_rbs, true);
+          if (not tbs.has_value()) {
+            complete = false;
+            continue;
+          }
+          newtx_prbs += ctxt->expected_nof_rbs;
+          unserved_bytes += pending > tbs->tbs.value() ? pending - tbs->tbs.value() : 0;
+        } else {
+          if (not ue_cc.is_pusch_enabled(slot_tx, ul_target)) {
+            complete = false;
+            continue;
+          }
+          // HARQ-ACK bits on PUSCH are assumed absent (0): a grant carrying UCI
+          // may need more PRBs than this data-only estimate.
+          auto ctxt = sched_helper::get_newtx_ul_sched_context(
+              user, slot_tx, ul_target, 0, units::bytes{pending}, ofdm_symbol_range{0, ul_symbol_stop});
+          if (not ctxt.has_value()) {
+            complete = false;
+            continue;
+          }
+          auto tbs = compute_ul_tbs(
+              ctxt->pusch_cfg, ue_cc.active_bwp(), ctxt->recommended_mcs, ctxt->expected_nof_rbs, true);
+          if (not tbs.has_value()) {
+            complete = false;
+            continue;
+          }
+          newtx_prbs += ctxt->expected_nof_rbs;
+          unserved_bytes += pending > tbs->value() ? pending - tbs->value() : 0;
+        }
+      }
+
+      // Only HARQs explicitly pending retransmission are included. A process
+      // awaiting ACK/CRC is not counted again as queue demand.
+      if (dl) {
+        for (auto h : cell_harqs.pending_dl_retxs()) {
+          if (h.get_grant_params().slice_id == slice.id) {
+            retx_prbs += h.get_grant_params().rbs.type1().length();
+          }
+        }
+      } else {
+        for (auto h : cell_harqs.pending_ul_retxs()) {
+          if (h.get_grant_params().slice_id == slice.id) {
+            retx_prbs += h.get_grant_params().rbs.type1().length();
+          }
+        }
+      }
+      metrics.handle_slice_queue_need(slice_index - 2, dl, newtx_prbs, retx_prbs, unserved_bytes, complete);
+    }
+  }
 }
 
 void inter_slice_scheduler::add_ue(du_ue_index_t ue_idx)

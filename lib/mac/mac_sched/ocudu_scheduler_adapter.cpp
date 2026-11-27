@@ -174,6 +174,7 @@ void ocudu_scheduler_adapter::handle_ul_bsr_indication(const mac_bsr_ce_info& bs
   ul_bsr_ind.ue_index   = bsr.ue_index;
   ul_bsr_ind.crnti      = bsr.rnti;
   ul_bsr_ind.type       = bsr.bsr_fmt;
+  ul_bsr_ind.rx_sdus_since_last_bsr = bsr.rx_sdus_since_last_bsr;
   if (bsr.bsr_fmt == bsr_format::SHORT_BSR or bsr.bsr_fmt == bsr_format::SHORT_TRUNC_BSR) {
     const ul_bsr_lcg_report sched_bsr = make_sched_lcg_report(bsr.lcg_reports[0], bsr.bsr_fmt);
 

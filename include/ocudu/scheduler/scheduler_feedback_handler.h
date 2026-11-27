@@ -31,6 +31,15 @@ struct ul_bsr_lcg_report {
 
 using ul_bsr_lcg_report_list = static_vector<ul_bsr_lcg_report, MAX_NOF_LCGS>;
 
+/// FYP: MAC SDU bytes of one logical channel decoded since the previous BSR of the UE.
+struct ul_rx_sdu_bytes {
+  lcid_t   lcid;
+  uint32_t nof_bytes;
+  uint32_t nof_sdus;
+};
+
+using ul_rx_sdu_bytes_list = static_vector<ul_rx_sdu_bytes, MAX_NOF_RB_LCIDS>;
+
 /// \brief UL Buffer Status Report.
 /// \remark See ORAN WG8, 9.2.3.2.18 UL Buffer Status Report Indication.
 struct ul_bsr_indication_message {
@@ -39,6 +48,9 @@ struct ul_bsr_indication_message {
   rnti_t                 crnti;
   bsr_format             type;
   ul_bsr_lcg_report_list reported_lcgs;
+  /// FYP: MAC SDU bytes received since the previous BSR, up to and including the PDU carrying this BSR. Used to
+  /// reconstruct UL arrivals as BSR change plus data received; empty when not provided (e.g. synthetic BSRs).
+  ul_rx_sdu_bytes_list rx_sdus_since_last_bsr;
 };
 
 /// CRC indication PDU.

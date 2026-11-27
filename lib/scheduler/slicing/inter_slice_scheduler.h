@@ -11,6 +11,7 @@
 namespace ocudu {
 
 struct cell_resource_allocator;
+class cell_metrics_handler;
 
 /// Inter-slice Scheduler.
 class inter_slice_scheduler
@@ -20,7 +21,7 @@ class inter_slice_scheduler
   static constexpr priority_type skip_prio = 0;
 
 public:
-  inter_slice_scheduler(const cell_configuration& cell_cfg_, ue_repository& ues_);
+  inter_slice_scheduler(const cell_configuration& cell_cfg_, ue_repository& ues_, cell_metrics_handler& metrics_);
 
   /// Reset the state of the slices.
   void slot_indication(slot_point slot_tx, const cell_resource_allocator& res_grid);
@@ -44,6 +45,16 @@ public:
   void handle_slice_reconfiguration_request(const du_cell_slice_reconfig_request& slice_reconf_req);
 
 private:
+  cell_metrics_handler& metrics;
+  void sample_queue_service_need(slot_point slot_tx, const cell_resource_allocator& res_grid);
+  /// FYP: hand per-UE offered-traffic arrivals and BSR ages of every configured slice to the metrics handler.
+  void collect_offered_arrivals(slot_point slot_tx);
+  /// FYP: last applied-BSR count seen per UE and the slot at which it changed.
+  struct bsr_seen_context {
+    uint32_t   count = 0;
+    slot_point changed;
+  };
+  std::vector<bsr_seen_context> bsr_seen;
   /// Returns the total number of RBs that are reserved for dedicated RBs + those that have been already allocated to
   /// other slices.
   template <bool IsDownlink>

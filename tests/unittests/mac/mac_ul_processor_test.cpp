@@ -312,6 +312,43 @@ TEST(mac_ul_processor, decode_short_bsr)
   ASSERT_NO_FATAL_FAILURE(t_bench.verify_sched_bsr_notification(bsr));
 }
 
+// FYP: MAC SDU bytes received since the previous BSR are attached to the next BSR, then reset.
+TEST(mac_ul_processor, bsr_carries_sdu_bytes_received_since_previous_bsr)
+{
+  rnti_t          ue1_rnti = to_rnti(0x4601);
+  du_ue_index_t   ue1_idx  = to_du_ue_index(1U);
+  du_cell_index_t cell_idx = to_du_cell_index(1U);
+  test_bench      t_bench(ue1_rnti, ue1_idx, cell_idx);
+  // One RX indication per PDU (the bench's own helper re-sends every PDU enqueued so far).
+  auto send_one = [&](std::initializer_list<uint8_t> bytes) {
+    mac_rx_data_indication rx{};
+    rx.cell_index = cell_idx;
+    rx.sl_rx      = slot_point(0, 1);
+    mac_rx_pdu pdu{.rnti = ue1_rnti, .harq_id = 0};
+    ASSERT_TRUE(pdu.pdu.append(byte_buffer::create(bytes).value()));
+    rx.pdus.push_back(std::move(pdu));
+    t_bench.send_rx_indication_msg(rx);
+  };
+
+  // PDU 1: one SRB1 SDU of 5 bytes, no BSR. R/F/LCID=1 | L=5 | payload.
+  send_one({0x01, 0x05, 0x10, 0x11, 0x12, 0x13, 0x14});
+  ASSERT_TRUE(t_bench.verify_no_bsr_notification());
+
+  // PDU 2: one SRB1 SDU of 3 bytes followed by a short BSR (MAC CEs come after SDUs in UL).
+  send_one({0x01, 0x03, 0x20, 0x21, 0x22, 0x3d, 0x59});
+  const auto& bsr1 = t_bench.sched_ce_notifier().last_bsr_msg;
+  ASSERT_TRUE(bsr1.has_value());
+  ASSERT_EQ(bsr1->rx_sdus_since_last_bsr.size(), 1U);
+  EXPECT_EQ(bsr1->rx_sdus_since_last_bsr[0].lcid, LCID_SRB1);
+  EXPECT_EQ(bsr1->rx_sdus_since_last_bsr[0].nof_bytes, 8U);
+  EXPECT_EQ(bsr1->rx_sdus_since_last_bsr[0].nof_sdus, 2U);
+
+  // PDU 3: BSR only. Nothing was received since the previous BSR.
+  send_one({0x3d, 0x59});
+  ASSERT_TRUE(t_bench.sched_ce_notifier().last_bsr_msg.has_value());
+  EXPECT_TRUE(t_bench.sched_ce_notifier().last_bsr_msg->rx_sdus_since_last_bsr.empty());
+}
+
 // Test UL MAC processing of RX indication message with MAC PDU for MAC CE Short Truncated BSR.
 TEST(mac_ul_processor, decode_short_trunc_bsr)
 {

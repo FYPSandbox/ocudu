@@ -182,7 +182,7 @@ ue_scheduler_impl::cell_context::cell_context(ue_scheduler_impl&                
                  *params.uci_alloc,
                  parent.ue_db,
                  *params.cell_metrics),
-  slice_sched(params.cell_res_alloc->cfg, parent.ue_db),
+  slice_sched(params.cell_res_alloc->cfg, parent.ue_db, *params.cell_metrics),
   intra_slice_sched(parent.expert_cfg,
                     parent.ue_db,
                     *params.pdcch_sched,

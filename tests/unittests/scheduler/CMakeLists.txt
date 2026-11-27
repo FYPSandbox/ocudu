@@ -54,6 +54,18 @@ target_link_libraries(scheduler_test
         ocudu_gtest_main)
 add_test(scheduler_test scheduler_test)
 
+add_executable(scheduler_queue_need_test scheduler_queue_need_test.cpp)
+target_link_libraries(scheduler_queue_need_test
+        ocudu_sched
+        sched_config
+        scheduler_test_suite
+        sched_test_doubles
+        sched_rrm
+        ocudu_du_config_validators
+        gtest
+        ocudu_gtest_main)
+add_test(scheduler_queue_need_test scheduler_queue_need_test)
+
 add_executable(scheduler_metrics_handler_test scheduler_metrics_handler_test.cpp)
 target_link_libraries(scheduler_metrics_handler_test
         ocudu_sched

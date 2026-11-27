@@ -983,3 +983,96 @@ TEST_F(single_ue_ul_logical_channel_system_test, all_ues_with_pending_data_provi
   ue_lchs.reset_lcg_ran_slice(uint_to_lcg_id(2));
   ASSERT_EQ(this->lch_system.get_ues_with_ul_pending_data(ran_slice_id_t{1}).count(), 0);
 }
+
+// FYP: offered (newly arrived) traffic accounting per slice.
+
+TEST_F(single_ue_dl_logical_channel_system_test, dl_arrivals_count_only_data_entering_the_queue)
+{
+  const ran_slice_id_t slice{0};
+  ue_lchs.set_lcid_ran_slice(LCID_MIN_DRB, slice);
+
+  // 1000 bytes queued: all of it is new.
+  ue_lchs.handle_dl_buffer_status_indication(LCID_MIN_DRB, 1000);
+  auto a = ue_lchs.take_dl_arrivals(slice);
+  EXPECT_EQ(a.arrived_bytes, 1000U);
+  EXPECT_EQ(a.decreased_bytes, 0U);
+  EXPECT_EQ(ue_lchs.take_dl_arrivals(slice).arrived_bytes, 0U) << "take must reset";
+
+  // A grant serves part of it. This is not an arrival.
+  dl_msg_lc_info subpdu;
+  ue_lchs.allocate_mac_sdu(subpdu, 600, LCID_MIN_DRB);
+  ASSERT_TRUE(subpdu.lcid.is_valid());
+  EXPECT_EQ(ue_lchs.take_dl_arrivals(slice).arrived_bytes, 0U);
+
+  // RLC then reports what is left (with the header of the remaining segment) plus 400 new bytes: only 400 arrived.
+  const unsigned left = 1000 - subpdu.sched_bytes + RLC_SEGMENTATION_OVERHEAD;
+  ue_lchs.handle_dl_buffer_status_indication(LCID_MIN_DRB, left + 400);
+  a = ue_lchs.take_dl_arrivals(slice);
+  EXPECT_EQ(a.arrived_bytes, 400U);
+  EXPECT_EQ(a.decreased_bytes, 0U);
+
+  // RLC discards 100 bytes: a decrease, not a negative arrival.
+  ue_lchs.handle_dl_buffer_status_indication(LCID_MIN_DRB, left + 300);
+  a = ue_lchs.take_dl_arrivals(slice);
+  EXPECT_EQ(a.arrived_bytes, 0U);
+  EXPECT_EQ(a.decreased_bytes, 100U);
+}
+
+TEST_F(single_ue_dl_logical_channel_system_test, dl_arrivals_ignore_unsliced_bearers_and_fallback)
+{
+  const ran_slice_id_t slice{0};
+  ue_lchs.set_lcid_ran_slice(LCID_MIN_DRB, slice);
+  ue_lchs.handle_dl_buffer_status_indication(LCID_SRB1, 500); // SRB1 has no RAN slice here.
+  EXPECT_EQ(ue_lchs.take_dl_arrivals(slice).arrived_bytes, 0U);
+
+  ue_lchs.set_fallback_state(true);
+  ue_lchs.handle_dl_buffer_status_indication(LCID_MIN_DRB, 500);
+  EXPECT_EQ(ue_lchs.take_dl_arrivals(slice).arrived_bytes, 0U);
+}
+
+TEST_F(single_ue_ul_logical_channel_system_test, ul_arrivals_are_bsr_change_plus_bytes_received_between_bsrs)
+{
+  const ran_slice_id_t slice{0};
+  const lcg_id_t       lcg = uint_to_lcg_id(2);
+  ue_lchs.set_lcg_ran_slice(lcg, slice);
+
+  ue_lchs.handle_bsr_indication(make_sbsr(lcg, 1000));
+  EXPECT_EQ(ue_lchs.take_ul_arrivals(slice).net_bytes, 1000);
+  EXPECT_EQ(ue_lchs.nof_applied_bsrs(), 1U);
+
+  // 600 payload bytes received in one MAC SDU (603 with the RLC header), then the UE reports 800 left:
+  // 1000 - 600 + 400 = 800, so 400 arrived.
+  auto bsr = make_sbsr(lcg, 800);
+  bsr.rx_sdus_since_last_bsr.push_back(ul_rx_sdu_bytes{LCID_MIN_DRB, 603, 1});
+  ue_lchs.handle_bsr_indication(bsr);
+  auto a = ue_lchs.take_ul_arrivals(slice);
+  EXPECT_EQ(a.net_bytes, 400);
+  EXPECT_FALSE(a.unknown);
+
+  // A coarser BSR level below the true value gives a negative net; it is reported signed (carried by the metrics).
+  ue_lchs.handle_bsr_indication(make_sbsr(lcg, 700));
+  EXPECT_EQ(ue_lchs.take_ul_arrivals(slice).net_bytes, -100);
+
+  // SRB1 bytes (LCG 1, no slice) do not count towards the slice.
+  auto bsr2 = make_sbsr(lcg, 700);
+  bsr2.rx_sdus_since_last_bsr.push_back(ul_rx_sdu_bytes{LCID_SRB1, 50, 1});
+  ue_lchs.handle_bsr_indication(bsr2);
+  EXPECT_EQ(ue_lchs.take_ul_arrivals(slice).net_bytes, 0);
+  EXPECT_EQ(ue_lchs.nof_applied_bsrs(), 4U);
+}
+
+TEST_F(single_ue_ul_logical_channel_system_test, saturated_short_bsr_that_cannot_be_applied_marks_arrivals_unknown)
+{
+  const ran_slice_id_t slice{0};
+  const lcg_id_t       lcg = uint_to_lcg_id(2);
+  ue_lchs.set_lcg_ran_slice(lcg, slice);
+  ue_lchs.handle_bsr_indication(make_lbsr(lcg, 400000));
+  EXPECT_EQ(ue_lchs.take_ul_arrivals(slice).net_bytes, 400000);
+
+  ue_lchs.handle_bsr_indication(make_sbsr(lcg, 300000));
+  const auto a = ue_lchs.take_ul_arrivals(slice);
+  EXPECT_TRUE(a.unknown);
+  EXPECT_EQ(a.net_bytes, 0);
+  EXPECT_FALSE(ue_lchs.take_ul_arrivals(slice).unknown) << "take must reset";
+  EXPECT_EQ(ue_lchs.nof_applied_bsrs(), 1U);
+}

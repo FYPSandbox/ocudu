@@ -21,6 +21,7 @@
 #include "ocudu/asn1/f1ap/f1ap_pdu_contents_ue.h"
 #include "ocudu/asn1/rrc_nr/cell_group_config.h"
 #include "ocudu/support/executors/task_worker.h"
+#include <future>
 
 using namespace ocudu;
 using namespace odu;
@@ -582,7 +583,15 @@ public:
     std::unique_ptr<app_services::remote_command> remote =
         std::make_unique<rrm_policy_ratio_remote_command>(this->du_hi->get_du_configurator());
 
-    error_type<std::string> cmd_exec_res = remote->execute(req);
+    // The command waits until the scheduler has applied the new slices in a slot (MAC ACK after application). In
+    // this test the slots are driven by this thread, so run the command on another thread and keep running slots.
+    auto cmd = std::async(std::launch::async, [&remote, &req]() { return remote->execute(req); });
+    for (unsigned i = 0; i != 10000 and cmd.wait_for(std::chrono::milliseconds{0}) != std::future_status::ready;
+         ++i) {
+      run_slot();
+    }
+    ASSERT_EQ(cmd.wait_for(std::chrono::seconds{5}), std::future_status::ready) << "RRM command did not complete";
+    error_type<std::string> cmd_exec_res = cmd.get();
     ASSERT_TRUE(cmd_exec_res.has_value()) << cmd_exec_res.error();
   }
 
