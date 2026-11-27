@@ -46,6 +46,8 @@ cell_metrics_handler::cell_metrics_handler(
   for (const auto& policy : cell_cfg.rrm_policy_members) {
     slice_metrics.push_back({policy.rrc_member, 0, 0});
   }
+  dl_offered_sub_invalid.assign(slice_metrics.size(), 0);
+  ul_offered_sub_invalid.assign(slice_metrics.size(), 0);
   if (not enabled()) {
     return;
   }
@@ -105,6 +107,11 @@ void cell_metrics_handler::handle_ue_deletion(du_ue_index_t ue_index)
   if (not enabled()) {
     return;
   }
+  // FYP: a removed UE's pending UL carry can no longer be matched with arrivals.
+  offered_acc.erase(std::remove_if(offered_acc.begin(),
+                                   offered_acc.end(),
+                                   [ue_index](const offered_ue_accumulator& a) { return a.ue_index == ue_index; }),
+                    offered_acc.end());
   if (ues.contains(ue_index)) {
     ue_metric_context& ue   = ues[ue_index];
     const rnti_t       rnti = ue.rnti;
@@ -412,11 +419,173 @@ void cell_metrics_handler::handle_late_ul_harqs()
   ++data.nof_failed_pusch_allocs_late_harqs;
 }
 
+void cell_metrics_handler::handle_slice_pending_bytes(unsigned slice_index,
+                                                      uint64_t dl_bytes,
+                                                      uint64_t ul_bytes,
+                                                      bool     dl_slot,
+                                                      bool     ul_slot)
+{
+  if (not enabled() or slice_index >= slice_metrics.size()) {
+    return;
+  }
+  auto& metric = slice_metrics[slice_index];
+  if (dl_slot) {
+    metric.dl_pending_bytes += dl_bytes;
+    ++metric.dl_pending_samples;
+  }
+  if (ul_slot) {
+    metric.ul_pending_bytes += ul_bytes;
+    ++metric.ul_pending_samples;
+  }
+  metric.dl_queue_end_bytes = dl_bytes;
+  metric.ul_queue_end_bytes = ul_bytes;
+}
+
+void cell_metrics_handler::handle_slice_ue_arrivals(unsigned                        slice_index,
+                                                    du_ue_index_t                   ue_index,
+                                                    const fyp_offered::dl_arrivals& dl,
+                                                    std::optional<double>           dl_se,
+                                                    const fyp_offered::ul_arrivals& ul,
+                                                    std::optional<double>           ul_se)
+{
+  if (not enabled() or slice_index >= slice_metrics.size()) {
+    return;
+  }
+  auto& metric = slice_metrics[slice_index];
+  metric.dl_queue_decrease_bytes += dl.decreased_bytes;
+  if (ul.unknown) {
+    ul_offered_sub_invalid[slice_index] = 1;
+  }
+  if (dl.arrived_bytes == 0 and ul.net_bytes == 0) {
+    return;
+  }
+  auto it = std::find_if(offered_acc.begin(), offered_acc.end(), [&](const offered_ue_accumulator& a) {
+    return a.slice_index == slice_index and a.ue_index == ue_index;
+  });
+  if (it == offered_acc.end()) {
+    offered_acc.push_back(offered_ue_accumulator{slice_index, ue_index});
+    it = std::prev(offered_acc.end());
+  }
+  if (dl.arrived_bytes > 0) {
+    metric.dl_arrived_bytes += dl.arrived_bytes;
+    if (dl_se.has_value()) {
+      it->dl_prb_s += fyp_offered::prb_seconds(static_cast<double>(dl.arrived_bytes), *dl_se, true);
+    } else {
+      dl_offered_sub_invalid[slice_index] = 1;
+    }
+  }
+  if (ul.net_bytes != 0) {
+    it->ul_net += ul.net_bytes;
+    if (ul_se.has_value()) {
+      it->ul_prb_s += fyp_offered::prb_seconds(static_cast<double>(ul.net_bytes), *ul_se, false);
+    } else if (ul.net_bytes > 0) {
+      ul_offered_sub_invalid[slice_index] = 1;
+    }
+  }
+}
+
+void cell_metrics_handler::handle_slice_bsr_age(unsigned slice_index, unsigned age_ms)
+{
+  if (not enabled() or slice_index >= slice_metrics.size()) {
+    return;
+  }
+  slice_metrics[slice_index].ul_bsr_age_max_ms = std::max(slice_metrics[slice_index].ul_bsr_age_max_ms, age_ms);
+}
+
+void cell_metrics_handler::close_offered_subwindow()
+{
+  if (offered_sub_slots == 0) {
+    return;
+  }
+  const double window_s = static_cast<double>(offered_sub_slots) / (nof_slots_per_sf * 1000.0);
+  for (unsigned s = 0; s != slice_metrics.size(); ++s) {
+    auto&      metric = slice_metrics[s];
+    const auto ue_cap = fyp_offered::ue_max_prb_for_sst(metric.member.s_nssai.sst.value());
+    double     dl_prb = 0;
+    double     ul_prb = 0;
+    bool       had_data = false;
+    for (auto& a : offered_acc) {
+      if (a.slice_index != s) {
+        continue;
+      }
+      had_data |= a.dl_prb_s > 0 or a.ul_net > 0;
+      if (ue_cap.has_value()) {
+        dl_prb += fyp_offered::dl_ue_prb(a.dl_prb_s, window_s, *ue_cap);
+        ul_prb += fyp_offered::ul_ue_prb(a.ul_prb_s, a.ul_net, window_s, *ue_cap);
+      }
+      a.dl_prb_s = 0;
+      if (a.ul_net > 0) {
+        // Data arrived in this sub-window: it is consumed. A negative value is carried to the next one.
+        metric.ul_arrived_bytes += static_cast<uint64_t>(a.ul_net);
+        a.ul_net   = 0;
+        a.ul_prb_s = 0;
+      }
+    }
+    if (had_data and not ue_cap.has_value()) {
+      dl_offered_sub_invalid[s] = ul_offered_sub_invalid[s] = 1;
+    }
+    metric.dl_offered_prb_peer_slots += dl_prb * offered_sub_slots;
+    metric.ul_offered_prb_peer_slots += ul_prb * offered_sub_slots;
+    metric.offered_slots += offered_sub_slots;
+    metric.dl_offered_invalid_subwindows += dl_offered_sub_invalid[s];
+    metric.ul_offered_invalid_subwindows += ul_offered_sub_invalid[s];
+    dl_offered_sub_invalid[s] = ul_offered_sub_invalid[s] = 0;
+  }
+  // Drop accumulators that carry nothing.
+  offered_acc.erase(std::remove_if(offered_acc.begin(),
+                                   offered_acc.end(),
+                                   [](const offered_ue_accumulator& a) { return a.ul_net == 0 and a.dl_prb_s == 0; }),
+                    offered_acc.end());
+  offered_sub_slots = 0;
+}
+
+void cell_metrics_handler::handle_slice_queue_need(unsigned slice_index,
+                                                   bool     downlink,
+                                                   uint64_t newtx_prbs,
+                                                   uint64_t retx_prbs,
+                                                   uint64_t unserved_bytes,
+                                                   bool     complete)
+{
+  if (not enabled() or slice_index >= slice_metrics.size()) {
+    return;
+  }
+  auto& metric = slice_metrics[slice_index];
+  if (downlink) {
+    metric.dl_queue_newtx_prbs += newtx_prbs;
+    metric.dl_queue_retx_prbs += retx_prbs;
+    metric.dl_queue_unserved_bytes += unserved_bytes;
+    ++metric.dl_queue_samples;
+    metric.dl_queue_invalid_samples += not complete;
+  } else {
+    metric.ul_queue_newtx_prbs += newtx_prbs;
+    metric.ul_queue_retx_prbs += retx_prbs;
+    metric.ul_queue_unserved_bytes += unserved_bytes;
+    ++metric.ul_queue_samples;
+    metric.ul_queue_invalid_samples += not complete;
+  }
+}
+
 void cell_metrics_handler::report_metrics()
 {
   auto next_report = notifier.get_builder();
   next_report->slice_metrics = slice_metrics;
-  for (auto& metric : slice_metrics) metric.dl_prbs = metric.ul_prbs = 0;
+  for (auto& metric : slice_metrics) {
+    metric.dl_prbs = metric.ul_prbs = 0;
+    metric.dl_pending_bytes = metric.ul_pending_bytes = 0;
+    metric.dl_pending_samples = metric.ul_pending_samples = 0;
+    metric.dl_queue_newtx_prbs = metric.ul_queue_newtx_prbs = 0;
+    metric.dl_queue_retx_prbs = metric.ul_queue_retx_prbs = 0;
+    metric.dl_queue_unserved_bytes = metric.ul_queue_unserved_bytes = 0;
+    metric.dl_queue_samples = metric.ul_queue_samples = 0;
+    metric.dl_queue_invalid_samples = metric.ul_queue_invalid_samples = 0;
+    metric.dl_offered_prb_peer_slots = metric.ul_offered_prb_peer_slots = 0;
+    metric.offered_slots                                               = 0;
+    metric.dl_arrived_bytes = metric.ul_arrived_bytes = 0;
+    metric.dl_queue_decrease_bytes                    = 0;
+    metric.dl_offered_invalid_subwindows = metric.ul_offered_invalid_subwindows = 0;
+    metric.ul_bsr_age_max_ms                                                    = 0;
+    // Queue end bytes are snapshots, overwritten by the next sample; they are not reset.
+  }
   next_report->stage2_window = stage2::close_window(stage2_previous);
   if (stage2::enabled()) next_report->stage2_seq = stage2::next_id();
 
@@ -644,9 +813,17 @@ void cell_metrics_handler::push_result(slot_point_extended       sl_tx,
     return;
   }
 
+  const unsigned elapsed_slots = last_slot_tx.valid() ? static_cast<unsigned>(sl_tx - last_slot_tx) : 1U;
   handle_slot_result(sl_tx, slot_result, slot_decision_latency);
 
-  if (notifier.is_sched_report_required(sl_tx)) {
+  // FYP: offered-traffic sub-windows of 100 ms, always closed at a report boundary so reports stay aligned.
+  offered_sub_slots += elapsed_slots;
+  const bool report_required = notifier.is_sched_report_required(sl_tx);
+  if (report_required or offered_sub_slots >= fyp_offered::sub_window_msec * nof_slots_per_sf) {
+    close_offered_subwindow();
+  }
+
+  if (report_required) {
     // Prepare report and forward it to the notifier.
     report_metrics();
   }
@@ -655,6 +832,7 @@ void cell_metrics_handler::push_result(slot_point_extended       sl_tx,
 void cell_metrics_handler::handle_cell_deactivation()
 {
   // Commit whatever is pending for the report.
+  close_offered_subwindow();
   report_metrics();
   last_slot_tx = {};
 }

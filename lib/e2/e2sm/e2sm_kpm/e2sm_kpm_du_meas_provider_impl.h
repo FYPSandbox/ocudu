@@ -111,6 +111,53 @@ private:
   metric_meas_getter_func_t get_prb_avail_ul;
   metric_meas_getter_func_t get_prb_used_dl;
   metric_meas_getter_func_t get_prb_used_ul;
+  metric_meas_getter_func_t get_slice_pending_bytes_dl;
+  metric_meas_getter_func_t get_slice_pending_bytes_ul;
+  enum class queue_field { newtx_prbs, retx_prbs, unserved_bytes, samples, invalid_samples };
+  bool get_slice_queue_metric(const asn1::e2sm::label_info_list_l          label_info_list,
+                              const std::vector<asn1::e2sm::ue_id_c>&      ues,
+                              std::vector<asn1::e2sm::meas_record_item_c>& items,
+                              bool                                        downlink,
+                              queue_field                                 field);
+  metric_meas_getter_func_t get_slice_queue_newtx_prb_dl;
+  metric_meas_getter_func_t get_slice_queue_newtx_prb_ul;
+  metric_meas_getter_func_t get_slice_queue_retx_prb_dl;
+  metric_meas_getter_func_t get_slice_queue_retx_prb_ul;
+  metric_meas_getter_func_t get_slice_queue_unserved_bytes_dl;
+  metric_meas_getter_func_t get_slice_queue_unserved_bytes_ul;
+  metric_meas_getter_func_t get_slice_queue_samples_dl;
+  metric_meas_getter_func_t get_slice_queue_samples_ul;
+  metric_meas_getter_func_t get_slice_queue_invalid_samples_dl;
+  metric_meas_getter_func_t get_slice_queue_invalid_samples_ul;
+  /// FYP: offered (newly arrived) traffic metrics.
+  enum class offered_field {
+    arrived_bytes,
+    offered_prb_peer,
+    queue_end_bytes,
+    queue_decrease_bytes,
+    invalid_subwindows,
+    offered_slots,
+    bsr_age_max_ms,
+    used_prbs
+  };
+  bool get_slice_offered_metric(const asn1::e2sm::label_info_list_l          label_info_list,
+                                const std::vector<asn1::e2sm::ue_id_c>&      ues,
+                                std::vector<asn1::e2sm::meas_record_item_c>& items,
+                                bool                                        downlink,
+                                offered_field                               field);
+  metric_meas_getter_func_t get_slice_arrived_bytes_dl;
+  metric_meas_getter_func_t get_slice_arrived_bytes_ul;
+  metric_meas_getter_func_t get_slice_offered_prb_peer_dl;
+  metric_meas_getter_func_t get_slice_offered_prb_peer_ul;
+  metric_meas_getter_func_t get_slice_queue_end_bytes_dl;
+  metric_meas_getter_func_t get_slice_queue_end_bytes_ul;
+  metric_meas_getter_func_t get_slice_queue_decrease_bytes_dl;
+  metric_meas_getter_func_t get_slice_offered_invalid_dl;
+  metric_meas_getter_func_t get_slice_offered_invalid_ul;
+  metric_meas_getter_func_t get_slice_offered_slots;
+  metric_meas_getter_func_t get_slice_bsr_age_max_ul;
+  metric_meas_getter_func_t get_slice_prb_used_real_dl;
+  metric_meas_getter_func_t get_slice_prb_used_real_ul;
   metric_meas_getter_func_t get_prb_use_perc_dl;
   metric_meas_getter_func_t get_prb_use_perc_ul;
   metric_meas_getter_func_t get_delay_ul;

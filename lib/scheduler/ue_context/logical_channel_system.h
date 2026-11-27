@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../config/logical_channel_list_config.h"
+#include "../slicing/offered_demand.h"
 #include "../slicing/ran_slice_id.h"
 #include "ocudu/adt/soa_table.h"
 #include "ocudu/adt/stable_id_map.h"
@@ -338,6 +339,10 @@ private:
     static_flat_map<lcg_id_t, soa::row_id, MAX_NOF_LCGS> lcgs;
     /// Slot at which the oldest, unserved SR indication was received for this UE.
     slot_point oldest_sr_sl_rx;
+    /// FYP: MAC SDU bytes received per LCG and not yet matched with a BSR of that LCG.
+    std::array<uint64_t, MAX_NOF_LCGS> rx_bytes_since_lcg_report{};
+    /// FYP: number of BSR indications applied for this UE (used to measure BSR age).
+    uint32_t nof_applied_bsrs = 0;
   };
   /// UE context relative to its DL state.
   struct ue_context {
@@ -357,11 +362,15 @@ private:
   struct ue_dl_slice_context {
     /// Mapping of RAN slice ID to the pending bytes of that slice, excluding any CE.
     static_flat_map<ran_slice_id_t, unsigned, MAX_RAN_SLICES_PER_UE> pending_bytes_per_slice;
+    /// FYP: DL arrivals per RAN slice since the last read by the inter-slice scheduler.
+    static_flat_map<ran_slice_id_t, fyp_offered::dl_arrivals, MAX_RAN_SLICES_PER_UE> arrivals_per_slice;
   };
   /// Context relative to a UE UL slice state.
   struct ue_ul_slice_context {
     /// Mapping of RAN slice ID to the pending bytes of that slice, excluding SRs.
     static_flat_map<ran_slice_id_t, unsigned, MAX_RAN_SLICES_PER_UE> pending_bytes_per_slice;
+    /// FYP: UL arrivals per RAN slice since the last read by the inter-slice scheduler.
+    static_flat_map<ran_slice_id_t, fyp_offered::ul_arrivals, MAX_RAN_SLICES_PER_UE> arrivals_per_slice;
   };
   enum class ue_field { config, context, dl_slice, ul_slice, dl_channel, ul_channel };
   using ue_table     = soa::table<ue_field,
@@ -765,6 +774,35 @@ public:
     }
     return slice_it->second;
   }
+
+  /// FYP: returns and clears the DL arrivals of a RAN slice accumulated since the previous call.
+  fyp_offered::dl_arrivals take_dl_arrivals(ran_slice_id_t slice_id)
+  {
+    auto& m  = get_ue_row().at<ue_dl_slice_context>().arrivals_per_slice;
+    auto  it = m.find(slice_id);
+    if (it == m.end()) {
+      return {};
+    }
+    auto ret   = it->second;
+    it->second = {};
+    return ret;
+  }
+
+  /// FYP: returns and clears the UL arrivals of a RAN slice accumulated since the previous call.
+  fyp_offered::ul_arrivals take_ul_arrivals(ran_slice_id_t slice_id)
+  {
+    auto& m  = get_ue_row().at<ue_ul_slice_context>().arrivals_per_slice;
+    auto  it = m.find(slice_id);
+    if (it == m.end()) {
+      return {};
+    }
+    auto ret   = it->second;
+    it->second = {};
+    return ret;
+  }
+
+  /// FYP: number of BSR indications applied for this UE so far.
+  uint32_t nof_applied_bsrs() const { return get_ue_row().at<ue_ul_channel_context>().nof_applied_bsrs; }
 
   /// \brief Returns the UE pending CEs' bytes to be scheduled, if any.
   unsigned pending_ce_bytes() const

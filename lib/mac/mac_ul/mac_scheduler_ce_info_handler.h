@@ -11,6 +11,7 @@
 #include "ocudu/ran/logical_channel/phr_report.h"
 #include "ocudu/ran/rnti.h"
 #include "ocudu/ran/slot_point.h"
+#include "ocudu/scheduler/scheduler_feedback_handler.h"
 #include <optional>
 
 namespace ocudu {
@@ -23,6 +24,8 @@ struct mac_bsr_ce_info {
   bsr_format      bsr_fmt;
   /// \brief List of BSR reports decoded from the MAC CE BSR for different LCG IDs.
   lcg_bsr_report_list lcg_reports;
+  /// FYP: MAC SDU bytes per LCID decoded since the previous BSR of this UE, including this PDU.
+  ul_rx_sdu_bytes_list rx_sdus_since_last_bsr;
 };
 
 /// \brief Command used by MAC to force the scheduling of an UL grant for a UE in the scheduler.

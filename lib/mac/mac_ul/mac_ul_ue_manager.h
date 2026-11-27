@@ -30,6 +30,11 @@ public:
 
   /// List of UL PDU notification endpoints associated to UE's logical channels.
   slotted_vector<mac_sdu_rx_notifier*> ul_bearers;
+
+  /// FYP: MAC SDU bytes/count per LCID forwarded since the last BSR, attached to the next BSR sent to the scheduler.
+  /// UL MAC CEs follow all MAC SDUs in a PDU (TS 38.321 6.1.2), so a BSR reflects the buffer after these SDUs.
+  std::array<uint32_t, MAX_NOF_RB_LCIDS> rx_sdu_bytes_since_bsr{};
+  std::array<uint32_t, MAX_NOF_RB_LCIDS> rx_sdus_since_bsr{};
 };
 
 /// Class that manages the creation/reconfiguration/deletion of UEs from the MAC UL

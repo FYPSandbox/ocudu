@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "../slicing/offered_demand.h"
 #include "scheduler_metrics_ue_configurator.h"
 #include "ocudu/adt/flat_map.h"
 #include "ocudu/adt/slotted_vector.h"
@@ -195,6 +196,23 @@ class cell_metrics_handler final : public sched_metrics_ue_configurator
   /// Metrics tracked that are reset on every report.
   non_persistent_data data;
 
+  /// FYP: per (slice, UE) offered-traffic accumulator of the open 100 ms sub-window. UL keeps a signed carry so
+  /// that BSR quantisation does not bias the arrivals upwards.
+  struct offered_ue_accumulator {
+    unsigned      slice_index;
+    du_ue_index_t ue_index;
+    double        dl_prb_s  = 0;
+    double        ul_prb_s  = 0;
+    int64_t       ul_net    = 0;
+  };
+  std::vector<offered_ue_accumulator> offered_acc;
+  std::vector<uint8_t>                dl_offered_sub_invalid;
+  std::vector<uint8_t>                ul_offered_sub_invalid;
+  unsigned                            offered_sub_slots = 0;
+
+  /// FYP: closes the open offered-traffic sub-window and adds its per-slice requested PRBs to the report.
+  void close_offered_subwindow();
+
 public:
   /// \brief Creates a scheduler UE metrics handler for a given cell. In case the metrics_report_period is zero,
   /// no metrics are reported.
@@ -263,6 +281,33 @@ public:
 
   /// \brief Handle late UL HARQ indication.
   void handle_late_ul_harqs();
+
+  /// Record a read-only slice queue snapshot before slice scheduling.
+  void handle_slice_pending_bytes(unsigned slice_index,
+                                  uint64_t dl_bytes,
+                                  uint64_t ul_bytes,
+                                  bool     dl_slot,
+                                  bool     ul_slot);
+
+  /// Record one representative scheduling opportunity for queued service need.
+  void handle_slice_queue_need(unsigned slice_index,
+                               bool     downlink,
+                               uint64_t newtx_prbs,
+                               uint64_t retx_prbs,
+                               uint64_t unserved_bytes,
+                               bool     complete);
+
+  /// FYP: record arrivals of one UE in a slice since the previous slot, with the spectral efficiency used to convert
+  /// them to peer-scale PRBs (empty if unavailable, which invalidates the sub-window when data arrived).
+  void handle_slice_ue_arrivals(unsigned                        slice_index,
+                                du_ue_index_t                   ue_index,
+                                const fyp_offered::dl_arrivals& dl,
+                                std::optional<double>           dl_se,
+                                const fyp_offered::ul_arrivals& ul,
+                                std::optional<double>           ul_se);
+
+  /// FYP: record the age of the last applied BSR of a slice UE with pending UL data.
+  void handle_slice_bsr_age(unsigned slice_index, unsigned age_ms);
 
   /// \brief Handle results stored in the scheduler result and push new entry.
   void push_result(slot_point_extended       sl_tx,

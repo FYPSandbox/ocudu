@@ -146,6 +146,123 @@ TEST(ccc_kpm, uses_scheduler_slice_counters_and_exact_identity)
   ASSERT_EQ(items[0].type(), asn1::e2sm::meas_record_item_c::types::no_value);
 }
 
+TEST(ccc_kpm, queue_service_need_requires_complete_slice_window)
+{
+  dummy_f1ap_ue_id_translator translator;
+  e2sm_kpm_du_meas_provider_impl provider(translator);
+  scheduler_cell_metrics metrics{};
+  scheduler_slice_metrics slice;
+  slice.member.s_nssai = s_nssai_t{slice_service_type{1}};
+  slice.dl_queue_newtx_prbs = 33;
+  slice.dl_queue_retx_prbs = 9;
+  slice.dl_queue_unserved_bytes = 18;
+  slice.dl_queue_samples = 3;
+  metrics.slice_metrics.push_back(slice);
+  provider.report_metrics(metrics);
+
+  asn1::e2sm::label_info_list_l labels;
+  labels.resize(1);
+  labels[0].meas_label.slice_id_present = true;
+  labels[0].meas_label.slice_id.sst.from_number(1);
+  auto get = [&](const char* name) {
+    asn1::e2sm::meas_type_c type;
+    type.set_meas_name().from_string(name);
+    EXPECT_TRUE(provider.is_metric_supported(type, labels[0].meas_label, E2_NODE_LEVEL, false));
+    std::vector<asn1::e2sm::meas_record_item_c> items;
+    EXPECT_TRUE(provider.get_meas_data(type, labels, {}, {}, items));
+    EXPECT_EQ(items.size(), 1U);
+    return items[0];
+  };
+  EXPECT_FLOAT_EQ(get("FYP.SliceQueueNewTxPrbDl").real().value, 11.0F);
+  EXPECT_FLOAT_EQ(get("FYP.SliceQueueRetxPrbDl").real().value, 3.0F);
+  EXPECT_FLOAT_EQ(get("FYP.SliceQueueUnservedBytesDl").real().value, 6.0F);
+  EXPECT_EQ(get("FYP.SliceQueueSamplesDl").integer(), 3);
+
+  metrics.slice_metrics[0].dl_queue_newtx_prbs = 1;
+  provider.report_metrics(metrics);
+  EXPECT_NEAR(get("FYP.SliceQueueNewTxPrbDl").real().value, 1.0 / 3.0, 1e-5);
+
+  metrics.slice_metrics[0].dl_queue_invalid_samples = 1;
+  provider.report_metrics(metrics);
+  EXPECT_EQ(get("FYP.SliceQueueInvalidSamplesDl").integer(), 1);
+  EXPECT_EQ(get("FYP.SliceQueueNewTxPrbDl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+  EXPECT_EQ(get("FYP.SliceQueueRetxPrbDl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+
+  metrics.slice_metrics[0].dl_queue_invalid_samples = 0;
+  metrics.slice_metrics[0].dl_queue_samples = 0;
+  provider.report_metrics(metrics);
+  EXPECT_EQ(get("FYP.SliceQueueSamplesDl").integer(), 0);
+  EXPECT_EQ(get("FYP.SliceQueueNewTxPrbDl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+
+  scheduler_slice_metrics second = metrics.slice_metrics[0];
+  second.member.plmn_id = plmn_identity::parse("00202").value();
+  metrics.slice_metrics.push_back(second);
+  provider.report_metrics(metrics);
+  EXPECT_EQ(get("FYP.SliceQueueSamplesDl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+}
+
+TEST(ccc_kpm, offered_demand_metrics_report_window_means_and_withhold_invalid_windows)
+{
+  dummy_f1ap_ue_id_translator    translator;
+  e2sm_kpm_du_meas_provider_impl provider(translator);
+  scheduler_cell_metrics         metrics{};
+  scheduler_slice_metrics        slice;
+  slice.member.s_nssai           = s_nssai_t{slice_service_type{2}};
+  slice.offered_slots            = 2000;
+  slice.dl_offered_prb_peer_slots = 2000 * 3.25;
+  slice.ul_offered_prb_peer_slots = 2000 * 0.5;
+  slice.dl_arrived_bytes          = 12345;
+  slice.ul_arrived_bytes          = 678;
+  slice.dl_queue_end_bytes        = 90;
+  slice.ul_queue_end_bytes        = 12;
+  slice.dl_queue_decrease_bytes   = 7;
+  slice.ul_bsr_age_max_ms         = 40;
+  slice.dl_prbs                   = 1400 * 5 + 300;  // 1400 DL slots, mean 5.214 PRB
+  slice.ul_prbs                   = 600 * 2 + 30;    // 600 UL slots, mean 2.05 PRB
+  metrics.nof_dl_slots            = 1400;
+  metrics.nof_ul_slots            = 600;
+  metrics.slice_metrics.push_back(slice);
+  provider.report_metrics(metrics);
+
+  asn1::e2sm::label_info_list_l labels;
+  labels.resize(1);
+  labels[0].meas_label.slice_id_present = true;
+  labels[0].meas_label.slice_id.sst.from_number(2);
+  auto get = [&](const char* name) {
+    asn1::e2sm::meas_type_c type;
+    type.set_meas_name().from_string(name);
+    EXPECT_TRUE(provider.is_metric_supported(type, labels[0].meas_label, E2_NODE_LEVEL, false)) << name;
+    std::vector<asn1::e2sm::meas_record_item_c> items;
+    EXPECT_TRUE(provider.get_meas_data(type, labels, {}, {}, items));
+    EXPECT_EQ(items.size(), 1U);
+    return items[0];
+  };
+  EXPECT_FLOAT_EQ(get("FYP.SliceOfferedPrbPeerDl").real().value, 3.25F);
+  EXPECT_FLOAT_EQ(get("FYP.SliceOfferedPrbPeerUl").real().value, 0.5F);
+  EXPECT_EQ(get("FYP.SliceArrivedBytesDl").integer(), 12345);
+  EXPECT_EQ(get("FYP.SliceArrivedBytesUl").integer(), 678);
+  EXPECT_EQ(get("FYP.SliceQueueEndBytesDl").integer(), 90);
+  EXPECT_EQ(get("FYP.SliceQueueEndBytesUl").integer(), 12);
+  EXPECT_EQ(get("FYP.SliceQueueDecreaseBytesDl").integer(), 7);
+  EXPECT_EQ(get("FYP.SliceOfferedSlots").integer(), 2000);
+  EXPECT_EQ(get("FYP.SliceBsrAgeMaxUl").integer(), 40);
+  EXPECT_EQ(get("FYP.SliceOfferedInvalidDl").integer(), 0);
+  EXPECT_NEAR(get("FYP.SlicePrbUsedDl").real().value, 7300.0 / 1400, 1e-5);
+  EXPECT_NEAR(get("FYP.SlicePrbUsedUl").real().value, 1230.0 / 600, 1e-5);
+
+  // One invalid UL sub-window withholds the UL value only.
+  metrics.slice_metrics[0].ul_offered_invalid_subwindows = 1;
+  provider.report_metrics(metrics);
+  EXPECT_EQ(get("FYP.SliceOfferedPrbPeerUl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+  EXPECT_EQ(get("FYP.SliceOfferedInvalidUl").integer(), 1);
+  EXPECT_FLOAT_EQ(get("FYP.SliceOfferedPrbPeerDl").real().value, 3.25F);
+
+  // A report without any closed sub-window has no value.
+  metrics.slice_metrics[0].offered_slots = 0;
+  provider.report_metrics(metrics);
+  EXPECT_EQ(get("FYP.SliceOfferedPrbPeerDl").type(), asn1::e2sm::meas_record_item_c::types::no_value);
+}
+
 TEST(ccc_context_fixture, encode_actual_rc_membership_message)
 {
   const char* output = std::getenv("FYP_RC_CONTEXT_FIXTURE");

@@ -446,3 +446,188 @@ TEST(scheduler_slice_metrics_test, counts_grants_by_slice_and_resets_each_window
   ASSERT_EQ(notifier.last_report.slice_metrics[0].dl_prbs, 0);
   ASSERT_EQ(notifier.last_report.slice_metrics[0].ul_prbs, 0);
 }
+
+TEST(scheduler_slice_metrics_test, queue_need_uses_eligible_opportunities_and_resets_together)
+{
+  test_helpers::test_sched_config_manager manager{config_helpers::make_default_scheduler_expert_config()};
+  auto request = sched_config_helper::make_default_sched_cell_configuration_request();
+  request.rrm_policy_members = {{{plmn_identity::test_value(), s_nssai_t{slice_service_type{1}}}, {0, 50}}};
+  const auto& cfg = *manager.add_cell(request);
+  test_scheduler_cell_metrics_notifier notifier;
+  notifier.period_slots = 1;
+  cell_metrics_handler handler(cfg, sched_cell_configuration_request_message::metrics_config{&notifier});
+  handler.handle_slice_queue_need(0, true, 40, 5, 120, true);
+  handler.handle_slice_queue_need(0, false, 20, 2, 30, false);
+  sched_result result;
+  result.dl.nof_dl_symbols = result.ul.nof_ul_symbols = 14;
+  slot_point_extended slot{subcarrier_spacing::kHz15, 0};
+  handler.push_result(slot, result, std::chrono::microseconds{0});
+  const auto& first = notifier.last_report.slice_metrics.at(0);
+  EXPECT_EQ(first.dl_queue_newtx_prbs, 40);
+  EXPECT_EQ(first.dl_queue_retx_prbs, 5);
+  EXPECT_EQ(first.dl_queue_unserved_bytes, 120);
+  EXPECT_EQ(first.dl_queue_samples, 1);
+  EXPECT_EQ(first.dl_queue_invalid_samples, 0);
+  EXPECT_EQ(first.ul_queue_samples, 1);
+  EXPECT_EQ(first.ul_queue_invalid_samples, 1);
+  handler.push_result(slot + 1, result, std::chrono::microseconds{0});
+  const auto& second = notifier.last_report.slice_metrics.at(0);
+  EXPECT_EQ(second.dl_queue_newtx_prbs, 0);
+  EXPECT_EQ(second.dl_queue_samples, 0);
+  EXPECT_EQ(second.ul_queue_invalid_samples, 0);
+}
+
+// FYP: offered (newly arrived) traffic in peer-scale PRBs. Expected values come from the Python reference
+// fyp-5g-network-slicing/rApp/horizon_pretraining/peer_demand_reference.py (ue_prb with peer_v1 constants).
+namespace {
+
+struct offered_bench {
+  explicit offered_bench(unsigned period_slots, std::vector<unsigned> ssts = {1})
+  {
+    auto request = sched_config_helper::make_default_sched_cell_configuration_request();
+    for (unsigned sst : ssts) {
+      request.rrm_policy_members.push_back(
+          {{plmn_identity::test_value(), s_nssai_t{slice_service_type{static_cast<uint8_t>(sst)}}}, {0, 50}});
+    }
+    cfg                   = manager.add_cell(request);
+    notifier.period_slots = period_slots;
+    handler = std::make_unique<cell_metrics_handler>(*cfg, sched_cell_configuration_request_message::metrics_config{&notifier});
+    result.dl.nof_dl_symbols = result.ul.nof_ul_symbols = 14;
+  }
+
+  // 15 kHz SCS: one slot per ms, so a sub-window is 100 slots.
+  void run(unsigned nof_slots)
+  {
+    for (unsigned i = 0; i != nof_slots; ++i) {
+      handler->push_result(slot, result, std::chrono::microseconds{0});
+      ++slot;
+    }
+  }
+
+  void dl(du_ue_index_t ue, uint64_t bytes, std::optional<double> se, unsigned slice = 0)
+  {
+    handler->handle_slice_ue_arrivals(slice, ue, {bytes, 0}, se, {}, std::nullopt);
+  }
+
+  void ul(du_ue_index_t ue, int64_t net, std::optional<double> se, bool unknown = false, unsigned slice = 0)
+  {
+    handler->handle_slice_ue_arrivals(slice, ue, {}, std::nullopt, {net, unknown}, se);
+  }
+
+  const scheduler_slice_metrics& report(unsigned slice = 0) const { return notifier.last_report.slice_metrics.at(slice); }
+
+  test_helpers::test_sched_config_manager manager{config_helpers::make_default_scheduler_expert_config()};
+  const cell_configuration*               cfg = nullptr;
+  test_scheduler_cell_metrics_notifier    notifier;
+  std::unique_ptr<cell_metrics_handler>   handler;
+  sched_result                            result;
+  slot_point_extended                     slot{subcarrier_spacing::kHz15, 0};
+};
+
+const double se_cqi10 = fyp_offered::se_from_cqi_table1(10).value();
+
+double dl_mean(const scheduler_slice_metrics& m)
+{
+  return m.dl_offered_prb_peer_slots / m.offered_slots;
+}
+
+double ul_mean(const scheduler_slice_metrics& m)
+{
+  return m.ul_offered_prb_peer_slots / m.offered_slots;
+}
+
+} // namespace
+
+TEST(scheduler_offered_metrics_test, dl_arrival_matches_python_reference_and_averages_over_sub_windows)
+{
+  offered_bench b(1000);
+  b.dl(to_du_ue_index(0), 5000, se_cqi10);
+  b.run(1000);
+  const auto& m = b.report();
+  EXPECT_EQ(m.offered_slots, 1000U);
+  EXPECT_EQ(m.dl_arrived_bytes, 5000U);
+  // 5000 bytes in one 100 ms sub-window = 0.7242392 PRB there, 0 in the other nine.
+  EXPECT_NEAR(dl_mean(m), 0.7242392236317752 / 10, 1e-9);
+  EXPECT_EQ(m.dl_offered_invalid_subwindows, 0U);
+  EXPECT_EQ(ul_mean(m), 0.0);
+}
+
+TEST(scheduler_offered_metrics_test, per_ue_cap_applies_to_the_ue_total_of_a_sub_window)
+{
+  offered_bench b(1000);
+  // UE 0: two arrivals summing to 120 PRB in the same sub-window are capped together at 60 (eMBB).
+  b.dl(to_du_ue_index(0), 2500000, se_cqi10);
+  b.dl(to_du_ue_index(0), 2500000, se_cqi10);
+  // UE 1: its own cap of 60.
+  b.dl(to_du_ue_index(1), 5000000, se_cqi10);
+  b.run(1000);
+  EXPECT_NEAR(dl_mean(b.report()), (60.0 + 60.0) / 10, 1e-9);
+}
+
+TEST(scheduler_offered_metrics_test, ul_uses_grant_overhead_min_grant_and_signed_carry)
+{
+  offered_bench b(1000);
+  const auto ue = to_du_ue_index(0);
+  // Sub-window 0: BSR quantisation makes the net negative; nothing is offered, the deficit is carried.
+  b.ul(ue, -100, se_cqi10);
+  b.run(100);
+  // Sub-window 1: 20100 - 100 = 20000 bytes = 8.3299287 PRB.
+  b.ul(ue, 20100, se_cqi10);
+  b.run(100);
+  // Sub-window 2: 200 bytes is below the minimum grant, so 0.25 PRB.
+  b.ul(ue, 200, se_cqi10);
+  b.run(800);
+  const auto& m = b.report();
+  EXPECT_EQ(m.ul_arrived_bytes, 20200U);
+  EXPECT_NEAR(ul_mean(m), (8.329928696519286 + 0.25) / 10, 1e-9);
+  EXPECT_EQ(m.ul_offered_invalid_subwindows, 0U);
+}
+
+TEST(scheduler_offered_metrics_test, missing_conversion_inputs_mark_sub_windows_invalid_and_reset)
+{
+  offered_bench b(1000);
+  b.dl(to_du_ue_index(0), 5000, std::nullopt);           // CQI unavailable.
+  b.ul(to_du_ue_index(0), 0, se_cqi10, /*unknown=*/true); // Saturated BSR not applied.
+  b.run(1000);
+  EXPECT_EQ(b.report().dl_offered_invalid_subwindows, 1U);
+  EXPECT_EQ(b.report().ul_offered_invalid_subwindows, 1U);
+  b.run(1000);
+  EXPECT_EQ(b.report().dl_offered_invalid_subwindows, 0U);
+  EXPECT_EQ(b.report().ul_offered_invalid_subwindows, 0U);
+  EXPECT_EQ(b.report().dl_arrived_bytes, 0U);
+  EXPECT_EQ(b.report().offered_slots, 1000U);
+}
+
+TEST(scheduler_offered_metrics_test, report_boundary_closes_a_partial_sub_window)
+{
+  offered_bench b(150);
+  b.run(120);
+  // Slots 100..149 form a 50 ms sub-window cut by the report: the same bytes need twice the PRBs.
+  b.dl(to_du_ue_index(0), 5000, se_cqi10);
+  b.run(30);
+  const auto& m = b.report();
+  EXPECT_EQ(m.offered_slots, 150U);
+  EXPECT_NEAR(dl_mean(m), 2 * 0.7242392236317752 * 50 / 150, 1e-9);
+}
+
+TEST(scheduler_offered_metrics_test, non_standard_sst_with_arrivals_is_invalid)
+{
+  offered_bench b(1000, {4});
+  b.dl(to_du_ue_index(0), 5000, se_cqi10);
+  b.run(1000);
+  EXPECT_EQ(b.report().dl_offered_invalid_subwindows, 1U);
+  EXPECT_EQ(b.report().ul_offered_invalid_subwindows, 1U);
+  EXPECT_EQ(dl_mean(b.report()), 0.0);
+}
+
+TEST(scheduler_offered_metrics_test, spectral_efficiency_follows_the_reported_cqi_table_and_is_clamped_to_peer_domain)
+{
+  EXPECT_DOUBLE_EQ(fyp_offered::peer_se_from_cqi(10, 1).value(), 2.7305);
+  EXPECT_DOUBLE_EQ(fyp_offered::peer_se_from_cqi(7, 2).value(), 2.7305);
+  EXPECT_DOUBLE_EQ(fyp_offered::peer_se_from_cqi(12, 3).value(), 2.7305);
+  EXPECT_DOUBLE_EQ(fyp_offered::peer_se_from_cqi(15, 2).value(), fyp_offered::peer_max_se);
+  EXPECT_FALSE(fyp_offered::peer_se_from_cqi(0, 1).has_value());
+  EXPECT_FALSE(fyp_offered::peer_se_from_cqi(5, 4).has_value());
+  EXPECT_DOUBLE_EQ(fyp_offered::peer_se(7.0).value(), fyp_offered::peer_max_se);
+  EXPECT_FALSE(fyp_offered::peer_se(0.0).has_value());
+}

@@ -39,6 +39,48 @@ e2sm_kpm_du_meas_provider_impl::e2sm_kpm_du_meas_provider_impl(odu::f1ap_ue_id_t
       e2sm_kpm_supported_metric_t{
           NO_LABEL | SLICE_ID_LABEL, E2_NODE_LEVEL | UE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_prb_used_ul});
 
+  // Project-specific queue snapshots. They are deliberately named separately
+  // from standardized PRB-use and future new-demand metrics.
+  supported_metrics.emplace(
+      "FYP.SlicePendingBytesDl",
+      e2sm_kpm_supported_metric_t{
+          SLICE_ID_LABEL, E2_NODE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_slice_pending_bytes_dl});
+  supported_metrics.emplace(
+      "FYP.SlicePendingBytesUl",
+      e2sm_kpm_supported_metric_t{
+          SLICE_ID_LABEL, E2_NODE_LEVEL, true, &e2sm_kpm_du_meas_provider_impl::get_slice_pending_bytes_ul});
+
+#define FYP_QUEUE_METRIC(name, getter)                                                                                \
+  supported_metrics.emplace(name,                                                                                     \
+                            e2sm_kpm_supported_metric_t{SLICE_ID_LABEL, E2_NODE_LEVEL, true,                        \
+                                                         &e2sm_kpm_du_meas_provider_impl::getter})
+  FYP_QUEUE_METRIC("FYP.SliceQueueNewTxPrbDl", get_slice_queue_newtx_prb_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueNewTxPrbUl", get_slice_queue_newtx_prb_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueRetxPrbDl", get_slice_queue_retx_prb_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueRetxPrbUl", get_slice_queue_retx_prb_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueUnservedBytesDl", get_slice_queue_unserved_bytes_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueUnservedBytesUl", get_slice_queue_unserved_bytes_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueSamplesDl", get_slice_queue_samples_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueSamplesUl", get_slice_queue_samples_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueInvalidSamplesDl", get_slice_queue_invalid_samples_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueInvalidSamplesUl", get_slice_queue_invalid_samples_ul);
+  // Offered (newly arrived) traffic, the Bi-LSTM input (calibrations peer_dl_v1 / peer_ul_v1).
+  FYP_QUEUE_METRIC("FYP.SliceArrivedBytesDl", get_slice_arrived_bytes_dl);
+  FYP_QUEUE_METRIC("FYP.SliceArrivedBytesUl", get_slice_arrived_bytes_ul);
+  FYP_QUEUE_METRIC("FYP.SliceOfferedPrbPeerDl", get_slice_offered_prb_peer_dl);
+  FYP_QUEUE_METRIC("FYP.SliceOfferedPrbPeerUl", get_slice_offered_prb_peer_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueEndBytesDl", get_slice_queue_end_bytes_dl);
+  FYP_QUEUE_METRIC("FYP.SliceQueueEndBytesUl", get_slice_queue_end_bytes_ul);
+  FYP_QUEUE_METRIC("FYP.SliceQueueDecreaseBytesDl", get_slice_queue_decrease_bytes_dl);
+  FYP_QUEUE_METRIC("FYP.SliceOfferedInvalidDl", get_slice_offered_invalid_dl);
+  FYP_QUEUE_METRIC("FYP.SliceOfferedInvalidUl", get_slice_offered_invalid_ul);
+  FYP_QUEUE_METRIC("FYP.SliceOfferedSlots", get_slice_offered_slots);
+  FYP_QUEUE_METRIC("FYP.SliceBsrAgeMaxUl", get_slice_bsr_age_max_ul);
+  // Exact mean PRBs used per slot of the direction (RRU.PrbUsed truncates to an integer).
+  FYP_QUEUE_METRIC("FYP.SlicePrbUsedDl", get_slice_prb_used_real_dl);
+  FYP_QUEUE_METRIC("FYP.SlicePrbUsedUl", get_slice_prb_used_real_ul);
+#undef FYP_QUEUE_METRIC
+
   supported_metrics.emplace(
       "RRU.PrbTotDl",
       e2sm_kpm_supported_metric_t{
@@ -181,7 +223,10 @@ void e2sm_kpm_du_meas_provider_impl::report_metrics(const scheduler_cell_metrics
 {
   stage2_sched_window = cell_metrics.stage2_window;
   stage2_sched_seq = cell_metrics.stage2_seq;
-  last_slice_metrics = cell_metrics.slice_metrics;
+  {
+    std::lock_guard<std::mutex> lock(slice_map_mutex);
+    last_slice_metrics = cell_metrics.slice_metrics;
+  }
   last_ue_metrics.clear();
   nof_cell_prbs          = cell_metrics.nof_prbs;
   nof_dl_slots           = cell_metrics.nof_dl_slots;
@@ -629,6 +674,230 @@ bool e2sm_kpm_du_meas_provider_impl::get_prb_used_ul(const asn1::e2sm::label_inf
 
   return meas_collected;
 }
+
+bool e2sm_kpm_du_meas_provider_impl::get_slice_pending_bytes_dl(
+    const asn1::e2sm::label_info_list_l          label_info_list,
+    const std::vector<asn1::e2sm::ue_id_c>&      ues,
+    const std::optional<asn1::e2sm::cgi_c>       cell_global_id,
+    std::vector<asn1::e2sm::meas_record_item_c>& items)
+{
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
+  s_nssai_t requested_slice;
+  if (not extract_requested_slice(label_info_list, requested_slice)) {
+    return false;
+  }
+  const scheduler_slice_metrics* selected = nullptr;
+  unsigned matches = 0;
+  for (const auto& metric : last_slice_metrics) {
+    if (metric.member.s_nssai == requested_slice) {
+      selected = &metric;
+      ++matches;
+    }
+  }
+  meas_record_item_c item;
+  if (ues.empty() and matches == 1 and selected->dl_pending_samples > 0) {
+    item.set_integer() = selected->dl_pending_bytes / selected->dl_pending_samples;
+  } else {
+    item.set_no_value();
+  }
+  items.push_back(item);
+  return true;
+}
+
+bool e2sm_kpm_du_meas_provider_impl::get_slice_pending_bytes_ul(
+    const asn1::e2sm::label_info_list_l          label_info_list,
+    const std::vector<asn1::e2sm::ue_id_c>&      ues,
+    const std::optional<asn1::e2sm::cgi_c>       cell_global_id,
+    std::vector<asn1::e2sm::meas_record_item_c>& items)
+{
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
+  s_nssai_t requested_slice;
+  if (not extract_requested_slice(label_info_list, requested_slice)) {
+    return false;
+  }
+  const scheduler_slice_metrics* selected = nullptr;
+  unsigned matches = 0;
+  for (const auto& metric : last_slice_metrics) {
+    if (metric.member.s_nssai == requested_slice) {
+      selected = &metric;
+      ++matches;
+    }
+  }
+  meas_record_item_c item;
+  if (ues.empty() and matches == 1 and selected->ul_pending_samples > 0) {
+    item.set_integer() = selected->ul_pending_bytes / selected->ul_pending_samples;
+  } else {
+    item.set_no_value();
+  }
+  items.push_back(item);
+  return true;
+}
+
+bool e2sm_kpm_du_meas_provider_impl::get_slice_queue_metric(
+    const asn1::e2sm::label_info_list_l          label_info_list,
+    const std::vector<asn1::e2sm::ue_id_c>&      ues,
+    std::vector<asn1::e2sm::meas_record_item_c>& items,
+    bool                                        downlink,
+    queue_field                                 field)
+{
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
+  s_nssai_t requested_slice;
+  if (not extract_requested_slice(label_info_list, requested_slice)) {
+    return false;
+  }
+  const scheduler_slice_metrics* selected = nullptr;
+  unsigned matches = 0;
+  for (const auto& metric : last_slice_metrics) {
+    if (metric.member.s_nssai == requested_slice) {
+      selected = &metric;
+      ++matches;
+    }
+  }
+  meas_record_item_c item;
+  if (not ues.empty() or matches != 1) {
+    item.set_no_value();
+  } else {
+    const uint64_t samples = downlink ? selected->dl_queue_samples : selected->ul_queue_samples;
+    const uint64_t invalid = downlink ? selected->dl_queue_invalid_samples : selected->ul_queue_invalid_samples;
+    if (field == queue_field::samples) {
+      item.set_integer() = samples;
+    } else if (field == queue_field::invalid_samples) {
+      item.set_integer() = invalid;
+    } else if (samples == 0 or invalid != 0) {
+      item.set_no_value();
+    } else {
+      uint64_t total = 0;
+      if (field == queue_field::newtx_prbs) {
+        total = downlink ? selected->dl_queue_newtx_prbs : selected->ul_queue_newtx_prbs;
+      } else if (field == queue_field::retx_prbs) {
+        total = downlink ? selected->dl_queue_retx_prbs : selected->ul_queue_retx_prbs;
+      } else {
+        total = downlink ? selected->dl_queue_unserved_bytes : selected->ul_queue_unserved_bytes;
+      }
+      // Preserve fractional PRB/opportunity values; integer truncation could
+      // hide low-rate IoT demand as a false zero.
+      item.set_real().value = static_cast<double>(total) / static_cast<double>(samples);
+    }
+  }
+  items.push_back(item);
+  return true;
+}
+
+#define FYP_QUEUE_GETTER(method, is_dl, selected_field)                                                               \
+  bool e2sm_kpm_du_meas_provider_impl::method(                                                                       \
+      const asn1::e2sm::label_info_list_l          label_info_list,                                                   \
+      const std::vector<asn1::e2sm::ue_id_c>&      ues,                                                               \
+      const std::optional<asn1::e2sm::cgi_c>       cell_global_id,                                                     \
+      std::vector<asn1::e2sm::meas_record_item_c>& items)                                                             \
+  {                                                                                                                   \
+    return get_slice_queue_metric(label_info_list, ues, items, is_dl, queue_field::selected_field);                  \
+  }
+FYP_QUEUE_GETTER(get_slice_queue_newtx_prb_dl, true, newtx_prbs)
+FYP_QUEUE_GETTER(get_slice_queue_newtx_prb_ul, false, newtx_prbs)
+FYP_QUEUE_GETTER(get_slice_queue_retx_prb_dl, true, retx_prbs)
+FYP_QUEUE_GETTER(get_slice_queue_retx_prb_ul, false, retx_prbs)
+FYP_QUEUE_GETTER(get_slice_queue_unserved_bytes_dl, true, unserved_bytes)
+FYP_QUEUE_GETTER(get_slice_queue_unserved_bytes_ul, false, unserved_bytes)
+FYP_QUEUE_GETTER(get_slice_queue_samples_dl, true, samples)
+FYP_QUEUE_GETTER(get_slice_queue_samples_ul, false, samples)
+FYP_QUEUE_GETTER(get_slice_queue_invalid_samples_dl, true, invalid_samples)
+FYP_QUEUE_GETTER(get_slice_queue_invalid_samples_ul, false, invalid_samples)
+#undef FYP_QUEUE_GETTER
+
+bool e2sm_kpm_du_meas_provider_impl::get_slice_offered_metric(
+    const asn1::e2sm::label_info_list_l          label_info_list,
+    const std::vector<asn1::e2sm::ue_id_c>&      ues,
+    std::vector<asn1::e2sm::meas_record_item_c>& items,
+    bool                                        downlink,
+    offered_field                               field)
+{
+  std::lock_guard<std::mutex> lock(slice_map_mutex);
+  s_nssai_t requested_slice;
+  if (not extract_requested_slice(label_info_list, requested_slice)) {
+    return false;
+  }
+  const scheduler_slice_metrics* selected = nullptr;
+  unsigned matches = 0;
+  for (const auto& metric : last_slice_metrics) {
+    if (metric.member.s_nssai == requested_slice) {
+      selected = &metric;
+      ++matches;
+    }
+  }
+  meas_record_item_c item;
+  if (not ues.empty() or matches != 1) {
+    item.set_no_value();
+    items.push_back(item);
+    return true;
+  }
+  const scheduler_slice_metrics& m = *selected;
+  switch (field) {
+    case offered_field::arrived_bytes:
+      item.set_integer() = downlink ? m.dl_arrived_bytes : m.ul_arrived_bytes;
+      break;
+    case offered_field::offered_prb_peer: {
+      const uint64_t invalid = downlink ? m.dl_offered_invalid_subwindows : m.ul_offered_invalid_subwindows;
+      if (m.offered_slots == 0 or invalid != 0) {
+        // Never report a partly unknown window as a value: the rApp treats the second as missing.
+        item.set_no_value();
+      } else {
+        const double prb_slots = downlink ? m.dl_offered_prb_peer_slots : m.ul_offered_prb_peer_slots;
+        item.set_real().value  = prb_slots / static_cast<double>(m.offered_slots);
+      }
+      break;
+    }
+    case offered_field::queue_end_bytes:
+      item.set_integer() = downlink ? m.dl_queue_end_bytes : m.ul_queue_end_bytes;
+      break;
+    case offered_field::queue_decrease_bytes:
+      item.set_integer() = m.dl_queue_decrease_bytes;
+      break;
+    case offered_field::invalid_subwindows:
+      item.set_integer() = downlink ? m.dl_offered_invalid_subwindows : m.ul_offered_invalid_subwindows;
+      break;
+    case offered_field::offered_slots:
+      item.set_integer() = m.offered_slots;
+      break;
+    case offered_field::bsr_age_max_ms:
+      item.set_integer() = m.ul_bsr_age_max_ms;
+      break;
+    case offered_field::used_prbs: {
+      const unsigned slots = downlink ? nof_dl_slots : nof_ul_slots;
+      if (slots == 0) {
+        item.set_no_value();
+      } else {
+        item.set_real().value = static_cast<double>(downlink ? m.dl_prbs : m.ul_prbs) / slots;
+      }
+      break;
+    }
+  }
+  items.push_back(item);
+  return true;
+}
+
+#define FYP_OFFERED_GETTER(method, is_dl, selected_field)                                                             \
+  bool e2sm_kpm_du_meas_provider_impl::method(                                                                       \
+      const asn1::e2sm::label_info_list_l          label_info_list,                                                   \
+      const std::vector<asn1::e2sm::ue_id_c>&      ues,                                                               \
+      const std::optional<asn1::e2sm::cgi_c>       cell_global_id,                                                     \
+      std::vector<asn1::e2sm::meas_record_item_c>& items)                                                             \
+  {                                                                                                                   \
+    return get_slice_offered_metric(label_info_list, ues, items, is_dl, offered_field::selected_field);              \
+  }
+FYP_OFFERED_GETTER(get_slice_arrived_bytes_dl, true, arrived_bytes)
+FYP_OFFERED_GETTER(get_slice_arrived_bytes_ul, false, arrived_bytes)
+FYP_OFFERED_GETTER(get_slice_offered_prb_peer_dl, true, offered_prb_peer)
+FYP_OFFERED_GETTER(get_slice_offered_prb_peer_ul, false, offered_prb_peer)
+FYP_OFFERED_GETTER(get_slice_queue_end_bytes_dl, true, queue_end_bytes)
+FYP_OFFERED_GETTER(get_slice_queue_end_bytes_ul, false, queue_end_bytes)
+FYP_OFFERED_GETTER(get_slice_queue_decrease_bytes_dl, true, queue_decrease_bytes)
+FYP_OFFERED_GETTER(get_slice_offered_invalid_dl, true, invalid_subwindows)
+FYP_OFFERED_GETTER(get_slice_offered_invalid_ul, false, invalid_subwindows)
+FYP_OFFERED_GETTER(get_slice_offered_slots, true, offered_slots)
+FYP_OFFERED_GETTER(get_slice_bsr_age_max_ul, false, bsr_age_max_ms)
+FYP_OFFERED_GETTER(get_slice_prb_used_real_dl, true, used_prbs)
+FYP_OFFERED_GETTER(get_slice_prb_used_real_ul, false, used_prbs)
+#undef FYP_OFFERED_GETTER
 
 bool e2sm_kpm_du_meas_provider_impl::get_prb_use_perc_dl(const asn1::e2sm::label_info_list_l          label_info_list,
                                                          const std::vector<asn1::e2sm::ue_id_c>&      ues,

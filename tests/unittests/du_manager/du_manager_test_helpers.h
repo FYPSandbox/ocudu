@@ -282,7 +282,8 @@ public:
     async_task<mac_cell_reconfig_response> reconfigure(const mac_cell_reconfig_request& request) override
     {
       last_cell_recfg_req = request;
-      return launch_no_op_task(mac_cell_reconfig_response{true, true});
+      // The dummy applies a slice request immediately, so it acknowledges it as applied (Stage 2 ACK contract).
+      return launch_no_op_task(mac_cell_reconfig_response{true, true, request.slice_reconf_req.has_value()});
     }
   };
 

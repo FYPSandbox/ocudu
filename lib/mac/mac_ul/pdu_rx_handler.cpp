@@ -180,6 +180,12 @@ bool pdu_rx_handler::handle_sdu(const decoded_mac_rx_pdu& ctx, const mac_ul_sch_
   // Push PDU to upper layers
   ue->ul_bearers[lcid]->on_new_sdu(byte_buffer_slice{ctx.pdu_rx.pdu, sdu.payload()});
 
+  // FYP: count received data for the UL offered-traffic reconstruction (reported with the next BSR).
+  if (lcid < MAX_NOF_RB_LCIDS) {
+    ue->rx_sdu_bytes_since_bsr[lcid] += sdu.sdu_length();
+    ++ue->rx_sdus_since_bsr[lcid];
+  }
+
   return true;
 }
 
@@ -239,6 +245,16 @@ bool pdu_rx_handler::handle_mac_ce(const decoded_mac_rx_pdu& ctx, const mac_ul_s
           return false;
         }
         bsr_ind.lcg_reports = lbsr_report.value().list;
+      }
+      if (mac_ul_ue_context* ue = ue_manager.find_ue(ctx.ue_index); ue != nullptr) {
+        for (unsigned i = 0; i != MAX_NOF_RB_LCIDS; ++i) {
+          if (ue->rx_sdus_since_bsr[i] > 0) {
+            bsr_ind.rx_sdus_since_last_bsr.push_back(
+                ul_rx_sdu_bytes{uint_to_lcid(i), ue->rx_sdu_bytes_since_bsr[i], ue->rx_sdus_since_bsr[i]});
+          }
+        }
+        ue->rx_sdu_bytes_since_bsr.fill(0);
+        ue->rx_sdus_since_bsr.fill(0);
       }
       sched.handle_ul_bsr_indication(bsr_ind);
     } break;

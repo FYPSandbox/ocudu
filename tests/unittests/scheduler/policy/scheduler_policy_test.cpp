@@ -58,7 +58,7 @@ protected:
     cell_metrics(cell_cfg, cell_cfg_req.metrics),
     ues(cell_cfg.expert_cfg.ue),
     cell_ues(ues.add_cell(cell_cfg, &cell_metrics)),
-    slice_sched(cell_cfg, ues),
+    slice_sched(cell_cfg, ues, cell_metrics),
     intra_slice_sched(cell_cfg.expert_cfg.ue, ues, pdcch_alloc, uci_alloc, srs_alloc, res_grid, cell_metrics, logger)
   {
     logger.set_level(ocudulog::basic_levels::debug);
