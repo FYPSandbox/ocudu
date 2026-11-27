@@ -470,6 +470,12 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_processor.cpp.o: \
  /home/fyp5g/fyp/ocudu/lib/mac/mac_ul/ul_bsr.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/logical_channel/lcid_dl_sch.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/logical_channel/phr_report.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/scheduler_feedback_handler.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/csi_report/csi_report_data.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/csi_report/csi_report_configuration.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/precoding/precoding_codebook_configuration.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/precoding/precoding_matrix_indicator.h \
+ /home/fyp5g/fyp/ocudu/include/ocudu/ran/precoding/precoding_codebook_helpers.h \
  /home/fyp5g/fyp/ocudu/lib/mac/mac_ul/mac_ul_sch_pdu.h \
  /home/fyp5g/fyp/ocudu/lib/mac/mac_ul/lcid_ul_sch.h \
  /home/fyp5g/fyp/ocudu/lib/mac/mac_ul/ul_phr.h \

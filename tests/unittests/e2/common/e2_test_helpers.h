@@ -1200,7 +1200,7 @@ class e2_test_setup : public e2_test_base
     e2sm_rc_control_service_style2 = std::make_unique<e2sm_rc_control_service>(2);
     e2sm_rc_control_service_style3 = std::make_unique<e2sm_rc_control_service>(3);
     rc_control_action_2_6_executor =
-        std::make_unique<e2sm_rc_control_action_2_6_du_executor>(*du_rc_param_configurator, *f1ap_ue_id_mapper);
+        std::make_unique<e2sm_rc_control_action_2_6_du_executor>(*du_rc_param_configurator, *f1ap_ue_id_mapper, task_worker);
     rc_control_action_3_1_executor =
         std::make_unique<e2sm_rc_control_action_3_1_cu_executor>(*cu_rc_param_configurator);
     e2sm_rc_control_service_style2->add_e2sm_rc_control_action_executor(std::move(rc_control_action_2_6_executor));

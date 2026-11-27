@@ -8167,6 +8167,19 @@ scheduler_test/fast:
 .PHONY : scheduler_test/fast
 
 #=============================================================================
+# Target rules for targets named scheduler_queue_need_test
+
+# Build rule for target.
+scheduler_queue_need_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scheduler_queue_need_test
+.PHONY : scheduler_queue_need_test
+
+# fast build rule for target.
+scheduler_queue_need_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build
+.PHONY : scheduler_queue_need_test/fast
+
+#=============================================================================
 # Target rules for targets named scheduler_metrics_handler_test
 
 # Build rule for target.
@@ -10561,6 +10574,7 @@ help:
 	@echo "... scheduler_multi_ue_benchmark"
 	@echo "... scheduler_no_ues_benchmark"
 	@echo "... scheduler_policy_test"
+	@echo "... scheduler_queue_need_test"
 	@echo "... scheduler_test"
 	@echo "... scheduler_test_suite"
 	@echo "... scheduler_test_utils"

@@ -325,6 +325,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
   ../include/ocudu/ran/subcarrier_spacing.h \
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/s_nssai.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -754,6 +755,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
   ../include/ocudu/ran/subcarrier_spacing.h \
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/s_nssai.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -1182,6 +1184,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o: ../lib/schedu
   ../include/ocudu/ran/subcarrier_spacing.h \
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/s_nssai.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -1908,6 +1911,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell.cpp.o: ../lib/s
   ../include/ocudu/ran/logical_channel/phr_report.h \
   ../lib/scheduler/ue_context/ue_drx_controller.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
   ../include/ocudu/adt/static_flat_map.h \
@@ -2442,6 +2446,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell_repository.cpp.
   ../include/ocudu/ran/logical_channel/phr_report.h \
   ../lib/scheduler/ue_context/ue_drx_controller.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
   ../include/ocudu/adt/static_flat_map.h \
@@ -3200,6 +3205,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
   ../include/ocudu/ran/subcarrier_spacing.h \
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/s_nssai.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -4288,6 +4294,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -4661,6 +4668,10 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
+../include/ocudu/ran/pdsch/pdsch_antenna_ports_mapping.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
 /usr/include/pthread.h:
 
 ../lib/scheduler/ue_context/ue_cell.cpp:
@@ -4808,6 +4819,8 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 /usr/include/c++/11/tr1/gamma.tcc:
 
 ../include/ocudu/ran/qos/five_qi_qos_mapping.h:
+
+../lib/scheduler/slicing/offered_demand.h:
 
 ../include/ocudu/support/error_handling.h:
 
@@ -5438,10 +5451,6 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o: ..
 ../include/ocudu/ran/pdcch/downlink_preemption.h:
 
 ../include/ocudu/ran/pdsch/pdsch_prb_bundling.h:
-
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
-
-../include/ocudu/ran/pdsch/pdsch_antenna_ports_mapping.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 

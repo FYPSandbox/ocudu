@@ -2074,6 +2074,7 @@ lib/scheduler/common_scheduling/CMakeFiles/common_sched.dir/ra_scheduler.cpp.o: 
   ../include/ocudu/scheduler/config/time_domain_resource_helper.h \
   ../include/ocudu/ran/pucch/pucch_td_helper.h \
   ../lib/scheduler/logging/cell_metrics_handler.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h \
   ../include/ocudu/adt/flat_map.h \
   ../include/ocudu/ran/slot_point_extended.h \
@@ -4212,6 +4213,8 @@ lib/scheduler/common_scheduling/CMakeFiles/common_sched.dir/ssb_scheduler.cpp.o:
 ../include/ocudu/support/math/stats.h:
 
 ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h:
+
+../lib/scheduler/slicing/offered_demand.h:
 
 ../lib/scheduler/logging/cell_metrics_handler.h:
 

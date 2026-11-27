@@ -2755,6 +2755,7 @@
 /home/fyp5g/fyp/ocudu/build/tests/unittests/rrc/CMakeFiles/install/strip.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/pdcch_resource_allocator_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/scheduler_test.dir
+/home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/scheduler_metrics_handler_test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/test.dir
 /home/fyp5g/fyp/ocudu/build/tests/unittests/scheduler/CMakeFiles/edit_cache.dir

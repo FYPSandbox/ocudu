@@ -9117,6 +9117,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_factory.cpp.o: ../lib/mac/mac_factory.cpp \
   ../lib/mac/mac_ul/mac_scheduler_ce_info_handler.h \
   ../lib/mac/mac_ul/ul_bsr.h \
   ../include/ocudu/ran/logical_channel/phr_report.h \
+  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
   ../lib/mac/mac_sched/rlf_detector.h \
   ../lib/mac/mac_ul/mac_ul_processor.h \
   ../lib/mac/mac_ul/mac_ul_ue_manager.h \
@@ -9733,6 +9734,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_impl.cpp.o: ../lib/mac/mac_impl.cpp \
   ../lib/mac/mac_ul/mac_scheduler_ce_info_handler.h \
   ../lib/mac/mac_ul/ul_bsr.h \
   ../include/ocudu/ran/logical_channel/phr_report.h \
+  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
   ../lib/mac/mac_sched/rlf_detector.h \
   ../lib/mac/mac_ul/mac_ul_processor.h \
   ../lib/mac/mac_ul/mac_ul_ue_manager.h \
@@ -9774,7 +9776,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_impl.cpp.o: ../lib/mac/mac_impl.cpp \
   ../lib/mac/mac_sched/positioning_handler.h \
   ../lib/mac/mac_sched/uci_cell_decoder.h \
   ../include/ocudu/adt/spmc_slot_ring.h \
-  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
   ../include/ocudu/scheduler/mac_scheduler.h \
   ../include/ocudu/scheduler/scheduler_dl_buffer_state_indication_handler.h \
   ../include/ocudu/scheduler/scheduler_paging_handler.h \
@@ -10752,7 +10753,12 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../lib/mac/mac_ul/ul_bsr.h \
   ../include/ocudu/ran/logical_channel/lcid_dl_sch.h \
   ../include/ocudu/ran/logical_channel/phr_report.h \
-  ../include/ocudu/mac/mac_cell_control_information_handler.h \
+  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
+  ../include/ocudu/ran/csi_report/csi_report_data.h \
+  ../include/ocudu/ran/csi_report/csi_report_configuration.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
+  ../include/ocudu/ran/precoding/precoding_matrix_indicator.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_helpers.h \
   ../include/ocudu/ran/srs/srs_channel_matrix.h \
   ../include/ocudu/ran/srs/srs_constants.h \
   ../include/ocudu/ran/channel_matrix/channel_matrix.h \
@@ -10763,6 +10769,7 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../include/ocudu/ocuduvec/sc_prod.h \
   ../include/ocudu/ocuduvec/subtract.h \
   ../include/ocudu/ocuduvec/zero.h \
+  ../include/ocudu/mac/mac_cell_control_information_handler.h \
   ../include/ocudu/ran/uci/uci_mapping.h \
   ../include/ocudu/mac/mac_paging_information_handler.h \
   ../include/ocudu/ran/paging_information.h \
@@ -10782,12 +10789,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_sched/ocudu_scheduler_adapter.cpp.o: ../lib
   ../include/ocudu/pcap/mac_pcap.h \
   ../lib/mac/mac_sched/uci_cell_decoder.h \
   ../include/ocudu/adt/spmc_slot_ring.h \
-  ../include/ocudu/ran/csi_report/csi_report_configuration.h \
-  ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
-  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
-  ../include/ocudu/ran/csi_report/csi_report_data.h \
-  ../include/ocudu/ran/precoding/precoding_matrix_indicator.h \
-  ../include/ocudu/ran/precoding/precoding_codebook_helpers.h \
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/scheduler/mac_scheduler.h \
   ../include/ocudu/scheduler/scheduler_dl_buffer_state_indication_handler.h \
@@ -12388,6 +12389,12 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/mac_ul_processor.cpp.o: ../lib/mac/mac_u
   ../lib/mac/mac_ul/ul_bsr.h \
   ../include/ocudu/ran/logical_channel/lcid_dl_sch.h \
   ../include/ocudu/ran/logical_channel/phr_report.h \
+  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
+  ../include/ocudu/ran/csi_report/csi_report_data.h \
+  ../include/ocudu/ran/csi_report/csi_report_configuration.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
+  ../include/ocudu/ran/precoding/precoding_matrix_indicator.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_helpers.h \
   ../lib/mac/mac_ul/mac_ul_sch_pdu.h \
   ../lib/mac/mac_ul/lcid_ul_sch.h \
   ../lib/mac/mac_ul/ul_phr.h \
@@ -13617,12 +13624,15 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/frequency_range.h \
   ../include/ocudu/ran/time/radio_frame_constants.h \
   ../include/ocudu/ran/rnti.h \
-  ../lib/mac/mac_ul/mac_ul_sch_pdu.h \
-  ../lib/mac/mac_ul/lcid_ul_sch.h \
-  ../lib/mac/mac_ul/ul_phr.h \
-  ../external/fmt/include/fmt/std.h \
-  ../external/fmt/include/fmt/ostream.h \
-  /usr/include/c++/11/fstream \
+  ../include/ocudu/scheduler/scheduler_feedback_handler.h \
+  ../include/ocudu/adt/bounded_bitset.h \
+  ../include/ocudu/support/math/bit_ops.h \
+  ../include/ocudu/support/math/math_utils.h \
+  ../include/ocudu/adt/complex.h \
+  ../include/ocudu/adt/bf16.h \
+  ../include/ocudu/adt/strong_type.h \
+  /usr/include/c++/11/complex \
+  /usr/include/c++/11/sstream \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/ios \
   /usr/include/c++/11/bits/basic_ios.h \
@@ -13637,6 +13647,40 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/bits/istream.tcc \
+  /usr/include/c++/11/bits/sstream.tcc \
+  /usr/include/c++/11/numeric \
+  /usr/include/c++/11/bits/stl_numeric.h \
+  /usr/include/c++/11/pstl/glue_numeric_defs.h \
+  /usr/include/c++/11/cinttypes \
+  /usr/include/inttypes.h \
+  ../include/ocudu/ran/csi_report/csi_report_data.h \
+  ../include/ocudu/ran/csi_report/csi_report_configuration.h \
+  ../include/ocudu/adt/bounded_integer.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_configuration.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_properties.h \
+  /usr/include/c++/11/variant \
+  ../include/ocudu/ran/precoding/precoding_matrix_indicator.h \
+  ../include/ocudu/ran/precoding/precoding_codebook_helpers.h \
+  ../include/ocudu/ran/harq_id.h \
+  ../include/ocudu/ran/phy_time_unit.h \
+  ../include/ocudu/ran/slot_pdu_capacity_constants.h \
+  ../include/ocudu/ran/srs/srs_channel_matrix.h \
+  ../include/ocudu/ran/srs/srs_constants.h \
+  ../include/ocudu/ran/channel_matrix/channel_matrix.h \
+  ../include/ocudu/adt/tensor.h \
+  ../include/ocudu/ocuduvec/copy.h \
+  ../include/ocudu/ocuduvec/type_traits.h \
+  ../include/ocudu/ocuduvec/types.h \
+  ../include/ocudu/ocuduvec/sc_prod.h \
+  ../include/ocudu/ocuduvec/subtract.h \
+  ../include/ocudu/ocuduvec/zero.h \
+  ../include/ocudu/ran/uci/uci_constants.h \
+  ../lib/mac/mac_ul/mac_ul_sch_pdu.h \
+  ../lib/mac/mac_ul/lcid_ul_sch.h \
+  ../lib/mac/mac_ul/ul_phr.h \
+  ../external/fmt/include/fmt/std.h \
+  ../external/fmt/include/fmt/ostream.h \
+  /usr/include/c++/11/fstream \
   /usr/include/c++/11/bits/codecvt.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
@@ -13650,9 +13694,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   /usr/include/c++/11/bits/locale_facets_nonio.tcc \
   /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bitset \
-  /usr/include/c++/11/complex \
-  /usr/include/c++/11/sstream \
-  /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
@@ -13664,7 +13705,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   /usr/include/c++/11/codecvt \
   /usr/include/c++/11/bits/fs_dir.h \
   /usr/include/c++/11/bits/fs_ops.h \
-  /usr/include/c++/11/variant \
   /usr/include/c++/11/version \
   /usr/include/c++/11/cxxabi.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
@@ -13682,18 +13722,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/sr_configuration.h \
   ../include/ocudu/ran/pucch/pucch_mapping.h \
   ../include/ocudu/ran/time_alignment_config.h \
-  ../include/ocudu/adt/strong_type.h \
-  ../include/ocudu/ran/harq_id.h \
-  ../include/ocudu/adt/bounded_bitset.h \
-  ../include/ocudu/support/math/bit_ops.h \
-  ../include/ocudu/support/math/math_utils.h \
-  ../include/ocudu/adt/complex.h \
-  ../include/ocudu/adt/bf16.h \
-  /usr/include/c++/11/numeric \
-  /usr/include/c++/11/bits/stl_numeric.h \
-  /usr/include/c++/11/pstl/glue_numeric_defs.h \
-  /usr/include/c++/11/cinttypes \
-  /usr/include/inttypes.h \
   ../include/ocudu/ran/physical_cell_group.h \
   ../include/ocudu/scheduler/scheduler_configurator.h \
   ../include/ocudu/support/stage2_trace.h \
@@ -13712,7 +13740,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/support/units.h \
   /usr/include/c++/11/climits \
   ../include/ocudu/ran/qos/arp_prio_level.h \
-  ../include/ocudu/adt/bounded_integer.h \
   ../include/ocudu/ran/qos/five_qi_qos_mapping.h \
   ../include/ocudu/ran/qos/five_qi.h \
   ../include/ocudu/ran/qos/packet_error_rate.h \
@@ -13731,7 +13758,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/ssb/ssb_properties.h \
   ../include/ocudu/ran/tdd/tdd_ul_dl_config.h \
   ../include/ocudu/ran/cyclic_prefix.h \
-  ../include/ocudu/ran/phy_time_unit.h \
   ../include/ocudu/ran/resource_allocation/ofdm_symbol_range.h \
   ../include/ocudu/ran/frame_types.h \
   ../include/ocudu/ran/resource_allocation/sliv.h \
@@ -13761,7 +13787,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/csi_rs/csi_meas_config.h \
   ../include/ocudu/ran/csi_rs/csi_report_config.h \
   ../include/ocudu/ran/csi_rs/codebook_config.h \
-  ../include/ocudu/ran/precoding/precoding_codebook_properties.h \
   ../include/ocudu/ran/csi_rs/csi_resource_config.h \
   ../include/ocudu/ran/bwp/bwp_id.h \
   ../include/ocudu/ran/csi_rs/csi_rs_constants.h \
@@ -13775,7 +13800,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/pucch/pucch_constants.h \
   ../include/ocudu/ran/pucch/pucch_info.h \
   ../include/ocudu/ran/uci/uci_info.h \
-  ../include/ocudu/ran/uci/uci_constants.h \
   ../include/ocudu/scheduler/config/serving_cell_config.h \
   ../include/ocudu/ran/dmrs/dmrs_downlink_config.h \
   ../include/ocudu/ran/pdcch/downlink_preemption.h \
@@ -13809,7 +13833,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/ran/direct_current_offset.h \
   ../include/ocudu/ran/pdcch/aggregation_level.h \
   ../include/ocudu/ran/sib/sib_configuration.h \
-  ../include/ocudu/ran/slot_pdu_capacity_constants.h \
   ../include/ocudu/scheduler/config/ue_bwp_config.h \
   ../include/ocudu/support/async/async_task.h \
   ../include/ocudu/support/async/detail/base_task.h \
@@ -13823,16 +13846,6 @@ lib/mac/CMakeFiles/ocudu_mac.dir/mac_ul/pdu_rx_handler.cpp.o: ../lib/mac/mac_ul/
   ../include/ocudu/adt/slotted_array.h \
   ../include/ocudu/mac/mac.h \
   ../include/ocudu/mac/mac_cell_control_information_handler.h \
-  ../include/ocudu/ran/srs/srs_channel_matrix.h \
-  ../include/ocudu/ran/srs/srs_constants.h \
-  ../include/ocudu/ran/channel_matrix/channel_matrix.h \
-  ../include/ocudu/adt/tensor.h \
-  ../include/ocudu/ocuduvec/copy.h \
-  ../include/ocudu/ocuduvec/type_traits.h \
-  ../include/ocudu/ocuduvec/types.h \
-  ../include/ocudu/ocuduvec/sc_prod.h \
-  ../include/ocudu/ocuduvec/subtract.h \
-  ../include/ocudu/ocuduvec/zero.h \
   ../include/ocudu/ran/uci/uci_mapping.h \
   ../include/ocudu/mac/mac_cell_rach_handler.h \
   ../include/ocudu/mac/mac_cell_slot_handler.h \

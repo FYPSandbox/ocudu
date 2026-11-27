@@ -516,6 +516,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/grant_params_selector.cpp.o:
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
   ../include/ocudu/adt/static_flat_map.h \
@@ -1095,6 +1096,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/intra_slice_scheduler.cpp.o:
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -1674,6 +1676,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/triggered_ul_grant_scheduler
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -2271,6 +2274,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_cell_grid_allocator.cpp.o
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/static_flat_map.h \
@@ -2845,6 +2849,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_event_manager.cpp.o: ../l
   ../lib/scheduler/slicing/ran_slice_instance.h \
   ../lib/scheduler/ue_context/ue_repository.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -3452,6 +3457,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_fallback_scheduler.cpp.o:
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -4041,6 +4047,7 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -4246,6 +4253,8 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 ../lib/scheduler/ue_context/ue_drx_controller.h:
 
 ../include/ocudu/ocuduvec/zero.h:
+
+../include/ocudu/ocuduvec/subtract.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
@@ -5215,8 +5224,6 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 
 /usr/include/c++/11/bits/deque.tcc:
 
-../include/ocudu/ocuduvec/subtract.h:
-
 ../include/ocudu/ran/sr_configuration.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
@@ -5328,6 +5335,8 @@ lib/scheduler/ue_scheduling/CMakeFiles/ue_sched.dir/ue_scheduler_impl.cpp.o: ../
 ../include/ocudu/mac/mac_lc_config.h:
 
 ../include/ocudu/ran/qos/five_qi_qos_mapping.h:
+
+../lib/scheduler/slicing/offered_demand.h:
 
 ../include/ocudu/ran/qos/five_qi.h:
 

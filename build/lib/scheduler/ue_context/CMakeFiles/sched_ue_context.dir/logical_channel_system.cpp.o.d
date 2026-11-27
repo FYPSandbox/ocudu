@@ -276,6 +276,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h \
+ /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/../slicing/offered_demand.h \
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/../slicing/ran_slice_id.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h \
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h \

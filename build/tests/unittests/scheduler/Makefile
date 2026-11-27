@@ -200,6 +200,20 @@ scheduler_test/fast:
 .PHONY : scheduler_test/fast
 
 # Convenience name for target.
+tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/rule:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/rule
+.PHONY : tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/rule
+
+# Convenience name for target.
+scheduler_queue_need_test: tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/rule
+.PHONY : scheduler_queue_need_test
+
+# fast build rule for target.
+scheduler_queue_need_test/fast:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build
+.PHONY : scheduler_queue_need_test/fast
+
+# Convenience name for target.
 tests/unittests/scheduler/CMakeFiles/scheduler_metrics_handler_test.dir/rule:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/unittests/scheduler/CMakeFiles/scheduler_metrics_handler_test.dir/rule
 .PHONY : tests/unittests/scheduler/CMakeFiles/scheduler_metrics_handler_test.dir/rule
@@ -405,6 +419,30 @@ scheduler_qos_test.cpp.s:
 	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_test.dir/scheduler_qos_test.cpp.s
 .PHONY : scheduler_qos_test.cpp.s
 
+scheduler_queue_need_test.o: scheduler_queue_need_test.cpp.o
+.PHONY : scheduler_queue_need_test.o
+
+# target to build an object file
+scheduler_queue_need_test.cpp.o:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/scheduler_queue_need_test.cpp.o
+.PHONY : scheduler_queue_need_test.cpp.o
+
+scheduler_queue_need_test.i: scheduler_queue_need_test.cpp.i
+.PHONY : scheduler_queue_need_test.i
+
+# target to preprocess a source file
+scheduler_queue_need_test.cpp.i:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/scheduler_queue_need_test.cpp.i
+.PHONY : scheduler_queue_need_test.cpp.i
+
+scheduler_queue_need_test.s: scheduler_queue_need_test.cpp.s
+.PHONY : scheduler_queue_need_test.s
+
+# target to generate assembly for a file
+scheduler_queue_need_test.cpp.s:
+	cd /home/fyp5g/fyp/ocudu/build && $(MAKE) $(MAKESILENT) -f tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/build.make tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/scheduler_queue_need_test.cpp.s
+.PHONY : scheduler_queue_need_test.cpp.s
+
 scheduler_retx_test.o: scheduler_retx_test.cpp.o
 .PHONY : scheduler_retx_test.o
 
@@ -540,6 +578,7 @@ help:
 	@echo "... test"
 	@echo "... pdcch_resource_allocator_test"
 	@echo "... scheduler_metrics_handler_test"
+	@echo "... scheduler_queue_need_test"
 	@echo "... scheduler_test"
 	@echo "... pdcch/pdcch_resource_allocator_test.o"
 	@echo "... pdcch/pdcch_resource_allocator_test.i"
@@ -565,6 +604,9 @@ help:
 	@echo "... scheduler_qos_test.o"
 	@echo "... scheduler_qos_test.i"
 	@echo "... scheduler_qos_test.s"
+	@echo "... scheduler_queue_need_test.o"
+	@echo "... scheduler_queue_need_test.i"
+	@echo "... scheduler_queue_need_test.s"
 	@echo "... scheduler_retx_test.o"
 	@echo "... scheduler_retx_test.i"
 	@echo "... scheduler_retx_test.s"

@@ -326,6 +326,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/logical_channel_system.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
@@ -756,6 +757,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ta_management_system.cp
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
@@ -1185,6 +1187,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
@@ -1912,6 +1915,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/logical_channel/phr_report.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/ue_drx_controller.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/logical_channel_system.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/static_flat_map.h
@@ -2447,6 +2451,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_cell_repository.cpp.
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/logical_channel/phr_report.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/ue_drx_controller.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/logical_channel_system.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/static_flat_map.h
@@ -3207,6 +3212,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_drx_controller.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/subcarrier_spacing.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/frequency_range.h
  /home/fyp5g/fyp/ocudu/include/ocudu/ran/s_nssai.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h
@@ -4297,6 +4303,7 @@ lib/scheduler/ue_context/CMakeFiles/sched_ue_context.dir/ue_repository.cpp.o
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/noop_functor.h
  /home/fyp5g/fyp/ocudu/include/ocudu/scheduler/config/scheduler_config.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/ue_context/logical_channel_system.h
+ /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/offered_demand.h
  /home/fyp5g/fyp/ocudu/lib/scheduler/slicing/ran_slice_id.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/soa_table.h
  /home/fyp5g/fyp/ocudu/include/ocudu/adt/stable_id_map.h

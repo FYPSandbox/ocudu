@@ -552,6 +552,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/cell_scheduler.cpp.o: ../lib/scheduler/
   ../lib/scheduler/logging/cell_event_tracer.h \
   ../include/ocudu/scheduler/input/uci_inputs.h \
   ../lib/scheduler/logging/cell_metrics_handler.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h \
   ../include/ocudu/scheduler/scheduler_dl_buffer_state_indication_handler.h \
   ../include/ocudu/scheduler/scheduler_metrics.h \
@@ -2506,6 +2507,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/policy/scheduler_time_qos.cpp.o: ../lib
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/stable_id_map.h \
   ../include/ocudu/adt/static_flat_map.h \
@@ -3079,6 +3081,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/policy/scheduler_time_rr.cpp.o: ../lib/
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -5220,6 +5223,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/scheduler_factory.cpp.o: ../lib/schedul
   ../lib/scheduler/logging/cell_event_tracer.h \
   ../include/ocudu/scheduler/input/uci_inputs.h \
   ../lib/scheduler/logging/cell_metrics_handler.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h \
   ../include/ocudu/scheduler/scheduler_metrics.h \
   ../include/ocudu/support/math/stats.h \
@@ -5805,6 +5809,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/scheduler_impl.cpp.o: ../lib/scheduler/
   ../lib/scheduler/logging/cell_event_tracer.h \
   ../include/ocudu/scheduler/input/uci_inputs.h \
   ../lib/scheduler/logging/cell_metrics_handler.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h \
   ../include/ocudu/scheduler/scheduler_dl_buffer_state_indication_handler.h \
   ../include/ocudu/scheduler/scheduler_metrics.h \
@@ -6402,6 +6407,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/inter_slice_scheduler.cpp.o: ..
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -6455,6 +6461,14 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/inter_slice_scheduler.cpp.o: ..
   ../include/ocudu/adt/detail/type_storage.h \
   ../lib/scheduler/slicing/slice_ue_repository.h \
   ../lib/scheduler/policy/scheduler_policy_factory.h \
+  ../lib/scheduler/logging/cell_metrics_handler.h \
+  ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h \
+  ../include/ocudu/scheduler/scheduler_metrics.h \
+  ../include/ocudu/support/math/stats.h \
+  ../include/ocudu/support/zero_copy_notifier.h \
+  ../lib/scheduler/support/mcs_tbs_calculator.h \
+  ../lib/scheduler/ue_scheduling/grant_params_selector.h \
+  ../lib/scheduler/support/sch_pdu_builder.h \
   ../lib/scheduler/ue_scheduling/ue_cell_grid_allocator.h \
   ../lib/scheduler/cell/resource_grid.h \
   ../lib/scheduler/support/bwp_helpers.h \
@@ -6467,10 +6481,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/inter_slice_scheduler.cpp.o: ..
   ../include/ocudu/scheduler/result/srs_info.h \
   ../lib/scheduler/pdcch_scheduling/pdcch_resource_allocator.h \
   ../lib/scheduler/srs/srs_allocator.h \
-  ../lib/scheduler/uci_scheduling/uci_allocator.h \
-  ../lib/scheduler/ue_scheduling/grant_params_selector.h \
-  ../lib/scheduler/support/sch_pdu_builder.h \
-  ../lib/scheduler/support/mcs_tbs_calculator.h
+  ../lib/scheduler/uci_scheduling/uci_allocator.h
 
 lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/ran_slice_instance.cpp.o: ../lib/scheduler/slicing/ran_slice_instance.cpp \
   /usr/include/stdc-predef.h \
@@ -6976,6 +6987,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/ran_slice_instance.cpp.o: ../li
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -7542,6 +7554,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/slicing/slice_ue_repository.cpp.o: ../l
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -8615,6 +8628,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/srs/srs_scheduler_impl.cpp.o: ../lib/sc
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -10610,6 +10624,7 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/uci_scheduling/uci_scheduler_impl.cpp.o
   ../include/ocudu/adt/noop_functor.h \
   ../include/ocudu/scheduler/config/scheduler_config.h \
   ../lib/scheduler/ue_context/logical_channel_system.h \
+  ../lib/scheduler/slicing/offered_demand.h \
   ../lib/scheduler/slicing/ran_slice_id.h \
   ../include/ocudu/adt/soa_table.h \
   ../include/ocudu/adt/stable_id_map.h \
@@ -10885,6 +10900,8 @@ lib/scheduler/CMakeFiles/ocudu_sched.dir/uci_scheduling/uci_scheduler_impl.cpp.o
 ../include/ocudu/support/math/stats.h:
 
 ../lib/scheduler/logging/scheduler_metrics_ue_configurator.h:
+
+../lib/scheduler/slicing/offered_demand.h:
 
 ../lib/scheduler/logging/cell_metrics_handler.h:
 

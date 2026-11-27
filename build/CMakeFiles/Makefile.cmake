@@ -1709,6 +1709,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "tests/unittests/rrc/CMakeFiles/rrc_ntn_meas_asn1_test.dir/DependInfo.cmake"
   "tests/unittests/scheduler/CMakeFiles/pdcch_resource_allocator_test.dir/DependInfo.cmake"
   "tests/unittests/scheduler/CMakeFiles/scheduler_test.dir/DependInfo.cmake"
+  "tests/unittests/scheduler/CMakeFiles/scheduler_queue_need_test.dir/DependInfo.cmake"
   "tests/unittests/scheduler/CMakeFiles/scheduler_metrics_handler_test.dir/DependInfo.cmake"
   "tests/unittests/scheduler/test_utils/CMakeFiles/scheduler_test_utils.dir/DependInfo.cmake"
   "tests/unittests/scheduler/test_utils/CMakeFiles/scheduler_test_suite.dir/DependInfo.cmake"
