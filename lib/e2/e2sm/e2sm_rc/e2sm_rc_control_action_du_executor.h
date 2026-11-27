@@ -47,7 +47,8 @@ class e2sm_rc_control_action_2_6_du_executor : public e2sm_rc_control_action_du_
 {
 public:
   e2sm_rc_control_action_2_6_du_executor(odu::du_configurator&       du_configurator_,
-                                         odu::f1ap_ue_id_translator& f1ap_ue_id_translator_);
+                                         odu::f1ap_ue_id_translator& f1ap_ue_id_translator_,
+                                         task_executor&              continuation_exec_);
   virtual ~e2sm_rc_control_action_2_6_du_executor() = default;
 
   /// e2sm_control_request_executor functions.
@@ -61,8 +62,10 @@ public:
 
 private:
   odu::du_mac_sched_control_config convert_to_du_config_request(const e2sm_ric_control_request& e2sm_req_);
-  e2sm_ric_control_response        convert_to_e2sm_response(const odu::du_mac_sched_control_config&          du_config_req_,
-                                                            const odu::du_mac_sched_control_config_response& du_reponse_);
+  e2sm_ric_control_response        convert_to_e2sm_response(const odu::du_param_config_response& du_response_);
+
+  /// Executor to which the slice reconfiguration returns once the DU has applied it.
+  task_executor& continuation_exec;
 };
 
 } // namespace ocudu

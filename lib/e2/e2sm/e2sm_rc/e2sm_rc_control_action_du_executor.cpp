@@ -64,8 +64,10 @@ e2sm_rc_control_action_du_executor_base::return_ctrl_failure(const e2sm_ric_cont
 
 e2sm_rc_control_action_2_6_du_executor::e2sm_rc_control_action_2_6_du_executor(
     odu::du_configurator&       du_configurator_,
-    odu::f1ap_ue_id_translator& f1ap_ue_id_translator_) :
-  e2sm_rc_control_action_du_executor_base(du_configurator_, f1ap_ue_id_translator_, 6)
+    odu::f1ap_ue_id_translator& f1ap_ue_id_translator_,
+    task_executor&              continuation_exec_) :
+  e2sm_rc_control_action_du_executor_base(du_configurator_, f1ap_ue_id_translator_, 6),
+  continuation_exec(continuation_exec_)
 {
   // Control Action description:
   // To control the radio resource management policy for slice-specific PRB quota allocation
@@ -182,8 +184,7 @@ e2sm_rc_control_action_2_6_du_executor::execute_ric_control_action(const e2sm_ri
   // Log received control request.
   fmt::memory_buffer log_buffer;
   fmt::format_to(std::back_inserter(log_buffer),
-                 "Slice-level PRB quota Control Request for UE gNB-DU-UE-F1AP-ID={}:\n",
-                 gnb_du_ue_f1ap_id_to_uint(ctrl_config.ue_id));
+                 "Slice-level PRB quota Control Request (applies to the slice in all cells):\n");
   fmt::format_to(std::back_inserter(log_buffer), "RRM Policy Ratio Group:\n");
   for (const auto& rrm_policy_ratio : ctrl_config.rrm_policy_ratio_list) {
     fmt::format_to(std::back_inserter(log_buffer), " RRM Policy:\n");
@@ -203,13 +204,18 @@ e2sm_rc_control_action_2_6_du_executor::execute_ric_control_action(const e2sm_ri
   logger.info("{}", to_c_str(log_buffer));
   log_buffer.clear();
 
+  // A slice quota is a cell-level RRM policy, so no UE is looked up. A cell entry without NR-CGI is applied by the DU to
+  // every active cell.
+  odu::du_param_config_request cell_config;
+  cell_config.cells.emplace_back(std::nullopt, std::nullopt, std::move(ctrl_config.rrm_policy_ratio_list));
+
   return launch_async(
-      [this, ctrl_config = std::move(ctrl_config)](coro_context<async_task<e2sm_ric_control_response>>& ctx) {
+      [this, cell_config = std::move(cell_config), ctrl_response = odu::du_param_config_response{}](
+          coro_context<async_task<e2sm_ric_control_response>>& ctx) mutable {
         CORO_BEGIN(ctx);
-        odu::du_mac_sched_control_config_response ctrl_response;
-        CORO_AWAIT_VALUE(ctrl_response, du_param_configurator.configure_ue_mac_scheduler(ctrl_config));
-        e2sm_ric_control_response e2_resp = convert_to_e2sm_response(ctrl_config, ctrl_response);
-        CORO_RETURN(e2_resp);
+        // Non-blocking variant: handle_sync_operator_config must not be called from the E2 execution context.
+        CORO_AWAIT_VALUE(ctrl_response, du_param_configurator.handle_operator_config(cell_config, continuation_exec));
+        CORO_RETURN(convert_to_e2sm_response(ctrl_response));
       });
 }
 
@@ -227,14 +233,6 @@ e2sm_rc_control_action_2_6_du_executor::convert_to_du_config_request(const e2sm_
     return {};
   }
   uint64_t gnb_cu_ue_f1ap_id = ctrl_hdr.ue_id.gnb_du_ue_id().gnb_cu_ue_f1ap_id;
-  ctrl_config.ue_id          = f1ap_ue_id_provider.get_gnb_du_ue_f1ap_id(int_to_gnb_cu_ue_f1ap_id(gnb_cu_ue_f1ap_id));
-
-  if (ctrl_config.ue_id == gnb_du_ue_f1ap_id_t::invalid) {
-    logger.info("Slice-level PRB quota Control Request received but UE not found, gNB-CU-UE-F1AP-ID={}",
-                gnb_cu_ue_f1ap_id);
-    return {};
-  }
-
   // Use a lambda to define the template function in parse_ran_parameter_value
   auto parse_action_ran_parameter_value_lambda = [this](const ran_param_value_type_c&     ran_param,
                                                         uint64_t                          ran_param_id,
@@ -257,13 +255,11 @@ e2sm_rc_control_action_2_6_du_executor::convert_to_du_config_request(const e2sm_
   return ctrl_config;
 }
 
-e2sm_ric_control_response e2sm_rc_control_action_2_6_du_executor::convert_to_e2sm_response(
-    const odu::du_mac_sched_control_config&          du_config_req_,
-    const odu::du_mac_sched_control_config_response& du_response_)
+e2sm_ric_control_response
+e2sm_rc_control_action_2_6_du_executor::convert_to_e2sm_response(const odu::du_param_config_response& du_response_)
 {
   e2sm_ric_control_response e2sm_response;
-  e2sm_response.success =
-      du_response_.harq_processes_result and du_response_.max_prb_alloc_result and du_response_.min_prb_alloc_result;
+  e2sm_response.success = du_response_.success;
 
   // Always fill outcome here, it will be decided later whether it should be included in the e2 response.
   e2sm_response.ric_ctrl_outcome_present = false;
