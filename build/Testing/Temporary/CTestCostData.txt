@@ -1,0 +1,7 @@
+e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL 1 0.0294926
+e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL 1 0.0298508
+e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL 1 0.0269077
+e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL 1 0.0304363
+e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL 1 0.0433264
+e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL 1 0.0364987
+---

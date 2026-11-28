@@ -1,0 +1,188 @@
+Start testing: Nov 28 12:08 IST
+----------------------------------------------------------
+101/665 Testing: e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL
+101/665 Test: e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2_entity_test_with_pcap
+[ RUN      ] e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/0
+2026-11-28T06:38:48.599496 [TEST    ] [I] Launch e2 setup request procedure with task worker...
+2026-11-28T06:38:48.599499 [E2-DU   ] [I] "RIC Connection Setup Routine" started.
+2026-11-28T06:38:48.599527 [E2-DU   ] [I] Generate RAN function definition for OID: 1.3.6.1.4.1.53148.1.2.2.2
+2026-11-28T06:38:48.609940 [E2-DU   ] [D] E2 Setup: node component config [0] interface_type=3 req_bytes=0 resp_bytes=0
+2026-11-28T06:38:48.609942 [E2-DU   ] [I] Added RAN function OID 1.3.6.1.4.1.53148.1.2.2.2 to candidate list under RAN Function ID 2
+2026-11-28T06:38:48.609973 [TEST    ] [I] Injecting E2SetupResponse
+2026-11-28T06:38:48.609975 [E2-DU   ] [I] E2AP msg, "successfulOutcome.E2setupResponse", transaction id=0
+2026-11-28T06:38:48.609977 [E2-DU   ] [I] E2 Setup procedure successful.
+2026-11-28T06:38:48.609982 [E2-DU   ] [I] Added supported RAN function with id 2 and OID 1.3.6.1.4.1.53148.1.2.2.2
+2026-11-28T06:38:48.609983 [E2-DU   ] [I] "RIC Connection Setup Routine" finished successfully.
+2026-11-28T06:38:48.610149 [E2AP    ] [W] E2 TNL association was not properly shutdown before E2AP shutdown. Forcing it...
+[       OK ] e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/0 (11 ms)
+[----------] 1 test from e2sm_kpm_tests/e2_entity_test_with_pcap (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2_entity_test_with_pcap.e2sm_kpm_generates_ran_func_desc/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+102/665 Testing: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL
+102/665 Test: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication
+[ RUN      ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/0
+2026-11-28T06:38:48.639361 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.639376 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.639382 [TEST    ] [D] E2 Agent admitted actions [with labels]: DRB.RlcSduDelayDl [NO_LABEL], DRB.UEThpUl [NO_LABEL], 
+[       OK ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/0 (11 ms)
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style1/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+103/665 Testing: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL
+103/665 Test: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication
+[ RUN      ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/0
+2026-11-28T06:38:48.667285 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.667296 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.667302 [TEST    ] [D] E2 Agent admitted actions [with labels]: DRB.UEThpDl [NO_LABEL], 
+[       OK ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/0 (11 ms)
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style2/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+104/665 Testing: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL
+104/665 Test: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication
+[ RUN      ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/0
+2026-11-28T06:38:48.697083 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.697085 [TEST    ] [D] Matching UE test condition [meas_label] not supported -> do not admit action
+2026-11-28T06:38:48.697091 [TEST    ] [I] Admitting action 0 (type 0)
+[       OK ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/0 (11 ms)
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style3/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+105/665 Testing: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL
+105/665 Test: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication
+[ RUN      ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/0
+2026-11-28T06:38:48.738697 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.738706 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.738712 [TEST    ] [D] E2 Agent admitted actions [with labels]: DRB.UEThpDl [NO_LABEL], 
+[       OK ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/0 (17 ms)
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication (17 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (17 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style4/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+106/665 Testing: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL
+106/665 Test: e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL
+Command: "/home/fyp5g/fyp/ocudu/build/tests/unittests/e2/e2sm_kpm_test" "--gtest_filter=e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/0" "--gtest_also_run_disabled_tests"
+Directory: /home/fyp5g/fyp/ocudu/build/tests/unittests/e2
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL" start time: Nov 28 12:08 IST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/0
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication
+[ RUN      ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/0
+2026-11-28T06:38:48.776450 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.776467 [TEST    ] [I] Admitting action 0 (type 0)
+2026-11-28T06:38:48.776474 [TEST    ] [D] E2 Agent admitted actions [with labels]: DRB.UEThpDl [NO_LABEL], 
+[       OK ] e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/0 (16 ms)
+[----------] 1 test from e2sm_kpm_tests/e2sm_kpm_indication (16 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (16 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL" end time: Nov 28 12:08 IST
+"e2sm_kpm_tests/e2sm_kpm_indication.e2sm_kpm_generates_ric_indication_style5/NULL" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 28 12:08 IST
+
+e2ap =   0.20 sec*proc
+

@@ -1,0 +1,155 @@
+[INFO] [UHD] linux; GNU C++ version 11.4.0; Boost_107400; UHD_4.9.0.main-0-67beb33c
+[INFO] [LOGGING] Fastpath logging disabled at runtime.
+[INFO] [MPMD] Initializing 1 device(s) in parallel with args: mgmt_addr=192.168.20.2,type=n3xx,product=n310,serial=3211007,name=ni-n3xx-3211007,fpga=HG,claimed=False,addr=192.168.20.2,master_clock_rate=122.88e6,send_frame_size=8000,recv_frame_size=8000
+[INFO] [MPM.PeriphManager] init() called with device args `fpga=HG,master_clock_rate=122.88e6,mgmt_addr=192.168.20.2,name=ni-n3xx-3211007,product=n310,recv_frame_size=8000,send_frame_size=8000,clock_source=internal,time_source=internal'.
+[WARNING] [0/Radio#0] Attempting to set tick rate to 0. Skipping.
+
+--== OCUDU gNB (commit 8464cfd41b) ==--
+
+Lower PHY in triple executor mode.
+Available radio types: uhd, zmq and realtime_loopback.
+Making USRP object with args 'type=n3xx,addr=192.168.20.2,mgmt_addr=192.168.20.2,master_clock_rate=122.88e6,send_frame_size=8000,recv_frame_size=8000'
+Cell pci=1, bw=60 MHz, 1T1R, dl_arfcn=627340 (n78), dl_freq=3410.1 MHz, dl_ssb_arfcn=626016, ul_freq=3410.1 MHz
+
+N2: Connection to AMF on 127.0.0.5:38412 completed
+Remote control server listening on 0.0.0.0:8002
+==== gNB started ===
+Type <h> to view help
+E2: Connection to Near-RT-RIC on 10.0.2.10:36421 established
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 3; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 3; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 2; Overflow: 0;
+Late: 0; Underflow: 1; Overflow: 0;
+Stopping...
+Logfile stored in /tmp/ocudu_gnb.log
+Terminated
