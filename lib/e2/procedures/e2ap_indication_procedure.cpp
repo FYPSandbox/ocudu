@@ -100,9 +100,12 @@ void e2ap_indication_procedure::operator()(coro_context<eager_async_task<void>>&
           // Trigger measurement collection.
           action.report_service->collect_measurements();
           if (action.report_service->is_ind_msg_ready()) {
-            // Get RIC indication msg content.
-            ind_msg_bytes = action.report_service->get_indication_message();
+            // Pack the header first: it carries colletStartTime, which get_indication_message() resets to "now"
+            // for the next window when it clears the collected measurements. Packing the message first made
+            // every header carry the send time (window end) as the collection start, i.e. labelled each report
+            // one reporting period late (lab check 2026-11-28: receive - colletStartTime median 7-9 ms).
             ind_hdr_bytes = action.report_service->get_indication_header();
+            ind_msg_bytes = action.report_service->get_indication_message();
             stage2::report(ind_hdr_bytes, ind_msg_bytes);
           } else {
             continue;
